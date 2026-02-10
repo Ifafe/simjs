@@ -51,18 +51,22 @@ const authOptions = {
       },
       callbacks: {
             async session({ session, token, user }: any) {
+                  console.log("Session Callback - Token:", token); // DEBUG
                   if (session.user) {
                         session.user.id = token.sub as string;
                         session.user.role = token.role as string;
                         session.user.image = token.picture as string | null | undefined;
                   }
+                  console.log("Session Callback - Session:", session); // DEBUG
                   return session;
             },
             async jwt({ token, user, account, profile }: any) {
                   if (user) {
+                        console.log("JWT Callback - User Login:", user); // DEBUG
                         token.id = user.id;
                         token.role = user.role || "VISITOR";
                   }
+                  console.log("JWT Callback - Token:", token); // DEBUG
                   return token;
             },
       },
