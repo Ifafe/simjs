@@ -1,3 +1,4 @@
+
 // schema.prisma
 
 generator client {
@@ -9,34 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ... (keep all models the same until PartnerProfile)
-
-model PartnerProfile {
-  id          Int      @id @default(autoincrement())
-  userId      String   @unique
-  user        User     @relation(fields: [userId], references: [id])
-  companyName String
-  sector      String
-  status      String   @default("PENDING") // PENDING, ACTIVE, INACTIVE
-  bio         String?
-  updatedAt   DateTime @updatedAt
-  jobs        JobOpening[]
-}
-
-model JobOpening {
-  id          Int           @id @default(autoincrement())
-  title       String
-  location    String
-  type        String        // Full-time, Remote, etc.
-  description String
-  salary      String?
-  active      Boolean       @default(true)
-  createdAt   DateTime      @default(now())
-  applications Application[]
-  
-  partnerId   Int?
-  partner     PartnerProfile? @relation(fields: [partnerId], references: [id])
-}
+// 1. Hero Section (Singleton - assumiremos ID=1 sempre)
+model HeroSection {
   id        Int      @id @default(1)
   title     String
   highlight String
@@ -113,7 +88,6 @@ model FooterConfig {
 }
 
 // 9. Users & Profiles (Updated for NextAuth)
-// 9. Users & Profiles (Updated for NextAuth)
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -177,6 +151,7 @@ model PartnerProfile {
   status      String   @default("PENDING") // PENDING, ACTIVE, INACTIVE
   bio         String?
   updatedAt   DateTime @updatedAt
+  jobs        JobOpening[]
 }
 
 model JobOpening {
@@ -189,6 +164,9 @@ model JobOpening {
   active      Boolean       @default(true)
   createdAt   DateTime      @default(now())
   applications Application[]
+
+  partnerId   Int?
+  partner     PartnerProfile? @relation(fields: [partnerId], references: [id])
 }
 
 model Application {
