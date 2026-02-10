@@ -45,27 +45,17 @@ export default function LoginPage() {
             setLoading(true);
 
             try {
-                  const response = await fetch("/api/auth/login", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email, password })
+                  const result = await signIn("credentials", {
+                        redirect: false,
+                        email,
+                        password,
                   });
 
-                  if (response.ok) {
-                        const data = await response.json();
-                        localStorage.setItem("admin_token", data.token);
-                        localStorage.setItem("user_role", data.user.role);
-                        localStorage.setItem("user", JSON.stringify(data.user));
-
-                        switch (data.user.role) {
-                              case "ADMIN": router.push("/admin"); break;
-                              case "PARTNER": router.push("/partner"); break;
-                              case "JOB_SEEKER": router.push("/jobs"); break;
-                              case "VISITOR": default: router.push("/visitor");
-                        }
+                  if (result?.error) {
+                        alert("Credenciais inválidas.");
                   } else {
-                        const err = await response.json();
-                        alert(err.error || "Credenciais inválidas.");
+                        // Success! The useEffect will handle the redirect based on session role
+                        console.log("Login successful");
                   }
             } catch (err) {
                   alert("Erro ao conectar ao servidor.");
