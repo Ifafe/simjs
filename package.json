@@ -7,6 +7,7 @@
     "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "postinstall": "prisma generate",
     "seed": "node frontend_static/scripts/create_admin_and_seed.js",
     "verify": "node frontend_static/scripts/verify_seed.js"
   },
