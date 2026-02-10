@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #050101;
+            color: #fff;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5, 1, 1, 0.9);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #cc0000;
+            z-index: 100;
+            transition: all 0.35s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(5, 1, 1, 0.98);
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: #cc0000;
+        }
+
+        .header.scrolled h1 {
+            font-size: 1.2rem;
+        }
+
+        body {
+            padding-top: 80px;
+        }
+
+        section {
+            height: 150vh;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: linear-gradient(135deg, #1a0000, #330000);
+            border: 1px solid #cc0000;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #cc0000;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <h1>TESTE DE SCROLL</h1>
+    </header>
+
+    <section>
+        <h2>Seção 1 - Role para baixo</h2>
+        <p>Se o header ficou mais compacto, o scroll está funcionando!</p>
+    </section>
+
+    <section>
+        <h2>Seção 2 - Continue rolando</h2>
+        <p>Veja a mudança no header enquanto rola...</p>
+    </section>
+
+    <section>
+        <h2>Seção 3 - Mais conteúdo</h2>
+        <p>O header deve estar bem compacto agora.</p>
+    </section>
+
+    <div class="scroll-info">
+        Posição: <span id="scrollPos">0</span>px
+    </div>
+
+    <script>
+        const header = document.getElementById('header');
+        const scrollPos = document.getElementById('scrollPos');
+
+        window.addEventListener('scroll', function() {
+            const current = window.scrollY;
+            
+            // Atualizar posição
+            scrollPos.textContent = Math.round(current);
+
+            // add scrolled shadow
+            if (current > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

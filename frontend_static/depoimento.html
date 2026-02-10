@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depoimentos - SIMJS</title>
+    <meta name="description" content="Depoimentos reais sobre o Grupo SIMJS: excelência, parceria e resultados.">
+    <meta name="theme-color" content="#cc0000">
+    <meta property="og:title" content="Depoimentos - Grupo SIMJS">
+    <meta property="og:description" content="Veja o que dizem sobre nós e por que somos referência em qualidade e inovação.">
+    <meta property="og:image" content="assets/logo-simjs.png">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Social Media Testimonials Section */
+        .social-testimonials-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
+            position: relative;
+        }
+
+        .social-testimonials-section .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .social-testimonials-section .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), #ff4081);
+            color: white;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-testimonials-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .social-testimonials-section .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .social-testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-testimonial-card {
+            background: white;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 23, 68, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .social-testimonial-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 23, 68, 0.15);
+        }
+
+        .social-testimonial-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .social-testimonial-card:hover .social-testimonial-image {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .social-testimonials-section {
+                padding: 3rem 0;
+            }
+
+            .social-testimonials-section h2 {
+                font-size: 2rem;
+            }
+
+            .social-testimonials-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .social-testimonial-image {
+                height: 240px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .social-testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .social-testimonial-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="logo-img">
+                </a>
+                
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item has-submenu">
+                            <a href="index.html" class="nav-link" data-i18n="nav-simjs">Home<span class="arrow">▼</span></a>
+                            <ul class="submenu">
+                                <li><a href="quem-somos.html">Quem Somos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="grupo.html" class="nav-link" data-i18n="nav-grupo">Grupo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="comunidade.html" class="nav-link" data-i18n="nav-comunidade">Comunidade</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="depoimento.html" class="nav-link active" data-i18n="nav-depoimento">Depoimento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contacto.html" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Right Section -->
+                <div class="header-right">
+                    <!-- Auth Buttons -->
+                    <div class="auth-buttons">
+                        <a href="login.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-i18n="btn-login">Login</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Language Selector -->
+                    <div class="language-selector" id="languageSelector">
+                        <button class="language-btn" aria-label="Seletor de idiomas">
+                            <span class="lang-icon">🌐</span>
+                            <span class="lang-text">PT</span>
+                        </button>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="pt" class="lang-option active">Português</a></li>
+                            <li><a href="#" data-lang="en" class="lang-option">English</a></li>
+                            <li><a href="#" data-lang="hi" class="lang-option">हिन्दी</a></li>
+                            <li><a href="#" data-lang="zh" class="lang-option">中文</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Mobile Toggle -->
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-glow glow-1"></div>
+        
+        <!-- Hero Carousel -->
+        <div class="hero-carousel" id="depoimentoCarousel">
+            <div class="carousel-track">
+                <div class="carousel-slide active">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/14652263_3840_2160_50fps.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/15959642-uhd_3840_2160_60fps.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/5636966-hd_1920_1080_25fps.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/5939454-uhd_3840_2160_25fps.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="carousel-info">
+                <h3>Histórias de Sucesso e Confiança</h3>
+                <p>Excelência | Parceria | Resultados</p>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-dot active" data-index="0"></button>
+                <button class="carousel-dot" data-index="1"></button>
+                <button class="carousel-dot" data-index="2"></button>
+                <button class="carousel-dot" data-index="3"></button>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="page-hero-content">
+                <span class="section-tag">Testemunhos</span>
+                <h1>O Que Dizem <span class="text-gradient">Sobre Nós</span></h1>
+                <p>Conheça as experiências de quem já trabalhou connosco e descubra porque o Grupo SIMJS é referência em excelência.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Carousel -->
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="testimonial-carousel-wrapper">
+                <div class="testimonial-quote-icon"><i class="fas fa-quote-left"></i></div>
+                
+                <div class="testimonial-carousel" id="testimonialCarousel">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">"A parceria com o Grupo SIMJS transformou completamente a nossa forma de trabalhar. A qualidade dos serviços e o profissionalismo da equipa são incomparáveis."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">J</div>
+                            <div class="author-info">
+                                <h4>João Silva</h4>
+                                <p>Diretor Comercial</p>
+                                <span>Empresa ABC</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">"Desde que começámos a trabalhar com a SIMJS Tecnologia, a nossa produtividade aumentou significativamente. Recomendo vivamente os seus serviços."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+                            <div class="author-info">
+                                <h4>Maria Santos</h4>
+                                <p>CEO</p>
+                                <span>Startup XYZ</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">"Investir no Grupo SIMJS foi uma das melhores decisões que tomei. A transparência e os resultados consistentes falam por si."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">P</div>
+                            <div class="author-info">
+                                <h4>Pedro Costa</h4>
+                                <p>Investidor</p>
+                                <span>Fundo de Investimento</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">"A SIMJS Construção entregou o nosso projeto dentro do prazo e com qualidade excepcional. Uma experiência verdadeiramente profissional."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">A</div>
+                            <div class="author-info">
+                                <h4>Ana Ferreira</h4>
+                                <p>Gestora de Projetos</p>
+                                <span>Construtora Nacional</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="testimonial-text">"A consultoria da SIMJS Auditoria ajudou-nos a otimizar os nossos processos e reduzir custos. Parceiros de confiança."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">C</div>
+                            <div class="author-info">
+                                <h4>Carlos Mendes</h4>
+                                <p>Empresário</p>
+                                <span>Grupo Empresarial</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-nav">
+                    <button class="nav-btn" id="testimonialPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="nav-btn" id="testimonialNext"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <div class="testimonial-indicators">
+                    <button class="testimonial-indicator active" data-index="0"></button>
+                    <button class="testimonial-indicator" data-index="1"></button>
+                    <button class="testimonial-indicator" data-index="2"></button>
+                    <button class="testimonial-indicator" data-index="3"></button>
+                    <button class="testimonial-indicator" data-index="4"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Testimonials -->
+    <section class="social-testimonials-section">
+        <div class="container">
+            <div class="section-header">
+              
+                <h2>O Que Dizem nas <span class="text-gradient">Redes Sociais</span></h2>
+                <p>Veja o que os nossos clientes e parceiros partilham sobre a sua experiência connosco.</p>
+            </div>
+
+            <div class="social-testimonials-grid">
+                <div class="social-testimonial-card">
+                    <img src="assets/1.jpeg" alt="Comentário positivo no Facebook sobre os serviços da SIMJS" class="social-testimonial-image">
+                </div>
+                <div class="social-testimonial-card">
+                    <img src="assets/2.jpeg" alt="Avaliação 5 estrelas no Instagram sobre a qualidade SIMJS" class="social-testimonial-image">
+                </div>
+                <div class="social-testimonial-card">
+                    <img src="assets/3.jpeg" alt="Comentário de recomendação no Facebook sobre a SIMJS" class="social-testimonial-image">
+                </div>
+                <div class="social-testimonial-card">
+                    <img src="assets/4.jpeg" alt="Postagem positiva no Instagram sobre parceria com SIMJS" class="social-testimonial-image">
+                </div>
+                <div class="social-testimonial-card">
+                    <img src="assets/5.jpeg" alt="Comentário de satisfação no Facebook sobre projeto SIMJS" class="social-testimonial-image">
+                </div>
+                <div class="social-testimonial-card">
+                    <img src="assets/anappa.jpeg" alt="Avaliação positiva no Instagram sobre consultoria SIMJS" class="social-testimonial-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Form -->
+    <section class="testimonial-form-section">
+        <div class="container">
+            <div class="section-header">
+               
+                <h2>Deixe o Seu <span class="text-gradient">Depoimento</span></h2>
+            </div>
+
+            <div class="form-container">
+                <form id="testimonialForm" class="testimonial-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome Completo *</label>
+                            <input type="text" name="name" required placeholder="O seu nome">
+                        </div>
+                        <div class="form-group">
+                            <label>Cargo/Função *</label>
+                            <input type="text" name="role" required placeholder="O seu cargo">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Empresa/Organização</label>
+                        <input type="text" name="company" placeholder="Nome da empresa">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Avaliação *</label>
+                        <div class="star-rating">
+                            <span class="star filled" data-value="1"><i class="fas fa-star"></i></span>
+                            <span class="star filled" data-value="2"><i class="fas fa-star"></i></span>
+                            <span class="star filled" data-value="3"><i class="fas fa-star"></i></span>
+                            <span class="star filled" data-value="4"><i class="fas fa-star"></i></span>
+                            <span class="star filled" data-value="5"><i class="fas fa-star"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>O Seu Depoimento *</label>
+                        <textarea name="testimonial" rows="4" required placeholder="Partilhe a sua experiência connosco..."></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        <span><i class="fas fa-paper-plane"></i></span> Enviar Depoimento
+                    </button>
+
+                    <p class="form-note">* O seu depoimento poderá ser publicado no nosso site após revisão.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="footer-logo">
+                    <p>Um grupo empresarial comprometido com a inovação e excelência em múltiplos sectores.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="grupo.html">Grupo</a></li>
+                        <li><a href="comunidade.html">Comunidade</a></li>
+                        <li><a href="depoimento.html">Depoimentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="https://portaldocontribuinte.minfin.gov.ao" target="_blank">AGT (Administração Geral Tributária)</a></li>
+                        <li><a href="https://www.bna.ao" target="_blank">BNA (Banco Nacional de Angola)</a></li>
+                        <li><a href="https://cefojor.ao/" target="_blank">CEFJOR</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                        <li><i class="fas fa-phone"></i> +244 923 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@gruposimjs.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Receba as últimas novidades do grupo SIMJS.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Grupo SIMJS. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

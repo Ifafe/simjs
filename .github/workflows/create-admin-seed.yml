@@ -1,0 +1,148 @@
+name: Create Admin and Seed DB
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  seed:
+    name: Create Admin & Seed
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install node-fetch@2 @supabase/supabase-js
+
+      - name: Validate required secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ] || [ -z "$ADMIN_EMAIL" ] || [ -z "$ADMIN_PASSWORD" ]; then
+            echo "One or more required secrets are missing. Please add SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, ADMIN_EMAIL and ADMIN_PASSWORD to repository secrets.";
+            exit 1;
+          fi
+
+      - name: Run create_admin_and_seed script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        run: |
+          node scripts/create_admin_and_seed.js
+
+      - name: Done
+        run: echo "Seed job completed. Check logs for details."
+
+  verify:
+    name: Verify Seed Results
+    runs-on: ubuntu-latest
+    needs: seed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install node-fetch@2 @supabase/supabase-js
+
+      - name: Validate required secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "Missing required secrets: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY";
+            exit 1;
+          fi
+
+      - name: Run verification script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          node scripts/verify_seed.js
+
+      - name: Upload verification artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-seed-result
+          path: artifacts/verify_seed_result.json
+
+      - name: Show verification artifact
+        run: |
+          echo "=== verify_seed_result.json ==="
+          if [ -f artifacts/verify_seed_result.json ]; then
+            cat artifacts/verify_seed_result.json
+          else
+            echo "Artifact file not found."
+          fi
+
+      - name: Done
+        run: echo "Verification job completed. Check logs for details."
+
+  notify:
+    name: Notify on Failure
+    runs-on: ubuntu-latest
+    needs: verify
+    if: ${{ failure() }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download verification artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: verify-seed-result
+          path: artifacts
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Show artifact content
+        run: |
+          echo "=== verify_seed_result.json (artifact) ==="
+          if [ -f artifacts/verify_seed_result.json ]; then
+            cat artifacts/verify_seed_result.json
+          else
+            echo "Artifact file not found."
+          fi
+
+      - name: Notify Slack (if configured)
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK" ]; then
+            echo "No SLACK_WEBHOOK set; skipping Slack notification.";
+            exit 0;
+          fi
+          STATUS=$(jq -r '.status' artifacts/verify_seed_result.json)
+          FAILURES=$(jq -r '.failures[]? // empty' artifacts/verify_seed_result.json | paste -s -d';' -)
+          SUMMARY="Seed verification status: $STATUS\nFailures: $FAILURES"
+          PAYLOAD=$(jq -n --arg text "$SUMMARY" '{text:$text}')
+          echo "Sending Slack notification..."
+          curl -s -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK"
+          echo "Notification sent (or attempted)."

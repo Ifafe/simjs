@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos - SIMJS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/quem-somos-3d.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .director-hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-secondary) 100%);
+            padding: 5rem 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .director-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 23, 68, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .director-hero .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .director-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .director-image {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .director-image:hover {
+            transform: translateY(-5px);
+        }
+
+        .director-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 1.2rem;
+            box-shadow: 0 25px 70px rgba(255, 23, 68, 0.25);
+            border: 3px solid rgba(255, 23, 68, 0.15);
+            will-change: transform, filter;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .director-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 80px rgba(255, 23, 68, 0.35);
+        }
+
+        .director-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .director-text h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .director-text p {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 1.75rem;
+            text-align: justify;
+        }
+
+        .director-signature {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 23, 68, 0.25);
+            transition: border-color 0.3s ease;
+        }
+
+        .signature-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .signature-title {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .director-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .director-text h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #ff4081);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(255, 23, 68, 0.4);
+            transition: all 0.3s ease;
+            font-size: 24px;
+            color: white;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(255, 23, 68, 0.6);
+        }
+
+        .chat-modal {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), #ff4081);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .chat-header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            background: linear-gradient(135deg, var(--primary), #ff4081);
+            color: white;
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background: #e9ecef;
+            color: #333;
+            align-self: flex-end;
+        }
+
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option-button {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .option-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chat-footer {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background: #d81b60;
+        }
+
+        @media (max-width: 480px) {
+            .chat-modal {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 140px);
+                bottom: 90px;
+                right: 20px;
+            }
+        }
+
+        .history-section {
+            position: relative;
+            background: linear-gradient(135deg, rgba(8, 2, 2, 0.9) 0%, rgba(20, 10, 10, 0.85) 100%),
+                        url('assets/solange2.jpeg') center/cover no-repeat;
+            background-attachment: fixed;
+            padding: 4rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .history-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(8, 2, 2, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .history-section .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Grid: timeline (left) + image/card (right) */
+        .history-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Timeline column */
+        .history-timeline {
+            padding-right: 2rem;
+            border-right: 2px solid rgba(255,255,255,0.08);
+        }
+
+        .timeline-header {
+            margin-bottom: 2rem;
+        }
+
+        .timeline-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.75rem;
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .timeline-header p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            padding: 1.25rem 1.5rem;
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,23,68,0.3);
+            box-shadow: 0 15px 35px rgba(255,23,68,0.15);
+        }
+
+        .timeline-item.active {
+            background: rgba(255,23,68,0.1);
+            border-color: rgba(255,23,68,0.4);
+            box-shadow: 0 10px 30px rgba(255,23,68,0.2);
+        }
+
+        .timeline-marker {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            flex: 0 0 16px;
+            box-shadow: 0 8px 20px rgba(255,23,68,0.3);
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .timeline-marker::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .timeline-detail h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.01em;
+        }
+
+        .timeline-detail p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Right column: image + card */
+        .history-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .history-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(255, 23, 68, 0.2);
+            border: 2px solid rgba(255, 23, 68, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .history-image-wrapper:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 35px 80px rgba(255, 23, 68, 0.3);
+        }
+
+        .history-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1), filter 0.6s ease;
+            transform: scale(1);
+        }
+
+        .history-image-wrapper:hover .history-image {
+            transform: scale(1.05) translateY(-8px);
+            filter: brightness(1.08) contrast(1.05);
+        }
+
+        /* New small thumbnail for Foto 3 */
+        .history-image-thumb {
+            width: 100%;
+            height: 470px;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .history-image-thumb:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+        }
+
+        .history-image-small {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), filter 0.45s ease;
+        }
+
+        .history-image-thumb:hover .history-image-small {
+            transform: scale(1.05) translateY(-6px);
+            filter: brightness(1.06) contrast(1.03);
+        }
+
+        .history-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            padding: 2rem;
+            border-radius: 1.2rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .history-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        }
+
+        .history-card-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .history-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255,23,68,0.1);
+            border-color: rgba(255,23,68,0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-item p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), #ff4081);
+            color: white;
+            text-decoration: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255,23,68,0.3);
+            border: 2px solid transparent;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255,23,68,0.4);
+            background: linear-gradient(135deg, #d81b60, #ff4081);
+        }
+
+        .btn-cta.btn-sm {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .history-wrapper {
+                grid-template-columns: 1fr 340px;
+            }
+            .history-image-wrapper {
+                height: 360px; /* increased responsively to keep visual balance */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .history-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .history-timeline {
+                border-right: none;
+                padding-right: 0;
+            }
+            .history-image-wrapper {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="js/translations.js"></script>
+    <script src="js/header.js"></script>
+
+    <!-- Director Hero Section -->
+    <section class="director-hero">
+        <div class="container">
+            <div class="director-content">
+                <div class="director-image">
+                    <img src="assets/5.jpeg" alt="Solange - Diretora SIMJS">
+                </div>
+                <div class="director-text">
+                    <h2>Liderança com Propósito</h2>
+                    <h3>Mensagem da Diretora</h3>
+                    <p>No Grupo SIMJS, acreditamos que o sucesso vai além de números e resultados. É sobre impacto, inovação e o compromisso genuíno com o desenvolvimento das pessoas e das organizações que servimos.</p>
+                    <p>Durante mais de uma década, transformamos desafios em oportunidades, construindo uma equipa diversa e talentosa dedicada à excelência. Nossa visão é ser o parceiro de confiança para empresas que querem crescer de forma sustentável e responsável.</p>
+                    <p>Convidamos você a conhecer melhor quem somos e como podemos impulsionar seu negócio para o próximo nível.</p>
+                    <div class="director-signature">
+                        <div class="signature-name">Solange</div>
+                        <div class="signature-title">Directora Executiva - Grupo SIMJS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTÓRIA DO GRUPO SIMJS -->
+    <section class="history-section">
+        <div class="container">
+            <div class="history-wrapper">
+                <!-- Left side - Timeline -->
+                <div class="history-timeline">
+                    <div class="timeline-header">
+                        <h2 data-i18n="history-title">A Nossa Jornada</h2>
+                        <p data-i18n="history-subtitle">Uma história de inovação, crescimento e excelência</p>
+                    </div>
+
+                    <div class="timeline-content">
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-detail">
+                                <h4>2010</h4>
+                                <p data-i18n="history-2010">Fundação do Grupo SIMJS com visão inovadora</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-detail">
+                                <h4>2014</h4>
+                                <p data-i18n="history-2014">Expansão para mercados internacionais em PALOP</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-detail">
+                                <h4>2018</h4>
+                                <p data-i18n="history-2018">Consolidação como líder em soluções empresariais</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-detail">
+                                <h4>2022</h4>
+                                <p data-i18n="history-2022">Investimento em transformação digital e sustentabilidade</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item active">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-detail">
+                                <h4 data-i18n="history-today">Hoje</h4>
+                                <p data-i18n="history-present">Líderes em inovação e responsabilidade social</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right side - About -->
+                <div class="history-content">
+                    <div class="history-image-wrapper">
+                        <img src="assets/4.jpeg" alt="Solange - Jornada SIMJS" class="history-image">
+                    </div>
+                    <!-- Small secondary image (Foto 3) placed below Foto 4 as requested -->
+                    <div class="history-image-thumb">
+                        <img src="assets/2.jpeg" alt="Foto 3 - SIMJS" class="history-image-small" height="3500px">
+                    </div>
+                    <div class="history-card">
+                        <div class="history-card-header">
+                            <h3 data-i18n="history-about-title">Quem Somos</h3>
+                        </div>
+                        <p data-i18n="history-about-p1">O Grupo SIMJS é uma empresa de consultoria e soluções empresariais que se destaca pela capacidade de transformar desafios em oportunidades de crescimento.</p>
+                        
+                        <p data-i18n="history-about-p2">Com mais de uma década de experiência, consolidamos uma reputação sólida baseada em confiança, inovação e compromisso com a excelência.</p>
+
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">10+</div>
+                                <p data-i18n="history-stat-years">Anos de Experiência</p>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <p data-i18n="history-stat-clients">Clientes Satisfeitos</p>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <p data-i18n="history-stat-team">Profissionais Talentosos</p>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">8</div>
+                                <p data-i18n="history-stat-countries">Países em Atuação</p>
+                            </div>
+                        </div>
+
+                        <p data-i18n="history-about-p3">Os nossos valores de inovação, integridade e excelência guiam todas as nossas decisões e nos permitem criar impacto positivo nas organizações e comunidades que servimos.</p>
+
+                        <a href="grupo.html" class="btn-cta btn-sm" data-i18n="history-cta">Conheça Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Vision Values -->
+    <section class="mvv-section">
+        <div class="mvv-glow"></div>
+        <div class="container">
+            <div class="mvv-grid">
+                <div class="mvv-card mission">
+                    <div class="mvv-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Nossa Missão</h3>
+                    <p>Fornecer soluções empresariais inovadoras e de alta qualidade, contribuindo para o desenvolvimento sustentável dos nossos clientes, colaboradores e comunidades onde atuamos.</p>
+                </div>
+                <div class="mvv-card vision">
+                    <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Nossa Visão</h3>
+                    <p>Ser reconhecido como o principal grupo empresarial de Angola, referência em inovação, qualidade e responsabilidade social.</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 4rem;">
+                <span class="section-tag"></span>
+                <h2><span data-i18n="values-title-prefix">Nossos</span> <span class="text-gradient" data-i18n="values-title-highlight">Valores</span></h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h4>Integridade</h4>
+                    <p>Agimos com honestidade e transparência</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-star"></i></div>
+                    <h4>Excelência</h4>
+                    <p>Buscamos a perfeição em tudo que fazemos</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Confiança</h4>
+                    <p>Construímos relações sólidas e duradouras</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Inovação</h4>
+                    <p>Abraçamos mudanças e novas ideias</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 3D Touch Effects for Mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements3d = document.querySelectorAll(
+                '.director-image, .timeline-item, .history-card, .stat-item, .mvv-card, .value-card'
+            );
+
+            elements3d.forEach(el => {
+                // Touch start
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = this.style.transform || '';
+                });
+
+                // Touch end
+                el.addEventListener('touchend', function() {
+                    // Reset to hover state is handled by CSS
+                });
+
+                // Mouse move for 3D tilt effect
+                el.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) * 0.1;
+                    const rotateY = (centerX - x) * 0.1;
+                    
+                    // Enhanced 3D effect based on position
+                    this.style.setProperty('--rotateX', rotateX + 'deg');
+                    this.style.setProperty('--rotateY', rotateY + 'deg');
+                });
+
+                // Mouse leave - reset
+                el.addEventListener('mouseleave', function() {
+                    this.style.setProperty('--rotateX', '0deg');
+                    this.style.setProperty('--rotateY', '0deg');
+                });
+            });
+
+            // Parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const directorImage = document.querySelector('.director-image');
+                if (directorImage) {
+                    directorImage.style.transform = `translateZ(0px) rotateY(${scrolled * 0.02}deg)`;
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="footer-logo">
+                    <p>Um grupo empresarial comprometido com a inovação e excelência em múltiplos sectores.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="grupo.html">Grupo</a></li>
+                        <li><a href="quem-somos.html">Quem Somos</a></li>
+                        <li><a href="comunidade.html">Comunidade</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                        <li><i class="fas fa-phone"></i> +244 923 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@gruposimjs.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Receba as últimas novidades do grupo SIMJS.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Grupo SIMJS. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" id="chatButton">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chat-modal" id="chatModal">
+            <div class="chat-header">
+                <h3>Assistência SIMJS</h3>
+                <p>Como podemos ajudá-lo?</p>
+                <button class="chat-close" id="chatClose">&times;</button>
+            </div>
+            <div class="chat-body">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        Bem-vindo ao Grupo SIMJS. Sou o assistente virtual. Como posso auxiliá-lo hoje?
+                    </div>
+                </div>
+                <div class="chat-options" id="chatOptions">
+                    <button class="option-button" data-response="services">Informações sobre serviços</button>
+                    <button class="option-button" data-response="contact">Dados de contacto</button>
+                    <button class="option-button" data-response="about">Sobre o Grupo SIMJS</button>
+                    <button class="option-button" data-response="careers">Oportunidades profissionais</button>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+                    <button id="sendButton">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chat Widget Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('chatButton');
+            const chatModal = document.getElementById('chatModal');
+            const chatClose = document.getElementById('chatClose');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatOptions = document.getElementById('chatOptions');
+            const chatInput = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendButton');
+
+            // Toggle chat modal
+            chatButton.addEventListener('click', function() {
+                chatModal.style.display = chatModal.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            chatClose.addEventListener('click', function() {
+                chatModal.style.display = 'none';
+            });
+
+            // Handle option buttons
+            chatOptions.addEventListener('click', function(e) {
+                if (e.target.classList.contains('option-button')) {
+                    const response = e.target.dataset.response;
+                    handleUserMessage(e.target.textContent);
+                    handleBotResponse(response);
+                }
+            });
+
+            // Handle send button
+            sendButton.addEventListener('click', function() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    handleUserMessage(message);
+                    handleBotResponse('custom');
+                    chatInput.value = '';
+                }
+            });
+
+            // Handle enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendButton.click();
+                }
+            });
+
+            function handleUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message user';
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function handleBotResponse(responseType) {
+                let response = '';
+                switch (responseType) {
+                    case 'services':
+                        response = 'Oferecemos consultoria empresarial, soluções tecnológicas e desenvolvimento sustentável. Visite nossa página de serviços para mais detalhes! 🚀';
+                        break;
+                    case 'contact':
+                        response = 'Entre em contacto connosco através do email info@gruposimjs.com ou telefone +244 923 000 000. Estamos aqui para ajudar! 📞';
+                        break;
+                    case 'about':
+                        response = 'Somos um grupo empresarial angolano com mais de 10 anos de experiência em inovação e excelência. Conheça nossa história completa! 📖';
+                        break;
+                    case 'careers':
+                        response = 'Estamos sempre em busca de talento! Envie seu CV para careers@gruposimjs.com. Juntos podemos crescer! 💼';
+                        break;
+                    default:
+                        response = 'Obrigado pela sua mensagem! Um dos nossos especialistas entrará em contacto em breve. 😊';
+                }
+
+                setTimeout(() => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message bot';
+                    messageDiv.textContent = response;
+                    chatMessages.appendChild(messageDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+            }
+
+            // Close modal when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!chatModal.contains(e.target) && !chatButton.contains(e.target)) {
+                    chatModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

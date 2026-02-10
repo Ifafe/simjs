@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMJS - Autenticação</title>
+    <meta name="description" content="Sistema de autenticação do Grupo SIMJS">
+    <meta name="theme-color" content="#cc0000">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="auth-background">
+        <div class="auth-glow auth-glow-1"></div>
+        <div class="auth-glow auth-glow-2"></div>
+    </div>
+
+    <!-- Main Auth Container -->
+    <div class="auth-container">
+        <!-- Logo Section -->
+        <div class="auth-header">
+            <a href="index.html" class="auth-logo">
+                <img src="assets/logo-simjs.png" alt="SIMJS" class="auth-logo-img">
+                <span>SIMJS</span>
+            </a>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="auth-tabs">
+            <button class="auth-tab-btn active" data-tab="login">
+                <i class="fas fa-sign-in-alt"></i>
+                Entrar
+            </button>
+            <button class="auth-tab-btn" data-tab="register">
+                <i class="fas fa-user-plus"></i>
+                Criar Conta
+            </button>
+        </div>
+
+        <!-- ========== LOGIN TAB ========== -->
+        <div class="auth-tab-content active" id="login">
+            <form class="auth-form" id="loginForm">
+                <h2>Bem-vindo de Volta</h2>
+
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input 
+                            type="email" 
+                            id="loginEmail" 
+                            name="email" 
+                            placeholder="seu.email@exemplo.com"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+                    <span class="form-error" id="loginEmailError"></span>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <label for="loginPassword">Palavra-passe</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input 
+                            type="password" 
+                            id="loginPassword" 
+                            name="password" 
+                            placeholder="••••••••"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <button type="button" class="password-toggle" data-target="loginPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="form-error" id="loginPasswordError"></span>
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div class="form-footer">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember" id="rememberMe">
+                        <span>Lembrar-me</span>
+                    </label>
+                    <a href="#" class="forgot-link">Esqueceu a palavra-passe?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-auth btn-auth-primary">
+                    <span>Entrar na Conta</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+                <!-- Social Login -->
+                <div class="social-login">
+                    <p>Ou continue com</p>
+                    <div class="social-buttons">
+                        <button type="button" class="btn-social" title="Google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="btn-social" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                        <button type="button" class="btn-social" title="Microsoft">
+                            <i class="fab fa-microsoft"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Message (Hidden by default) -->
+                <div class="form-success" id="loginSuccess" style="display: none;">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Login Bem-sucedido!</h3>
+                    <p>Redirecionando para o seu dashboard...</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- ========== REGISTER TAB ========== -->
+        <div class="auth-tab-content" id="register">
+            <!-- Step 1: Choose Registration Type -->
+            <div class="register-step active" id="registerTypeStep">
+                <div class="auth-form">
+                    <h2>Escolha o Tipo de Conta</h2>
+                    <p class="auth-subtitle">Seleccione como deseja se inscrever</p>
+                    
+                    <div class="registration-types">
+                        <!-- Visitante Option -->
+                        <div class="type-card" data-type="visitante">
+                            <div class="type-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3>Visitante</h3>
+                            <p>Para indivíduos interessados na comunidade SIMJS</p>
+                            <ul class="type-benefits">
+                                <li><i class="fas fa-check"></i> Acesso à comunidade</li>
+                                <li><i class="fas fa-check"></i> Conteúdo exclusivo</li>
+                                <li><i class="fas fa-check"></i> Participação em eventos</li>
+                                <li><i class="fas fa-check"></i> Networking</li>
+                                <li><i class="fas fa-check"></i> Recursos educacionais</li>
+                            </ul>
+                            <button type="button" class="btn-auth btn-auth-primary select-type" data-type="visitante">
+                                Registar como Visitante
+                            </button>
+                        </div>
+
+                        <!-- Parceiro Option -->
+                        <div class="type-card" data-type="parceiro">
+                            <div class="type-icon premium">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3>Parceiro</h3>
+                            <p>Para empresas e colaboradores do Grupo SIMJS</p>
+                            <div class="premium-badge">Premium</div>
+                            <ul class="type-benefits">
+                                <li><i class="fas fa-check"></i> Perfil empresarial</li>
+                                <li><i class="fas fa-check"></i> Dashboard analítico</li>
+                                <li><i class="fas fa-check"></i> Suporte dedicado</li>
+                                <li><i class="fas fa-check"></i> Acesso a recursos premium</li>
+                                <li><i class="fas fa-check"></i> Parcerias e colaborações</li>
+                            </ul>
+                            <button type="button" class="btn-auth btn-auth-primary select-type" data-type="parceiro">
+                                Registar como Parceiro
+                            </button>
+                        </div>
+
+                        <!-- Emprego Option -->
+                        <div class="type-card" data-type="emprego">
+                            <div class="type-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h3>Emprego</h3>
+                            <p>Para candidatos a vagas de emprego no Grupo SIMJS</p>
+                            <ul class="type-benefits">
+                                <li><i class="fas fa-check"></i> Banco de currículos</li>
+                                <li><i class="fas fa-check"></i> Oportunidades de carreira</li>
+                                <li><i class="fas fa-check"></i> Processo seletivo simplificado</li>
+                                <li><i class="fas fa-check"></i> Acompanhamento personalizado</li>
+                                <li><i class="fas fa-check"></i> Desenvolvimento profissional</li>
+                            </ul>
+                            <button type="button" class="btn-auth btn-auth-primary select-type" data-type="emprego">
+                                Candidatar-se a Emprego
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Visitante Registration Form -->
+            <form class="auth-form" id="registerFormVisitante" style="display: none;">
+                <div class="register-step" id="visitanteStep">
+                    <button type="button" class="btn-back" id="backFromVisitante">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    
+                    <h2>Criar Conta - Visitante</h2>
+                    <p class="auth-subtitle">Preencha os dados para se juntar à comunidade</p>
+
+                    <!-- Full Name Input -->
+                    <div class="form-group">
+                        <label for="visitanteFullName">Nome Completo</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input 
+                                type="text" 
+                                id="visitanteFullName" 
+                                name="fullName" 
+                                placeholder="João Silva"
+                                required
+                                minlength="3"
+                                maxlength="100"
+                            >
+                        </div>
+                        <span class="form-error" id="visitanteFullNameError"></span>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="visitanteEmail">Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input 
+                                type="email" 
+                                id="visitanteEmail" 
+                                name="email" 
+                                placeholder="seu.email@exemplo.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <span class="form-error" id="visitanteEmailError"></span>
+                    </div>
+
+                    <!-- Age Input -->
+                    <div class="form-group">
+                        <label for="visitanteAge">Idade</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-birthday-cake"></i>
+                            <input 
+                                type="number" 
+                                id="visitanteAge" 
+                                name="age" 
+                                placeholder="18"
+                                min="13"
+                                max="120"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="visitanteAgeError"></span>
+                    </div>
+
+                    <!-- Country Input -->
+                    <div class="form-group">
+                        <label for="visitanteCountry">País</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-globe"></i>
+                            <select id="visitanteCountry" name="country" required>
+                                <option value="">Seleccione um país</option>
+                                <option value="AO">Angola</option>
+                                <option value="PT">Portugal</option>
+                                <option value="BR">Brasil</option>
+                                <option value="MZ">Moçambique</option>
+                                <option value="CV">Cabo Verde</option>
+                                <option value="ST">São Tomé e Príncipe</option>
+                                <option value="GW">Guiné-Bissau</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="OTHER">Outro</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="visitanteCountryError"></span>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="visitantePassword">Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input 
+                                type="password" 
+                                id="visitantePassword" 
+                                name="password" 
+                                placeholder="••••••••"
+                                required
+                                minlength="8"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="visitantePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="visitantePasswordError"></span>
+                        <div class="password-requirements">
+                            <div class="requirement" id="req-visitante-length">
+                                <i class="fas fa-check"></i> Mínimo 8 caracteres
+                            </div>
+                            <div class="requirement" id="req-visitante-uppercase">
+                                <i class="fas fa-check"></i> Uma letra maiúscula (A-Z)
+                            </div>
+                            <div class="requirement" id="req-visitante-lowercase">
+                                <i class="fas fa-check"></i> Uma letra minúscula (a-z)
+                            </div>
+                            <div class="requirement" id="req-visitante-number">
+                                <i class="fas fa-check"></i> Um número (0-9)
+                            </div>
+                            <div class="requirement" id="req-visitante-special">
+                                <i class="fas fa-check"></i> Um caractere especial (!@#$%^&*)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-group">
+                        <label for="visitanteConfirmPassword">Confirmar Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input 
+                                type="password" 
+                                id="visitanteConfirmPassword" 
+                                name="confirmPassword" 
+                                placeholder="••••••••"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="visitanteConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="visitanteConfirmPasswordError"></span>
+                    </div>
+
+                    <!-- Terms Acceptance -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" id="visitanteTerms" required>
+                            <span>Aceito os <a href="#" target="_blank">Termos e Condições</a> e a <a href="#" target="_blank">Política de Privacidade</a></span>
+                        </label>
+                        <span class="form-error" id="visitanteTermsError"></span>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" id="visitanteNewsletter">
+                            <span>Desejo receber novidades e promoções do Grupo SIMJS</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-auth btn-auth-primary">
+                        <span>Criar Conta de Visitante</span>
+                        <i class="fas fa-user-check"></i>
+                    </button>
+
+                    <!-- Success Message -->
+                    <div class="form-success" id="visitanteSuccess" style="display: none;">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Conta Criada com Sucesso!</h3>
+                        <p>Bem-vindo ao Grupo SIMJS. Redirecionando...</p>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Step 3: Emprego Registration Form -->
+            <form class="auth-form" id="registerFormEmprego" style="display: none;">
+                <div class="register-step" id="empregoStep">
+                    <button type="button" class="btn-back" id="backFromEmprego">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+
+                    <h2>Candidatar-se a Emprego</h2>
+                    <p class="auth-subtitle">Preencha os dados para se candidatar a vagas no Grupo SIMJS</p>
+
+                    <!-- Full Name Input -->
+                    <div class="form-group">
+                        <label for="empregoFullName">Nome Completo</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input
+                                type="text"
+                                id="empregoFullName"
+                                name="fullName"
+                                placeholder="João Silva"
+                                required
+                                minlength="3"
+                                maxlength="100"
+                            >
+                        </div>
+                        <span class="form-error" id="empregoFullNameError"></span>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="empregoEmail">Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input
+                                type="email"
+                                id="empregoEmail"
+                                name="email"
+                                placeholder="seu.email@exemplo.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <span class="form-error" id="empregoEmailError"></span>
+                    </div>
+
+                    <!-- Phone Input -->
+                    <div class="form-group">
+                        <label for="empregoPhone">Telefone</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone"></i>
+                            <input
+                                type="tel"
+                                id="empregoPhone"
+                                name="phone"
+                                placeholder="+244 923 456 789"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="empregoPhoneError"></span>
+                    </div>
+
+                    <!-- Age Input -->
+                    <div class="form-group">
+                        <label for="empregoAge">Idade</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-birthday-cake"></i>
+                            <input
+                                type="number"
+                                id="empregoAge"
+                                name="age"
+                                placeholder="18"
+                                min="13"
+                                max="120"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="empregoAgeError"></span>
+                    </div>
+
+                    <!-- Country Input -->
+                    <div class="form-group">
+                        <label for="empregoCountry">País</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-globe"></i>
+                            <select id="empregoCountry" name="country" required>
+                                <option value="">Seleccione um país</option>
+                                <option value="AO">Angola</option>
+                                <option value="PT">Portugal</option>
+                                <option value="BR">Brasil</option>
+                                <option value="MZ">Moçambique</option>
+                                <option value="CV">Cabo Verde</option>
+                                <option value="ST">São Tomé e Príncipe</option>
+                                <option value="GW">Guiné-Bissau</option>
+                                <option value="TL">Timor-Leste</option>
+                                <option value="OTHER">Outro</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="empregoCountryError"></span>
+                    </div>
+
+                    <!-- Area of Interest Input -->
+                    <div class="form-group">
+                        <label for="empregoArea">Área de Interesse</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-briefcase"></i>
+                            <select id="empregoArea" name="area" required>
+                                <option value="">Seleccione uma área</option>
+                                <option value="tech">Tecnologia</option>
+                                <option value="finance">Finanças</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="hr">Recursos Humanos</option>
+                                <option value="operations">Operações</option>
+                                <option value="sales">Vendas</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="empregoAreaError"></span>
+                    </div>
+
+                    <!-- Experience Level Input -->
+                    <div class="form-group">
+                        <label for="empregoExperience">Nível de Experiência</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-chart-line"></i>
+                            <select id="empregoExperience" name="experience" required>
+                                <option value="">Seleccione o nível</option>
+                                <option value="junior">Júnior (0-2 anos)</option>
+                                <option value="pleno">Pleno (3-5 anos)</option>
+                                <option value="senior">Sênior (6+ anos)</option>
+                                <option value="executive">Executivo</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="empregoExperienceError"></span>
+                    </div>
+
+                    <!-- CV Upload Input -->
+                    <div class="form-group">
+                        <label for="empregoCV">Currículo (PDF)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-file-pdf"></i>
+                            <input
+                                type="file"
+                                id="empregoCV"
+                                name="cv"
+                                accept=".pdf"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="empregoCVError"></span>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="empregoPassword">Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input
+                                type="password"
+                                id="empregoPassword"
+                                name="password"
+                                placeholder="••••••••"
+                                required
+                                minlength="8"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="empregoPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="empregoPasswordError"></span>
+                        <div class="password-requirements">
+                            <div class="requirement" id="req-emprego-length">
+                                <i class="fas fa-check"></i> Mínimo 8 caracteres
+                            </div>
+                            <div class="requirement" id="req-emprego-uppercase">
+                                <i class="fas fa-check"></i> Uma letra maiúscula (A-Z)
+                            </div>
+                            <div class="requirement" id="req-emprego-lowercase">
+                                <i class="fas fa-check"></i> Uma letra minúscula (a-z)
+                            </div>
+                            <div class="requirement" id="req-emprego-number">
+                                <i class="fas fa-check"></i> Um número (0-9)
+                            </div>
+                            <div class="requirement" id="req-emprego-special">
+                                <i class="fas fa-check"></i> Um caractere especial (!@#$%^&*)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-group">
+                        <label for="empregoConfirmPassword">Confirmar Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input
+                                type="password"
+                                id="empregoConfirmPassword"
+                                name="confirmPassword"
+                                placeholder="••••••••"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="empregoConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="empregoConfirmPasswordError"></span>
+                    </div>
+
+                    <!-- Terms Acceptance -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" id="empregoTerms" required>
+                            <span>Aceito os <a href="#" target="_blank">Termos e Condições</a> para Candidaturas e a <a href="#" target="_blank">Política de Privacidade</a></span>
+                        </label>
+                        <span class="form-error" id="empregoTermsError"></span>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" id="empregoNewsletter">
+                            <span>Desejo receber novidades sobre vagas de emprego</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-auth btn-auth-primary">
+                        <span>Enviar Candidatura</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+
+                    <!-- Success Message -->
+                    <div class="form-success" id="empregoSuccess" style="display: none;">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Candidatura Enviada!</h3>
+                        <p>Obrigado pela sua candidatura. Entraremos em contacto em breve.</p>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Step 4: Parceiro Registration Form -->
+            <form class="auth-form" id="registerFormParceiro" style="display: none;">
+                <div class="register-step" id="parceiroStep">
+                    <button type="button" class="btn-back" id="backFromParceiro">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+
+                    <h2>Criar Conta - Parceiro</h2>
+                    <p class="auth-subtitle">Preencha os dados da sua empresa</p>
+
+                    <!-- Company Name Input -->
+                    <div class="form-group">
+                        <label for="parceiroCompanyName">Nome da Empresa</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-building"></i>
+                            <input 
+                                type="text" 
+                                id="parceiroCompanyName" 
+                                name="companyName" 
+                                placeholder="Sua Empresa Ltda."
+                                required
+                                minlength="3"
+                                maxlength="150"
+                            >
+                        </div>
+                        <span class="form-error" id="parceiroCompanyNameError"></span>
+                    </div>
+
+                    <!-- Contact Name Input -->
+                    <div class="form-group">
+                        <label for="parceiroContactName">Nome do Responsável</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input 
+                                type="text" 
+                                id="parceiroContactName" 
+                                name="contactName" 
+                                placeholder="João Silva"
+                                required
+                                minlength="3"
+                                maxlength="100"
+                            >
+                        </div>
+                        <span class="form-error" id="parceiroContactNameError"></span>
+                    </div>
+
+                    <!-- Business Email Input -->
+                    <div class="form-group">
+                        <label for="parceiroEmail">Email Comercial</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input 
+                                type="email" 
+                                id="parceiroEmail" 
+                                name="email" 
+                                placeholder="contato@empresa.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <span class="form-error" id="parceiroEmailError"></span>
+                    </div>
+
+                    <!-- Business Phone Input -->
+                    <div class="form-group">
+                        <label for="parceiroPhone">Telefone Comercial</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone"></i>
+                            <input 
+                                type="tel" 
+                                id="parceiroPhone" 
+                                name="phone" 
+                                placeholder="+244 923 456 789"
+                                required
+                            >
+                        </div>
+                        <span class="form-error" id="parceiroPhoneError"></span>
+                    </div>
+
+                    <!-- Company Size Input -->
+                    <div class="form-group">
+                        <label for="parceiroSize">Tamanho da Empresa</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-chart-bar"></i>
+                            <select id="parceiroSize" name="companySize" required>
+                                <option value="">Seleccione o tamanho</option>
+                                <option value="startup">Startup (1-10)</option>
+                                <option value="small">Pequena (11-50)</option>
+                                <option value="medium">Média (51-200)</option>
+                                <option value="large">Grande (201-1000)</option>
+                                <option value="enterprise">Empresa (1000+)</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="parceiroSizeError"></span>
+                    </div>
+
+                    <!-- Industry Input -->
+                    <div class="form-group">
+                        <label for="parceiroIndustry">Sector/Indústria</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-briefcase"></i>
+                            <select id="parceiroIndustry" name="industry" required>
+                                <option value="">Seleccione um sector</option>
+                                <option value="tech">Tecnologia</option>
+                                <option value="finance">Finanças</option>
+                                <option value="healthcare">Saúde</option>
+                                <option value="retail">Varejo</option>
+                                <option value="education">Educação</option>
+                                <option value="manufacturing">Manufatura</option>
+                                <option value="consulting">Consultoria</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                        <span class="form-error" id="parceiroIndustryError"></span>
+                    </div>
+
+                    <!-- Company Website Input -->
+                    <div class="form-group">
+                        <label for="parceiroWebsite">Website da Empresa (Opcional)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-globe"></i>
+                            <input 
+                                type="url" 
+                                id="parceiroWebsite" 
+                                name="website" 
+                                placeholder="https://www.empresa.com"
+                            >
+                        </div>
+                        <span class="form-error" id="parceiroWebsiteError"></span>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="parceiroPassword">Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input 
+                                type="password" 
+                                id="parceiroPassword" 
+                                name="password" 
+                                placeholder="••••••••"
+                                required
+                                minlength="8"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="parceiroPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="parceiroPasswordError"></span>
+                        <div class="password-requirements">
+                            <div class="requirement" id="req-parceiro-length">
+                                <i class="fas fa-check"></i> Mínimo 8 caracteres
+                            </div>
+                            <div class="requirement" id="req-parceiro-uppercase">
+                                <i class="fas fa-check"></i> Uma letra maiúscula (A-Z)
+                            </div>
+                            <div class="requirement" id="req-parceiro-lowercase">
+                                <i class="fas fa-check"></i> Uma letra minúscula (a-z)
+                            </div>
+                            <div class="requirement" id="req-parceiro-number">
+                                <i class="fas fa-check"></i> Um número (0-9)
+                            </div>
+                            <div class="requirement" id="req-parceiro-special">
+                                <i class="fas fa-check"></i> Um caractere especial (!@#$%^&*)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-group">
+                        <label for="parceiroConfirmPassword">Confirmar Palavra-passe</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input 
+                                type="password" 
+                                id="parceiroConfirmPassword" 
+                                name="confirmPassword" 
+                                placeholder="••••••••"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" data-target="parceiroConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="parceiroConfirmPasswordError"></span>
+                    </div>
+
+                    <!-- Terms Acceptance -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" id="parceiroTerms" required>
+                            <span>Aceito os <a href="#" target="_blank">Termos e Condições</a> para Parceiros e a <a href="#" target="_blank">Política de Privacidade</a></span>
+                        </label>
+                        <span class="form-error" id="parceiroTermsError"></span>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" id="parceiroNewsletter">
+                            <span>Desejo receber novidades e oportunidades de parceria</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-auth btn-auth-primary">
+                        <span>Criar Conta de Parceiro</span>
+                        <i class="fas fa-handshake"></i>
+                    </button>
+
+                    <!-- Success Message -->
+                    <div class="form-success" id="parceiroSuccess" style="display: none;">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Conta de Parceiro Criada!</h3>
+                        <p>Bem-vindo ao programa de parceria do Grupo SIMJS. A análise da sua solicitação será feita em breve...</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <!-- Footer Link -->
+        <div class="auth-footer">
+            <p id="switchText">Não tem conta? <a href="#" class="switch-link">Criar Conta</a></p>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

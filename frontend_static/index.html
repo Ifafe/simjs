@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo SIMJS - Inovação e Excelência</title>
+    <meta name="description" content="Grupo SIMJS: soluções empresariais inovadoras e de alta qualidade em Angola. Inovação, excelência e responsabilidade social.">
+    <meta name="theme-color" content="#cc0000">
+    <meta property="og:title" content="Grupo SIMJS - Inovação e Excelência">
+    <meta property="og:description" content="Transformamos ideias em resultados. Descubra como o Grupo SIMJS pode impulsionar o seu negócio.">
+    <meta property="og:image" content="assets/logo-simjs.png">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/portal-news.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="logo-img">
+                </a>
+                
+                <!-- Navigation -->
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item has-submenu">
+                            <a href="index.html" class="nav-link active" data-i18n="nav-simjs">Home<span class="arrow">▼</span></a>
+                            <ul class="submenu">
+                                <li><a href="quem-somos.html">Quem Somos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="grupo.html" class="nav-link" data-i18n="nav-grupo">Grupo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="comunidade.html" class="nav-link" data-i18n="nav-comunidade">Comunidade</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="depoimento.html" class="nav-link" data-i18n="nav-depoimento">Depoimento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contacto.html" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Right Section -->
+                <div class="header-right">
+                    <!-- Admin Panel Link -->
+                    <a href="admin.html" class="btn-admin" title="Aceder ao painel de administração" style="display: none;" id="adminLink">
+                        <i class="fas fa-shield-alt"></i>
+                    </a>
+                    
+                    <!-- Auth Buttons -->
+                    <div class="auth-buttons">
+                        <a href="login.html" class="btn-login" title="Aceder à sua conta ou criar uma nova conta">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-i18n="btn-login">Login</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Language Selector -->
+                    <div class="language-selector" id="languageSelector">
+                        <button class="language-btn" aria-label="Seletor de idiomas">
+                            <span class="lang-icon">🌐</span>
+                            <span class="lang-text">PT</span>
+                        </button>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="pt" class="lang-option active">Português</a></li>
+                            <li><a href="#" data-lang="en" class="lang-option">English</a></li>
+                            <li><a href="#" data-lang="hi" class="lang-option">हिन्दी</a></li>
+                            <li><a href="#" data-lang="zh" class="lang-option">中文</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Mobile Toggle -->
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="assets/bg-office.mp4" type="video/mp4">
+            <source src="assets/bg-office.webm" type="video/webm">
+            Seu navegador não suporta vídeo HTML5
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1><span data-i18n="hero-title-prefix">Soluções Empresariais</span> <span class="text-gradient" data-i18n="hero-title-highlight">Inovadoras</span></h1>
+                <p data-i18n="hero-subtitle">Transformamos ideias em resultados. Descubra como o Grupo SIMJS pode impulsionar o seu negócio.</p>
+                <a href="login.html" class="btn-cta btn-lg" data-i18n="hero-cta">Comece Agora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider with Animated Logo -->
+    <div class="section-divider">
+        <div class="divider-content">
+            <div class="logo-scroll-container">
+                <div class="logo-item">
+                    <img src="assets/logo-simjs.png" alt="SIMJS Logo" class="scrolling-logo">
+                </div>
+                <div class="logo-item">
+                    <img src="assets/logo-simjs.png" alt="SIMJS Logo" class="scrolling-logo">
+                </div>
+                <div class="logo-item">
+                    <img src="assets/logo-simjs.png" alt="SIMJS Logo" class="scrolling-logo">
+                </div>
+            </div>
+            <div class="divider-glow"></div>
+        </div>
+    </div>
+
+
+
+    
+    <section class="news-portal" id="news-portal">
+        <div class="container">
+            <div class="section-header">
+                <h2>Onde a <span class="text-gradient">Inovação</span> Acontece — Notícias por Sector</h2>
+                <p class="section-desc">Atualizações internacionais selecionadas por sector: Tecnologia, Energia, Indústria, Saúde, Finanças, Logística.</p>
+
+            </div>
+
+            <div class="portal-grid modern-portal" id="portalGrid" aria-live="polite" data-feed="data/news.json">
+
+                <!-- Faixa Últimas Notícias (semântico e acessível) -->
+                <div class="breaking-bar" role="region" aria-label="Últimas Notícias">
+                    <div class="breaking-label">Últimas Notícias</div>
+                    <div class="breaking-ticker" aria-hidden="true">
+                        <div class="ticker-track"></div>
+                    </div>
+                    <div id="breakingLive" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+                    <div class="breaking-actions">
+                        <a href="#" class="breaking-cta">Ver Todas</a>
+                    </div>
+                </div>
+
+                <!-- Main 3-column layout -->
+                <div class="news-main-grid" role="region" aria-labelledby="main-news-heading">
+
+                    <aside class="editor-picks" id="editorPicks" aria-labelledby="editors-heading">
+                        <div class="col-header"><h3 id="editors-heading">Escolhas do Editor</h3></div>
+                        <ul class="edit-list" id="editList"></ul>
+                    </aside>
+
+                    <main class="main-news" id="mainNews" role="main" aria-labelledby="main-news-heading">
+                        <h3 id="main-news-heading" class="sr-only">Notícias Principais</h3>
+                        <div id="mainCardContainer"></div>
+                    </main>
+
+                    <aside class="trending-now" id="trendingNow" aria-labelledby="trending-heading">
+                        <div class="col-header"><h3 id="trending-heading">Tendências</h3></div>
+                        <ol class="trend-list" id="trendList"></ol>
+                    </aside>
+
+                </div>
+
+                <!-- Featured posts -->
+                <section class="featured-posts" id="featuredPosts" aria-labelledby="featured-heading">
+                    <h3 id="featured-heading" class="fp-header">Destaques</h3>
+                    <div class="fp-grid" id="fpGrid"></div>
+                </section>
+
+                <!-- Express posts -->
+                <section class="express-posts" id="expressPosts" aria-labelledby="express-heading">
+                    <div class="ep-col"><h4 id="express-heading">Posts Express</h4><div class="ep-grid" id="epGrid1"></div></div>
+                    <div class="ep-col"><h4>Leituras Rápidas</h4><div class="ep-grid" id="epGrid2"></div></div>
+                </section>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us Section -->
+    <section class="join-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"></span>
+                <h2><span data-i18n="join-title-prefix">Junta-te a</span> <span class="text-gradient" data-i18n="join-title-highlight">Nós</span></h2><br>
+                <br><p class="section-desc">Descubra as diversas formas de fazer parte do Grupo SIMJS.</p>
+            </div>
+
+            <div class="join-grid">
+                <div class="join-card">
+                    <div class="join-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Trabalhe Connosco</h3>
+                    <p>Faça parte de uma equipa inovadora e dinâmica. Descubra oportunidades de carreira no Grupo SIMJS.</p>
+                    <a href="login.html" class="join-link">Ver Vagas →</a>
+                </div>
+                <div class="join-card">
+                    <div class="join-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Seja Parceiro</h3>
+                    <p>Junte-se à nossa rede de parceiros estratégicos e cresça junto com o Grupo SIMJS.</p>
+                    <a href="comunidade.html" class="join-link">Tornar Parceiro →</a>
+                </div>
+                <div class="join-card">
+                    <div class="join-icon"><i class="fas fa-users"></i></div>
+                    <h3>Faça Parte da Comunidade</h3>
+                    <p>Conecte-se com empreendedores, investidores e profissionais do nosso ecossistema.</p>
+                    <a href="comunidade.html" class="join-link">Conhecer Comunidade →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="footer-logo">
+                    <p>Um grupo empresarial comprometido com a inovação e excelência em múltiplos sectores.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="grupo.html">Grupo</a></li>
+                        <li><a href="comunidade.html">Comunidade</a></li>
+                        <li><a href="depoimento.html">Depoimentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="https://portaldocontribuinte.minfin.gov.ao" target="_blank">AGT (Administração Geral Tributária)</a></li>
+                        <li><a href="https://www.bna.ao" target="_blank">BNA (Banco Nacional de Angola)</a></li>
+                        <li><a href="https://cefojor.ao/" target="_blank">CEFJOR</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                        <li><i class="fas fa-phone"></i> +244 923 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@gruposimjs.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Receba as últimas novidades do grupo SIMJS.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Grupo SIMJS. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/portal-news.js"></script>
+</body>
+</html>

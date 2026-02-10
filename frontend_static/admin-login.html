@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Painel Administrativo SIMJS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin-login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h1>Painel Administrativo</h1>
+                <p>SIMJS - Gerenciamento de Conteúdo</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Utilizador
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Introduza o seu utilizador"
+                        required
+                    >
+                    <span class="error-msg" id="usernameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Palavra-passe
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Introduza a sua palavra-passe"
+                        required
+                    >
+                    <span class="error-msg" id="passwordError"></span>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Manter-me conectado</label>
+                </div>
+
+                <button type="submit" class="btn-login-submit">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+
+                <div class="login-message" id="loginMessage"></div>
+            </form>
+
+            <div class="login-footer">
+                <p class="demo-credentials">
+                    <strong>Demo:</strong> admin / 12345678
+                </p>
+                <p class="support-text">
+                    Precisa de ajuda? <a href="#" onclick="alert('Contacte suporte@simjs.com')">Suporte</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Background decoration -->
+        <div class="login-background">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+
+    <script src="js/admin-system.js"></script>
+    <script>
+        // ====================================
+        // Sistema de Login com Validação
+        // ====================================
+        
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const rememberCheckbox = document.getElementById('remember');
+        const loginMessage = document.getElementById('loginMessage');
+        const submitButton = document.querySelector('.btn-login-submit');
+        
+        // Validação em tempo real
+        usernameInput.addEventListener('focus', function() {
+            document.getElementById('usernameError').textContent = '';
+        });
+        
+        passwordInput.addEventListener('focus', function() {
+            document.getElementById('passwordError').textContent = '';
+        });
+        
+        // Submissão do formulário
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Limpar mensagens anteriores
+            loginMessage.innerHTML = '';
+            document.getElementById('usernameError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            
+            // Validação
+            let hasError = false;
+            
+            if (!username) {
+                document.getElementById('usernameError').textContent = 'O utilizador é obrigatório';
+                hasError = true;
+            }
+            
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'A palavra-passe é obrigatória';
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // Mostrar loading
+            submitButton.classList.add('loading');
+            submitButton.disabled = true;
+            
+            // Simular delay de login (melhor UX)
+            setTimeout(function() {
+                try {
+                    const result = authSystem.login(username, password);
+                    
+                    if (result.success) {
+                        // Sucesso
+                        loginMessage.className = 'login-message success';
+                        loginMessage.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                        loginMessage.style.display = 'block';
+                        
+                        // Se "Manter-me conectado" está marcado
+                        if (rememberCheckbox.checked) {
+                            localStorage.setItem('rememberMe', 'true');
+                        }
+                        
+                        // Redirecionar após 1 segundo
+                        setTimeout(function() {
+                            window.location.href = 'admin.html';
+                        }, 1000);
+                    } else {
+                        // Erro
+                        loginMessage.className = 'login-message error';
+                        loginMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + result.message;
+                        loginMessage.style.display = 'block';
+                        
+                        // Restaurar botão
+                        submitButton.classList.remove('loading');
+                        submitButton.disabled = false;
+                    }
+                } catch (error) {
+                    // Erro de sistema
+                    loginMessage.className = 'login-message error';
+                    loginMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao processar login. Tente novamente.';
+                    loginMessage.style.display = 'block';
+                    
+                    console.error('Login Error:', error);
+                    
+                    // Restaurar botão
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                }
+            }, 500);
+        });
+        
+        // Permitir Enter para submeter
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                passwordInput.focus();
+            }
+        });
+        
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+        
+        // Auto-preencher se "Manter-me conectado" estava ativo
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('rememberMe') === 'true') {
+                rememberCheckbox.checked = true;
+            }
+        });
+    </script>
+</body>
+</html>

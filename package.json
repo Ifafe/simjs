@@ -1,15 +1,22 @@
 {
-  "name": "next_temp",
-  "version": "0.1.0",
+  "name": "simjs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node frontend_static/scripts/create_admin_and_seed.js",
+    "verify": "node frontend_static/scripts/verify_seed.js"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^1.0.7",
+    "@prisma/client": "5.22.0",
+    "@supabase/supabase-js": "^2.94.0",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
+    "node-fetch": "^2.7.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -20,7 +27,12 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "prisma": "5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
+}
 }

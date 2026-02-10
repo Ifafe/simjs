@@ -1,0 +1,421 @@
+/* SIMJS Enhanced Visual Effects & UX Improvements */
+
+/* ========== SMOOTH SCROLL BEHAVIOR ========== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ========== ENHANCED BUTTON EFFECTS ========== */
+button, a[class*="btn"], a[class*="link"] {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ripple effect on click */
+button::before, 
+a[class*="btn"]::before,
+.btn-cta::before,
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s ease-out;
+    pointer-events: none;
+}
+
+button:active::before,
+a[class*="btn"]:active::before,
+.btn-cta:active::before {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
+
+/* ========== CARD HOVER EFFECTS ========== */
+.env-card,
+.value-card,
+.join-card,
+.mvv-card,
+.history-card {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(0);
+}
+
+.env-card:hover,
+.value-card:hover,
+.join-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(255, 23, 68, 0.2);
+}
+
+/* ========== FLOATING ANIMATIONS ========== */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.env-card,
+.value-card,
+.join-card {
+    animation: float 3s ease-in-out infinite;
+}
+
+.env-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.env-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.value-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.value-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.value-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.value-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* ========== GLOW EFFECT ON HOVER ========== */
+.value-icon,
+.env-card .env-img,
+.btn-admin {
+    transition: all 0.3s ease;
+}
+
+.value-icon:hover {
+    filter: drop-shadow(0 0 15px rgba(255, 23, 68, 0.6));
+}
+
+.env-card:hover .env-img {
+    filter: brightness(1.1) saturate(1.1);
+}
+
+/* ========== SMOOTH TEXT FADE-IN ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-header,
+.env-card,
+.value-card,
+.join-card {
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.env-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.env-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.env-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.env-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.value-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.value-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.value-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.value-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.join-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.join-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.join-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* ========== ENHANCED LINKS ========== */
+a {
+    position: relative;
+    text-decoration: none;
+}
+
+.join-link,
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.join-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.join-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* ========== ICON ANIMATIONS ========== */
+.mvv-icon,
+.value-icon,
+.env-card .env-img,
+.join-icon {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mvv-card:hover .mvv-icon,
+.value-card:hover .value-icon,
+.join-card:hover .join-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* ========== STAT COUNTER EFFECT ========== */
+@keyframes counterUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.stat-number {
+    animation: counterUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-item:nth-child(1) .stat-number {
+    animation-delay: 0.1s;
+}
+
+.stat-item:nth-child(2) .stat-number {
+    animation-delay: 0.2s;
+}
+
+.stat-item:nth-child(3) .stat-number {
+    animation-delay: 0.3s;
+}
+
+.stat-item:nth-child(4) .stat-number {
+    animation-delay: 0.4s;
+}
+
+/* ========== GRADIENT ANIMATION ========== */
+@keyframes gradientWave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.text-gradient {
+    background-size: 200% 200%;
+    animation: gradientWave 6s ease infinite;
+}
+
+/* ========== SMOOTH TRANSITIONS FOR ALL INTERACTIVE ELEMENTS ========== */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button:focus,
+a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ========== LOADING ANIMATION ========== */
+@keyframes shimmerLoad {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 1000px 100%;
+    animation: shimmerLoad 2s infinite;
+}
+
+/* ========== SCROLL REVEAL ANIMATION ========== */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-timeline {
+    animation: slideInLeft 1s ease-out;
+}
+
+.history-content {
+    animation: slideInRight 1s ease-out;
+}
+
+/* ========== ENHANCED FORM INPUTS ========== */
+input[type="text"],
+input[type="email"],
+input[type="phone"],
+textarea {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="phone"]:focus,
+textarea:focus {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 16px rgba(255, 23, 68, 0.2);
+}
+
+/* ========== SECTION DIVIDERS ========== */
+.section-divider {
+    animation: slideUp 1s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== MOBILE RESPONSIVENESS WITH ANIMATIONS ========== */
+@media (max-width: 768px) {
+    .env-card:hover,
+    .value-card:hover,
+    .join-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .mvv-card:hover .mvv-icon,
+    .value-card:hover .value-icon,
+    .join-card:hover .join-icon {
+        transform: scale(1.1) rotate(3deg);
+    }
+}
+
+/* ========== TOOLTIP EFFECT ========== */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    z-index: 1000;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* ========== CURSOR EFFECTS ========== */
+a, button, [role="button"] {
+    cursor: pointer;
+}
+
+/* ========== PAGE TRANSITION ========== */
+@keyframes pageLoad {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    animation: pageLoad 0.5s ease-out;
+}

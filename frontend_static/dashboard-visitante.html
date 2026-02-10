@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Visitante - SIMJS</title>
+    <meta name="description" content="Dashboard pessoal do visitante SIMJS - Gerencie seu perfil, participe da comunidade e explore oportunidades.">
+    <meta name="theme-color" content="#cc0000">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, #cc0000 0%, #ff3333 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-top: -80px;
+            padding-top: 120px;
+        }
+
+        .dashboard-welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            color: #cc0000;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .dashboard-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .profile-card {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #cc0000, #ff3333);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .activity-feed {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: #cc0000;
+        }
+
+        .upcoming-events {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #cc0000, #ff3333);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .quick-actions {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #cc0000;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="logo-img">
+                </a>
+
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item has-submenu">
+                            <a href="index.html" class="nav-link" data-i18n="nav-simjs">Home<span class="arrow">▼</span></a>
+                            <ul class="submenu">
+                                <li><a href="quem-somos.html">Quem Somos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="grupo.html" class="nav-link" data-i18n="nav-grupo">Grupo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="comunidade.html" class="nav-link" data-i18n="nav-comunidade">Comunidade</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="depoimento.html" class="nav-link" data-i18n="nav-depoimento">Depoimento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contacto.html" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Right Section -->
+                <div class="header-right">
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button class="user-btn" id="userBtn">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="user-name">Visitante</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i> Meu Perfil
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> Configurações
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="language-selector" id="languageSelector">
+                        <button class="language-btn" aria-label="Seletor de idiomas">
+                            <span class="lang-icon">🌐</span>
+                            <span class="lang-text">PT</span>
+                        </button>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="pt" class="lang-option active">Português</a></li>
+                            <li><a href="#" data-lang="en" class="lang-option">English</a></li>
+                            <li><a href="#" data-lang="hi" class="lang-option">हिन्दी</a></li>
+                            <li><a href="#" data-lang="zh" class="lang-option">中文</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Mobile Toggle -->
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <div class="dashboard-welcome">
+                <h1>Bem-vindo à Comunidade SIMJS!</h1>
+                <p>Explore oportunidades, conecte-se com outros membros e participe de eventos exclusivos.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">1,247</div>
+                    <div class="stat-label">Membros na Comunidade</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Eventos este mês</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-number">89</div>
+                    <div class="stat-label">Parcerias ativas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Main Content -->
+                <div class="dashboard-main">
+                    <!-- Activity Feed -->
+                    <div class="activity-feed">
+                        <h3><i class="fas fa-history"></i> Atividade Recente</h3>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div>
+                                <strong>Você se juntou à comunidade SIMJS</strong>
+                                <p>Seja bem-vindo! Complete seu perfil para começar.</p>
+                                <small>2 horas atrás</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <strong>Evento disponível: Workshop de Inovação</strong>
+                                <p>Não perca esta oportunidade de networking.</p>
+                                <small>1 dia atrás</small>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <strong>3 novas oportunidades de parceria</strong>
+                                <p>Empresas interessadas em colaboração.</p>
+                                <small>3 dias atrás</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="upcoming-events">
+                        <h3><i class="fas fa-calendar-alt"></i> Próximos Eventos</h3>
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span>15</span>
+                                <span>DEZ</span>
+                            </div>
+                            <div>
+                                <strong>Workshop: Inovação em Angola</strong>
+                                <p>Explore as últimas tendências tecnológicas e oportunidades de negócio.</p>
+                                <small>Luanda, Angola • 14:00 - 18:00</small>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span>22</span>
+                                <span>DEZ</span>
+                            </div>
+                            <div>
+                                <strong>Encontro de Networking Empresarial</strong>
+                                <p>Conecte-se com empresários e empreendedores angolanos.</p>
+                                <small>Luanda, Angola • 18:00 - 21:00</small>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span>05</span>
+                                <span>JAN</span>
+                            </div>
+                            <div>
+                                <strong>Sessão de Mentoria</strong>
+                                <p>Oportunidade de orientação com líderes empresariais experientes.</p>
+                                <small>Online • 15:00 - 17:00</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="dashboard-sidebar">
+                    <!-- Profile Card -->
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Visitante SIMJS</h4>
+                        <p>Membro desde hoje</p>
+                        <a href="#" class="btn-auth btn-auth-primary" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;">
+                            <i class="fas fa-edit"></i> Completar Perfil
+                        </a>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h4>Ações Rápidas</h4>
+                        <div class="action-grid">
+                            <a href="comunidade.html" class="action-btn">
+                                <i class="fas fa-users action-icon"></i>
+                                <span>Explorar<br>Comunidade</span>
+                            </a>
+                            <a href="contacto.html" class="action-btn">
+                                <i class="fas fa-handshake action-icon"></i>
+                                <span>Buscar<br>Parcerias</span>
+                            </a>
+                            <a href="#" class="action-btn">
+                                <i class="fas fa-calendar-plus action-icon"></i>
+                                <span>Inscrever-se<br>em Evento</span>
+                            </a>
+                            <a href="#" class="action-btn">
+                                <i class="fas fa-envelope action-icon"></i>
+                                <span>Contato<br>SIMJS</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="footer-logo">
+                    <p>Um grupo empresarial comprometido com a inovação e excelência em múltiplos sectores.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="grupo.html">Grupo</a></li>
+                        <li><a href="comunidade.html">Comunidade</a></li>
+                        <li><a href="depoimento.html">Depoimentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                        <li><i class="fas fa-phone"></i> +244 923 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@gruposimjs.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Receba as últimas novidades do grupo SIMJS.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Grupo SIMJS. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // User menu functionality
+        document.getElementById('userBtn').addEventListener('click', function() {
+            document.getElementById('userDropdown').classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

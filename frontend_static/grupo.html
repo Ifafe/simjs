@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo - SIMJS</title>
+    <meta name="description" content="Conheça o Grupo SIMJS: 7 empresas, múltiplos sectores, uma visão de inovação e excelência em Angola.">
+    <meta name="theme-color" content="#cc0000">
+    <meta property="og:title" content="Grupo SIMJS - Estrutura e Empresas">
+    <meta property="og:description" content="Uma estrutura empresarial sólida com 7 empresas e atuação multissetorial.">
+    <meta property="og:image" content="assets/logo-simjs.png">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/transitions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="logo-img">
+                </a>
+                
+                <!-- Navigation -->
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item has-submenu">
+                            <a href="index.html" class="nav-link" data-i18n="nav-simjs">Home<span class="arrow">▼</span></a>
+                            <ul class="submenu">
+                                <li><a href="quem-somos.html">Quem Somos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="grupo.html" class="nav-link active" data-i18n="nav-grupo">Grupo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="comunidade.html" class="nav-link" data-i18n="nav-comunidade">Comunidade</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="depoimento.html" class="nav-link" data-i18n="nav-depoimento">Depoimento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contacto.html" class="nav-link" data-i18n="nav-contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Right Section -->
+                <div class="header-right">
+                    <!-- Auth Buttons -->
+                    <div class="auth-buttons">
+                        <a href="login.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span data-i18n="btn-login">Login</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Language Selector -->
+                    <div class="language-selector" id="languageSelector">
+                        <button class="language-btn" aria-label="Seletor de idiomas">
+                            <span class="lang-icon">🌐</span>
+                            <span class="lang-text">PT</span>
+                        </button>
+                        <ul class="language-menu">
+                            <li><a href="#" data-lang="pt" class="lang-option active">Português</a></li>
+                            <li><a href="#" data-lang="en" class="lang-option">English</a></li>
+                            <li><a href="#" data-lang="hi" class="lang-option">हिन्दी</a></li>
+                            <li><a href="#" data-lang="zh" class="lang-option">中文</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Mobile Toggle -->
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-glow glow-1"></div>
+        
+        <!-- Hero Carousel -->
+        <div class="hero-carousel" id="groupCarousel">
+            <div class="carousel-track">
+                <div class="carousel-slide active">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/bg-office.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/bg-office.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/bg-office.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="carousel-slide">
+                    <video autoplay muted loop playsinline class="carousel-video">
+                        <source src="assets/bg-office.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <div class="carousel-info">
+                <h3>Descubra Nossa Estrutura Organizacional</h3>
+                <p>7 Empresas | Múltiplos Sectores | Uma Visão Compartilhada</p>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-dot active" data-index="0"></button>
+                <button class="carousel-dot" data-index="1"></button>
+                <button class="carousel-dot" data-index="2"></button>
+                <button class="carousel-dot" data-index="3"></button>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="page-hero-content">
+                <span class="section-tag">Conheça</span>
+                <h1>O <span class="text-gradient">Grupo</span> SIMJS</h1>
+                <p>Uma estrutura empresarial sólida com 7 empresas que atuam em diferentes sectores, unidas pelo compromisso com a excelência e inovação.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organogram Section -->
+    <section class="organogram-section">
+        <div class="container">
+            <div class="section-header">
+               
+                <h2>Nosso <span class="text-gradient">Organograma</span></h2>
+            </div>
+
+            <div class="organogram">
+                <!-- Main Node -->
+                <div class="org-level org-level-1">
+                    <div class="org-node org-main">
+                        <img src="assets/logo-simjs.png" alt="SIMJS" class="org-main-logo">
+                    </div>
+                </div>
+
+                <!-- Connector Line -->
+                <div class="org-connector vertical"></div>
+                <div class="org-connector horizontal"></div>
+
+                <!-- Second Level - First Row -->
+                <div class="org-level org-level-2">
+                    <div class="org-node">
+                        <img src="assets/anappa.jpeg" alt="Auditoria" class="org-logo-image">
+                    </div>
+                    <div class="org-node">
+                        <img src="assets/cgde.jpeg" alt="Construção" class="org-logo-image">
+                    </div>
+                    <div class="org-node">
+                        <img src="assets/curioso.jpeg" alt="Tecnologia" class="org-logo-image">
+                    </div>
+                </div>
+
+                <!-- Third Level -->
+                <div class="org-level org-level-3">
+                    <div class="org-node">
+                        <img src="assets/academia.jpeg" alt="Imobiliária" class="org-logo-image">
+                    </div>
+                    <div class="org-node">
+                        <img src="assets/carinho.jpeg" alt="Comércio" class="org-logo-image">
+                    </div>
+                    <div class="org-node">
+                        <img src="assets/xima.jpeg" alt="Serviços" class="org-logo-image">
+                    </div>
+                    <div class="org-node">
+                        <img src="assets/zerrin.jpeg" alt="Investimentos" class="org-logo-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companies Grid -->
+    <section class="companies-section" id="empresas">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"></span>
+                <h2><span class="text-gradient">7 Empresas</span>, Múltiplas Soluções</h2>
+            </div>
+
+            <div class="companies-grid">
+                <div class="company-card env-card" data-sector="auditoria">
+                    <div class="company-logo">
+                        <img src="assets/anappa.jpeg" alt="SIMJS Auditoria Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-august-de-richelieu-4427627.jpg" alt="Auditoria Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Auditoria e Consultoria</span>
+                        <h3>SIMJS Auditoria</h3>
+                        <p>Serviços de auditoria, consultoria financeira e fiscal para empresas de todos os portes.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="construcao">
+                    <div class="company-logo">
+                        <img src="assets/cgde.jpeg" alt="SIMJS Construção Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-pixabay-50987.jpg" alt="Construção Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Construção Civil</span>
+                        <h3>SIMJS Construção</h3>
+                        <p>Construção de edifícios residenciais, comerciais e obras de infraestrutura.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="tecnologia">
+                    <div class="company-logo">
+                        <img src="assets/curioso.jpeg" alt="SIMJS Tecnologia Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-kindelmedia-6868618.jpg" alt="Tecnologia Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Tecnologia e Inovação</span>
+                        <h3>SIMJS Tecnologia</h3>
+                        <p>Desenvolvimento de software, soluções digitais e transformação tecnológica.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="imovel">
+                    <div class="company-logo">
+                        <img src="assets/academia.jpeg" alt="SIMJS Imobiliária Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-lucaspezeta-5242049.jpg" alt="Imobiliário Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Imobiliário</span>
+                        <h3>SIMJS Imobiliária</h3>
+                        <p>Compra, venda e arrendamento de imóveis em toda Angola.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="comercio">
+                    <div class="company-logo">
+                        <img src="assets/carinho.jpeg" alt="SIMJS Comércio Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-michelangelo-buonarroti-8728556.jpg" alt="Comércio Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Comércio Geral</span>
+                        <h3>SIMJS Comércio</h3>
+                        <p>Importação e comercialização de produtos diversos.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="servicos">
+                    <div class="company-logo">
+                        <img src="assets/xima.jpeg" alt="SIMJS Serviços Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/pexels-a-darmel-7641839.jpg" alt="Serviços Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Serviços</span>
+                        <h3>SIMJS Serviços</h3>
+                        <p>Prestação de serviços especializados para empresas e particulares.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+
+                <div class="company-card env-card" data-sector="investimentos">
+                    <div class="company-logo">
+                        <img src="assets/zerrin.jpeg" alt="SIMJS Investimentos Logo" class="logo-image">
+                    </div>
+                    <div class="company-image">
+                        <img src="assets/office.jpg" alt="Investimentos Sector" class="sector-image">
+                    </div>
+                    <div class="company-content">
+                        <span class="company-sector">Investimentos</span>
+                        <h3>SIMJS Investimentos</h3>
+                        <p>Gestão de investimentos e participações em diversos sectores.</p>
+                        <a href="#" class="company-link">Saber Mais →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/logo-simjs.png" alt="SIMJS" class="footer-logo">
+                    <p>Um grupo empresarial comprometido com a inovação e excelência em múltiplos sectores.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="grupo.html">Grupo</a></li>
+                        <li><a href="comunidade.html">Comunidade</a></li>
+                        <li><a href="depoimento.html">Depoimentos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="https://portaldocontribuinte.minfin.gov.ao" target="_blank">AGT (Administração Geral Tributária)</a></li>
+                        <li><a href="https://www.bna.ao" target="_blank">BNA (Banco Nacional de Angola)</a></li>
+                        <li><a href="https://cefojor.ao/" target="_blank">CEFJOR</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Luanda, Angola</li>
+                        <li><i class="fas fa-phone"></i> +244 923 000 000</li>
+                        <li><i class="fas fa-envelope"></i> info@gruposimjs.com</li>
+                    </ul>
+                </div>
+
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Receba as últimas novidades do grupo SIMJS.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Seu e-mail">
+                        <button type="submit">Subscrever</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Grupo SIMJS. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

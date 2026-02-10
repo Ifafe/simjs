@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - SIMJS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- TinyMCE Editor -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>
+</head>
+<body class="admin-body">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>ADMIN SIMJS</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- CONTEÚDO -->
+                <li class="nav-section-title">CONTEÚDO</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="paginas">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Páginas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="secoes">
+                        <i class="fas fa-th"></i>
+                        <span>Seções</span>
+                    </a>
+                </li>
+
+                <!-- MÍDIA -->
+                <li class="nav-section-title">MÍDIA</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="midia">
+                        <i class="fas fa-images"></i>
+                        <span>Arquivos</span>
+                    </a>
+                </li>
+
+                <!-- PERSONALIZAÇÃO -->
+                <li class="nav-section-title">PERSONALIZAÇÃO</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="menu">
+                        <i class="fas fa-bars"></i>
+                        <span>Menus</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="tema">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Tema & Cores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="banner">
+                        <i class="fas fa-image"></i>
+                        <span>Banners</span>
+                    </a>
+                </li>
+
+                <!-- CONFIGURAÇÕES -->
+                <li class="nav-section-title">CONFIGURAÇÕES</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="config">
+                        <i class="fas fa-cog"></i>
+                        <span>Gerais</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="seo">
+                        <i class="fas fa-search"></i>
+                        <span>SEO</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="contato">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contato</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="idioma">
+                        <i class="fas fa-globe"></i>
+                        <span>Idioma</span>
+                    </a>
+                </li>
+
+                <!-- SISTEMA -->
+                <li class="nav-section-title">SISTEMA</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="usuarios">
+                        <i class="fas fa-users"></i>
+                        <span>Utilizadores</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <div class="admin-main">
+        <!-- TOPBAR -->
+        <div class="admin-topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="breadcrumb-item">Dashboard</span>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="user-section">
+                    <span class="user-name" id="userName">Admin</span>
+                    <button class="user-btn" id="userBtn">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" class="dropdown-item" id="changePasswordBtn">
+                            <i class="fas fa-key"></i> Alterar Senha
+                        </a>
+                        <hr>
+                        <a href="#" class="dropdown-item" id="logoutBtn2">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <main class="admin-content">
+
+            <!-- ==================== DASHBOARD ==================== -->
+            <section class="content-section active" id="dashboard-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Bem-vindo ao painel administrativo SIMJS</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 23, 68, 0.1); color: #ff1744;">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Páginas</p>
+                            <p class="stat-number" id="pagesCount">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 145, 0, 0.1); color: #ff9100;">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Posts</p>
+                            <p class="stat-number" id="postsCount">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 92, 124, 0.1); color: #ff5c7c;">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Mídia</p>
+                            <p class="stat-number" id="mediaCount">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(204, 0, 0, 0.1); color: #cc0000;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Utilizadores</p>
+                            <p class="stat-number" id="usersCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Ações Rápidas</h2>
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="showNewPageForm()">
+                            <i class="fas fa-plus"></i> Nova Página
+                        </button>
+                        <button class="action-btn" onclick="showNewPostForm()">
+                            <i class="fas fa-plus"></i> Novo Post
+                        </button>
+                        <button class="action-btn" onclick="navigateTo('midia')">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                        <button class="action-btn" onclick="navigateTo('config')">
+                            <i class="fas fa-cog"></i> Configurações
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== PÁGINAS ==================== -->
+            <section class="content-section" id="paginas-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Páginas</h1>
+                        <p>Gerenciar todas as páginas do site</p>
+                    </div>
+                    <button class="btn-primary" onclick="showNewPageForm()">
+                        <i class="fas fa-plus"></i> Nova Página
+                    </button>
+                </div>
+
+                <div class="content-table-wrapper">
+                    <table class="content-table" id="pagesTable">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>URL</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagesBody">
+                            <tr class="empty-row">
+                                <td colspan="5">Nenhuma página criada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==================== POSTS ==================== -->
+            <section class="content-section" id="posts-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Posts</h1>
+                        <p>Gerenciar todos os posts do blog</p>
+                    </div>
+                    <button class="btn-primary" onclick="showNewPostForm()">
+                        <i class="fas fa-plus"></i> Novo Post
+                    </button>
+                </div>
+
+                <div class="filters-bar">
+                    <select id="postCategoryFilter">
+                        <option value="">Todas as categorias</option>
+                        <option value="noticia">Notícia</option>
+                        <option value="tutorial">Tutorial</option>
+                        <option value="evento">Evento</option>
+                    </select>
+                    <select id="postStatusFilter">
+                        <option value="">Todos os status</option>
+                        <option value="publicado">Publicado</option>
+                        <option value="rascunho">Rascunho</option>
+                        <option value="arquivado">Arquivado</option>
+                    </select>
+                </div>
+
+                <div class="content-table-wrapper">
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postsBody">
+                            <tr class="empty-row">
+                                <td colspan="5">Nenhum post criado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==================== SEÇÕES ==================== -->
+            <section class="content-section" id="secoes-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Seções do Site</h1>
+                        <p>Editar conteúdo das seções principais</p>
+                    </div>
+                </div>
+
+                <div class="sections-grid">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <h3>Sobre</h3>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+                        <p class="section-desc">Conteúdo da seção sobre nós</p>
+                        <button class="btn-secondary" onclick="editSection('sobre')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <h3>Serviços</h3>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+                        <p class="section-desc">Listar nossos serviços</p>
+                        <button class="btn-secondary" onclick="editSection('servicos')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <h3>Comunidade</h3>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+                        <p class="section-desc">Vídeos e conteúdo da comunidade</p>
+                        <button class="btn-secondary" onclick="editSection('comunidade')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <h3>Depoimentos</h3>
+                            <label class="toggle">
+                                <input type="checkbox" checked>
+                                <span></span>
+                            </label>
+                        </div>
+                        <p class="section-desc">Depoimentos de clientes</p>
+                        <button class="btn-secondary" onclick="editSection('depoimentos')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== MÍDIA ==================== -->
+            <section class="content-section" id="midia-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Mídia</h1>
+                        <p>Gerenciar imagens, vídeos e arquivos</p>
+                    </div>
+                    <button class="btn-primary" onclick="openUploadModal()">
+                        <i class="fas fa-upload"></i> Novo Upload
+                    </button>
+                </div>
+
+                <div class="filters-bar">
+                    <input type="search" placeholder="Procurar arquivo..." id="mediaSearch">
+                    <select id="mediaTypeFilter">
+                        <option value="">Todos os tipos</option>
+                        <option value="image">Imagens</option>
+                        <option value="video">Vídeos</option>
+                        <option value="document">Documentos</option>
+                    </select>
+                </div>
+
+                <div class="media-grid" id="mediaGrid">
+                    <p class="empty-message">Nenhuma mídia enviada</p>
+                </div>
+            </section>
+
+            <!-- ==================== MENUS ==================== -->
+            <section class="content-section" id="menu-section">
+                <div class="section-header">
+                    <h1>Gerenciar Menus</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Menu Principal</h2>
+                    <div class="menu-items" id="mainMenuItems">
+                        <div class="menu-item">
+                            <input type="text" placeholder="Nome do item" value="Início">
+                            <input type="text" placeholder="URL" value="/">
+                            <button class="btn-sm-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="menu-item">
+                            <input type="text" placeholder="Nome do item" value="Sobre">
+                            <input type="text" placeholder="URL" value="/sobre">
+                            <button class="btn-sm-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <button class="btn-secondary" onclick="addMenuItem()">
+                        <i class="fas fa-plus"></i> Novo Item
+                    </button>
+                    <button class="btn-primary" style="margin-left: 10px;">
+                        <i class="fas fa-save"></i> Guardar Menu
+                    </button>
+                </div>
+            </section>
+
+            <!-- ==================== TEMA & CORES ==================== -->
+            <section class="content-section" id="tema-section">
+                <div class="section-header">
+                    <h1>Personalização - Tema & Cores</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Cores do Tema</h2>
+                    <div class="color-grid">
+                        <div class="color-item">
+                            <label>Cor Primária</label>
+                            <input type="color" id="colorPrimary" value="#ff1744">
+                            <span class="color-value">#ff1744</span>
+                        </div>
+                        <div class="color-item">
+                            <label>Cor Secundária</label>
+                            <input type="color" id="colorSecondary" value="#ff9100">
+                            <span class="color-value">#ff9100</span>
+                        </div>
+                        <div class="color-item">
+                            <label>Cor de Texto</label>
+                            <input type="color" id="colorText" value="#ffffff">
+                            <span class="color-value">#ffffff</span>
+                        </div>
+                        <div class="color-item">
+                            <label>Cor de Fundo</label>
+                            <input type="color" id="colorBg" value="#0a0202">
+                            <span class="color-value">#0a0202</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary">
+                        <i class="fas fa-save"></i> Guardar Cores
+                    </button>
+                </div>
+
+                <div class="form-card">
+                    <h2>Logo do Site</h2>
+                    <div class="logo-upload">
+                        <img id="logoPreview" src="" alt="Logo" style="max-width: 200px;">
+                        <input type="file" id="logoInput" accept="image/*">
+                        <button class="btn-secondary">
+                            <i class="fas fa-image"></i> Selecionar Logo
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== BANNERS ==================== -->
+            <section class="content-section" id="banner-section">
+                <div class="section-header">
+                    <h1>Gerenciar Banners</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Novo Banner</h2>
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" placeholder="Título do banner">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea placeholder="Descrição"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagem</label>
+                        <input type="file" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input type="text" placeholder="https://exemplo.com">
+                    </div>
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> Criar Banner
+                    </button>
+                </div>
+
+                <div class="banners-list">
+                    <h2>Banners Existentes</h2>
+                    <p class="empty-message">Nenhum banner criado</p>
+                </div>
+            </section>
+
+            <!-- ==================== CONFIGURAÇÕES GERAIS ==================== -->
+            <section class="content-section" id="config-section">
+                <div class="section-header">
+                    <h1>Configurações Gerais</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Informações do Site</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Site</label>
+                            <input type="text" value="SIMJS">
+                        </div>
+                        <div class="form-group">
+                            <label>Tagline</label>
+                            <input type="text" placeholder="Breve descrição">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea placeholder="Descrição completa do site"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2>Informações de Contato</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" value="contato@simjs.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="tel" value="+351 XXX XXX XXX">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Endereço</label>
+                            <input type="text" placeholder="Rua, nº">
+                        </div>
+                        <div class="form-group">
+                            <label>Localidade</label>
+                            <input type="text" placeholder="Cidade, País">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2>Redes Sociais</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fab fa-facebook"></i> Facebook</label>
+                            <input type="url" placeholder="https://facebook.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-instagram"></i> Instagram</label>
+                            <input type="url" placeholder="https://instagram.com/...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fab fa-youtube"></i> YouTube</label>
+                            <input type="url" placeholder="https://youtube.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-linkedin"></i> LinkedIn</label>
+                            <input type="url" placeholder="https://linkedin.com/...">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Configurações
+                </button>
+            </section>
+
+            <!-- ==================== SEO ==================== -->
+            <section class="content-section" id="seo-section">
+                <div class="section-header">
+                    <h1>Configurações SEO</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Meta Informações Globais</h2>
+                    <div class="form-group">
+                        <label>Meta Descrição</label>
+                        <textarea placeholder="Descrição para mecanismos de busca (max 160 caracteres)" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Palavras-chave</label>
+                        <input type="text" placeholder="palavra1, palavra2, palavra3">
+                    </div>
+                    <div class="form-group">
+                        <label>URL Canônica</label>
+                        <input type="url" placeholder="https://seusite.com">
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2>Open Graph</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Imagem OG</label>
+                            <input type="file" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select>
+                                <option>website</option>
+                                <option>article</option>
+                                <option>business.business</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar SEO
+                </button>
+            </section>
+
+            <!-- ==================== CONTATO ==================== -->
+            <section class="content-section" id="contato-section">
+                <div class="section-header">
+                    <h1>Configurações de Contato</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Formulário de Contato</h2>
+                    <div class="form-group">
+                        <label>Email para receber mensagens</label>
+                        <input type="email" placeholder="suporte@simjs.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Assunto do Email</label>
+                        <input type="text" placeholder="Nova mensagem do formulário de contato">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem de Sucesso</label>
+                        <textarea placeholder="Mensagem exibida após envio"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" checked>
+                            Ativar formulário de contato
+                        </label>
+                    </div>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Configurações
+                </button>
+            </section>
+
+            <!-- ==================== IDIOMA ==================== -->
+            <section class="content-section" id="idioma-section">
+                <div class="section-header">
+                    <h1>Configurações de Idioma</h1>
+                </div>
+
+                <div class="form-card">
+                    <h2>Idioma Principal</h2>
+                    <div class="form-group">
+                        <label>Selecione o idioma padrão</label>
+                        <select>
+                            <option selected>Português (PT)</option>
+                            <option>English (EN)</option>
+                            <option>Español (ES)</option>
+                            <option>Français (FR)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2>Idiomas Disponíveis</h2>
+                    <div class="language-list">
+                        <label class="lang-item">
+                            <input type="checkbox" checked>
+                            <span>Português (PT)</span>
+                        </label>
+                        <label class="lang-item">
+                            <input type="checkbox">
+                            <span>English (EN)</span>
+                        </label>
+                        <label class="lang-item">
+                            <input type="checkbox">
+                            <span>Español (ES)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Idiomas
+                </button>
+            </section>
+
+            <!-- ==================== UTILIZADORES ==================== -->
+            <section class="content-section" id="usuarios-section">
+                <div class="section-header">
+                    <div>
+                        <h1>Utilizadores</h1>
+                        <p>Gerenciar utilizadores do painel</p>
+                    </div>
+                    <button class="btn-primary" onclick="showNewUserForm()">
+                        <i class="fas fa-plus"></i> Novo Utilizador
+                    </button>
+                </div>
+
+                <div class="content-table-wrapper">
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>Utilizador</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Data Criação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersBody">
+                            <tr class="empty-row">
+                                <td colspan="5">Nenhum utilizador criado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Modal Alterar Senha -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Alterar Palavra-passe</h2>
+                <button class="modal-close" onclick="closeModal('changePasswordModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label>Palavra-passe Atual</label>
+                        <input type="password" id="currentPassword" placeholder="Introduza a atual" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nova Palavra-passe</label>
+                        <input type="password" id="newPassword" placeholder="Mínimo 8 caracteres" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Palavra-passe</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirme a nova" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('changePasswordModal')">
+                    Cancelar
+                </button>
+                <button class="btn-primary" onclick="updatePassword()">
+                    <i class="fas fa-save"></i> Atualizar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Upload Mídia -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-upload"></i> Upload de Arquivo</h2>
+                <button class="modal-close" onclick="closeModal('uploadModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Arraste arquivos aqui ou clique para selecionar</p>
+                    <input type="file" id="fileInput" multiple hidden>
+                </div>
+                <div id="uploadProgress" style="display: none; margin-top: 20px;">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p id="uploadStatus">Enviando...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('uploadModal')">
+                    Cancelar
+                </button>
+                <button class="btn-primary" id="uploadBtn">
+                    <i class="fas fa-check"></i> Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Página -->
+    <div class="modal" id="pageModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-alt"></i> Editar Página</h2>
+                <button class="modal-close" onclick="closeModal('pageModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="pageTitle" placeholder="Título da página">
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="text" id="pageUrl" placeholder="/pagina-exemplo">
+                </div>
+                <div class="form-group">
+                    <label>Conteúdo</label>
+                    <textarea id="pageContent" placeholder="Conteúdo da página"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="pageStatus">
+                            <option>Rascunho</option>
+                            <option>Publicado</option>
+                            <option>Arquivado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('pageModal')">
+                    Cancelar
+                </button>
+                <button class="btn-primary" onclick="savePage()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/admin-system.js"></script>
+    <script>
+        // ========================================
+        // NAVEGAÇÃO
+        // ========================================
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.getElementById(sectionId + '-section').classList.add('active');
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+
+            const titles = {
+                'dashboard': 'Dashboard',
+                'paginas': 'Páginas',
+                'posts': 'Posts',
+                'secoes': 'Seções',
+                'midia': 'Mídia',
+                'menu': 'Menus',
+                'tema': 'Tema & Cores',
+                'banner': 'Banners',
+                'config': 'Configurações',
+                'seo': 'SEO',
+                'contato': 'Contato',
+                'idioma': 'Idioma',
+                'usuarios': 'Utilizadores'
+            };
+            document.getElementById('breadcrumb').innerHTML = `<span class="breadcrumb-item">${titles[sectionId]}</span>`;
+        }
+
+        function navigateTo(sectionId) {
+            showSection(sectionId);
+        }
+
+        document.querySelectorAll('[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = e.target.closest('[data-section]').getAttribute('data-section');
+                showSection(section);
+            });
+        });
+
+        // ========================================
+        // USER MENU
+        // ========================================
+
+        const userBtn = document.getElementById('userBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const logoutBtn2 = document.getElementById('logoutBtn2');
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+
+        if (userBtn) {
+            userBtn.addEventListener('click', () => {
+                userDropdown.classList.toggle('show');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-section')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+
+        function doLogout() {
+            authSystem.logout();
+            window.location.href = 'admin-login.html';
+        }
+
+        if (logoutBtn) logoutBtn.addEventListener('click', doLogout);
+        if (logoutBtn2) {
+            logoutBtn2.addEventListener('click', (e) => {
+                e.preventDefault();
+                doLogout();
+            });
+        }
+
+        if (changePasswordBtn) {
+            changePasswordBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('changePasswordModal').classList.add('show');
+            });
+        }
+
+        // ========================================
+        // MODAL
+        // ========================================
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+        });
+
+        function updatePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if (!current || !newPass || !confirm) {
+                alert('Preencha todos os campos');
+                return;
+            }
+
+            if (newPass !== confirm) {
+                alert('As palavras-passe não coincidem');
+                return;
+            }
+
+            if (newPass.length < 8) {
+                alert('Mínimo 8 caracteres');
+                return;
+            }
+
+            const currentUser = authSystem.getCurrentUser();
+            const userIndex = authSystem.users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                authSystem.users[userIndex].password = authSystem.hashPassword(newPass);
+                authSystem.saveToStorage();
+                alert('✅ Palavra-passe atualizada com sucesso!');
+                closeModal('changePasswordModal');
+                document.getElementById('changePasswordForm').reset();
+            }
+        }
+
+        // ========================================
+        // FORMAS
+        // ========================================
+
+        function showNewPageForm() {
+            document.getElementById('pageTitle').value = '';
+            document.getElementById('pageUrl').value = '';
+            document.getElementById('pageContent').value = '';
+            document.getElementById('pageModal').classList.add('show');
+        }
+
+        function savePage() {
+            const title = document.getElementById('pageTitle').value;
+            const url = document.getElementById('pageUrl').value;
+            const content = document.getElementById('pageContent').value;
+
+            if (!title || !url) {
+                alert('Preencha todos os campos obrigatórios');
+                return;
+            }
+
+            alert('✅ Página guardada com sucesso!');
+            closeModal('pageModal');
+        }
+
+        function showNewPostForm() {
+            alert('Abrir formulário novo post');
+        }
+
+        function showNewUserForm() {
+            alert('Abrir formulário novo utilizador');
+        }
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('show');
+        }
+
+        function editSection(sectionName) {
+            alert('Editar seção: ' + sectionName);
+        }
+
+        function addMenuItem() {
+            alert('Adicionar novo item de menu');
+        }
+
+        // ========================================
+        // LOAD DATA
+        // ========================================
+
+        window.addEventListener('load', () => {
+            if (!authSystem.isAuthenticated()) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            const user = authSystem.getCurrentUser();
+            document.getElementById('userName').textContent = user.name || 'Admin';
+
+            const pages = JSON.parse(localStorage.getItem('adminPages') || '[]');
+            const posts = JSON.parse(localStorage.getItem('adminPosts') || '[]');
+            const media = JSON.parse(localStorage.getItem('adminMedia') || '[]');
+
+            document.getElementById('pagesCount').textContent = pages.length;
+            document.getElementById('postsCount').textContent = posts.length;
+            document.getElementById('mediaCount').textContent = media.length;
+            document.getElementById('usersCount').textContent = authSystem.users.length;
+        });
+    </script>
+</body>
+</html>

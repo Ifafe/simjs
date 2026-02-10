@@ -1,0 +1,54 @@
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import LinkedInProvider from "next-auth/providers/linkedin";
+import AzureADProvider from "next-auth/providers/azure-ad";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
+
+const authOptions = {
+      adapter: PrismaAdapter(prisma),
+      providers: [
+            GoogleProvider({
+                  clientId: process.env.GOOGLE_CLIENT_ID || "",
+                  clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+            }),
+            LinkedInProvider({
+                  clientId: process.env.LINKEDIN_CLIENT_ID || "",
+                  clientSecret: process.env.LINKEDIN_CLIENT_SECRET || "",
+            }),
+            AzureADProvider({
+                  clientId: process.env.AZURE_AD_CLIENT_ID || "",
+                  clientSecret: process.env.AZURE_AD_CLIENT_SECRET || "",
+                  tenantId: process.env.AZURE_AD_TENANT_ID,
+            }),
+      ],
+      session: {
+            strategy: "jwt" as const,
+      },
+      callbacks: {
+            async session({ session, token, user }: any) {
+                  if (session.user) {
+                        session.user.id = token.sub as string;
+                        session.user.role = token.role as string;
+                        session.user.image = token.picture as string | null | undefined;
+                  }
+                  return session;
+            },
+            async jwt({ token, user, account, profile }: any) {
+                  if (user) {
+                        token.id = user.id;
+                        token.role = user.role || "VISITOR";
+                  }
+                  return token;
+            },
+      },
+      pages: {
+            signIn: "/login",
+            error: "/login",
+      },
+      debug: process.env.NODE_ENV === "development",
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST, authOptions };

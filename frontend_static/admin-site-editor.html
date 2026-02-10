@@ -1,0 +1,617 @@
+<!-- ==================== SEÇÕES SITE EDIÇÃO ==================== -->
+
+<!-- Nav Items para Edição de Páginas -->
+<li class="nav-section-title">EDITAR SITE</li>
+<li class="nav-item">
+    <a href="#" class="nav-link" data-section="homepage">
+        <i class="fas fa-home"></i>
+                <span>Página Inicial</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="grupo">
+                        <i class="fas fa-building"></i>
+                        <span>Grupo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="comunidade-page">
+                        <i class="fas fa-users"></i>
+                        <span>Comunidade</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="depoimento-page">
+                        <i class="fas fa-quote-left"></i>
+                        <span>Depoimentos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="contacto-page">
+                        <i class="fas fa-phone"></i>
+                        <span>Contacto</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="header-footer">
+                        <i class="fas fa-window-maximize"></i>
+                        <span>Header/Footer</span>
+                    </a>
+                </li>
+
+<!-- ==================== SEÇÃO HOMEPAGE ==================== -->
+<section class="content-section" id="homepage-section">
+    <div class="section-header">
+        <h1><i class="fas fa-home"></i> Editar Página Inicial</h1>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="hero">Hero Section</button>
+        <button class="tab-btn" data-tab="historia">História</button>
+        <button class="tab-btn" data-tab="servicos">Serviços</button>
+        <button class="tab-btn" data-tab="missao">Missão/Visão</button>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="tab-content active" id="hero-tab">
+        <div class="form-card">
+            <h2>Hero Section</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Título Principal</label>
+                    <input type="text" value="Soluções Empresariais" id="heroTitle">
+                </div>
+                <div class="form-group">
+                    <label>Título Destaque</label>
+                    <input type="text" value="Inovadoras" id="heroHighlight">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Subtítulo</label>
+                <textarea id="heroSubtitle">Transformamos ideias em resultados. Descubra como o Grupo SIMJS pode impulsionar o seu negócio.</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Vídeo de Fundo</label>
+                    <input type="file" accept="video/*" id="heroVideo">
+                </div>
+                <div class="form-group">
+                    <label>Texto do Botão CTA</label>
+                    <input type="text" value="Comece Agora" id="heroButtonText">
+                </div>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Hero
+            </button>
+        </div>
+    </div>
+
+    <!-- História -->
+    <div class="tab-content" id="historia-tab">
+        <div class="form-card">
+            <h2>Seção História</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Título da Seção</label>
+                    <input type="text" value="A Nossa Jornada" id="historiaTitle">
+                </div>
+                <div class="form-group">
+                    <label>Subtítulo</label>
+                    <input type="text" value="Uma história de inovação, crescimento e excelência" id="historiaSubtitle">
+                </div>
+            </div>
+
+            <div class="timeline-editor" id="timelineEditor">
+                <h3>Timeline - Marcos Históricos</h3>
+                <div id="timelineItems" style="margin-bottom: 20px;"></div>
+                <button class="btn-secondary" onclick="addTimelineItem()">
+                    <i class="fas fa-plus"></i> Adicionar Marco
+                </button>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 20px;">
+                <i class="fas fa-save"></i> Guardar História
+            </button>
+        </div>
+    </div>
+
+    <!-- Serviços -->
+    <div class="tab-content" id="servicos-tab">
+        <div class="form-card">
+            <h2>Seção Serviços</h2>
+            <div class="services-editor" id="servicesEditor">
+                <h3>Serviços Listados</h3>
+                <div id="servicesList" style="margin-bottom: 20px;"></div>
+                <button class="btn-secondary" onclick="addService()">
+                    <i class="fas fa-plus"></i> Adicionar Serviço
+                </button>
+            </div>
+            <button class="btn-primary" style="margin-top: 20px;">
+                <i class="fas fa-save"></i> Guardar Serviços
+            </button>
+        </div>
+    </div>
+
+    <!-- Missão/Visão -->
+    <div class="tab-content" id="missao-tab">
+        <div class="form-card">
+            <h2>Missão & Visão</h2>
+            <div class="form-group">
+                <label>Missão</label>
+                <textarea id="missao" placeholder="Descrição da missão da empresa" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Visão</label>
+                <textarea id="visao" placeholder="Descrição da visão da empresa" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Valores Principais</label>
+                <textarea id="valores" placeholder="Valores da empresa (separados por vírgula)" rows="3"></textarea>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Missão/Visão
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SEÇÃO GRUPO ==================== -->
+<section class="content-section" id="grupo-section">
+    <div class="section-header">
+        <h1><i class="fas fa-building"></i> Editar Página Grupo</h1>
+    </div>
+
+    <div class="form-card">
+        <h2>Empresas do Grupo</h2>
+        <div id="empresasList" style="margin-bottom: 20px;"></div>
+        <button class="btn-secondary" onclick="addEmpresa()">
+            <i class="fas fa-plus"></i> Adicionar Empresa
+        </button>
+    </div>
+
+    <div class="form-card">
+        <h2>Sobre o Grupo</h2>
+        <div class="form-group">
+            <label>Descrição Geral</label>
+            <textarea id="grupoDesc" placeholder="Descrição do grupo" rows="6"></textarea>
+        </div>
+        <button class="btn-primary">
+            <i class="fas fa-save"></i> Guardar Grupo
+        </button>
+    </div>
+</section>
+
+<!-- ==================== SEÇÃO COMUNIDADE ==================== -->
+<section class="content-section" id="comunidade-page-section">
+    <div class="section-header">
+        <h1><i class="fas fa-users"></i> Editar Página Comunidade</h1>
+    </div>
+
+    <div class="form-card">
+        <h2>Títulos e Descrições</h2>
+        <div class="form-group">
+            <label>Título Principal</label>
+            <input type="text" value="Comunidade SIMJS">
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea placeholder="Descrição da comunidade" rows="4"></textarea>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h2>Vídeos da Comunidade</h2>
+        <div id="videosList" style="margin-bottom: 20px;"></div>
+        <button class="btn-secondary" onclick="addVideo()">
+            <i class="fas fa-plus"></i> Adicionar Vídeo
+        </button>
+    </div>
+
+    <div class="form-card">
+        <h2>Seção de Eventos</h2>
+        <div id="eventosList" style="margin-bottom: 20px;"></div>
+        <button class="btn-secondary" onclick="addEvento()">
+            <i class="fas fa-plus"></i> Adicionar Evento
+        </button>
+    </div>
+
+    <button class="btn-primary">
+        <i class="fas fa-save"></i> Guardar Comunidade
+    </button>
+</section>
+
+<!-- ==================== SEÇÃO DEPOIMENTOS ==================== -->
+<section class="content-section" id="depoimento-page-section">
+    <div class="section-header">
+        <h1><i class="fas fa-quote-left"></i> Editar Página Depoimentos</h1>
+    </div>
+
+    <div class="form-card">
+        <h2>Depoimentos</h2>
+        <div id="depoimentosList" style="margin-bottom: 20px;"></div>
+        <button class="btn-secondary" onclick="addDepoimento()">
+            <i class="fas fa-plus"></i> Adicionar Depoimento
+        </button>
+    </div>
+
+    <div class="form-card">
+        <h2>Vídeos de Depoimentos</h2>
+        <div id="depoimentoVideosList" style="margin-bottom: 20px;"></div>
+        <button class="btn-secondary" onclick="addDepoimentoVideo()">
+            <i class="fas fa-plus"></i> Adicionar Vídeo
+        </button>
+    </div>
+
+    <button class="btn-primary">
+        <i class="fas fa-save"></i> Guardar Depoimentos
+    </button>
+</section>
+
+<!-- ==================== SEÇÃO CONTACTO ==================== -->
+<section class="content-section" id="contacto-page-section">
+    <div class="section-header">
+        <h1><i class="fas fa-phone"></i> Editar Página Contacto</h1>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="contact-info">Informações</button>
+        <button class="tab-btn" data-tab="contact-form">Formulário</button>
+        <button class="tab-btn" data-tab="contact-social">Redes Sociais</button>
+    </div>
+
+    <!-- Informações de Contacto -->
+    <div class="tab-content active" id="contact-info-tab">
+        <div class="form-card">
+            <h2>Informações de Contacto</h2>
+            <div class="form-group">
+                <label>Email Principal</label>
+                <input type="email" value="contato@simjs.com" id="contactEmail">
+            </div>
+            <div class="form-group">
+                <label>Telefone</label>
+                <input type="tel" value="+244 XXX XXX XXX" id="contactPhone">
+            </div>
+            <div class="form-group">
+                <label>Morada</label>
+                <input type="text" placeholder="Rua, nº" id="contactAddress">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Cidade</label>
+                    <input type="text" value="Luanda" id="contactCity">
+                </div>
+                <div class="form-group">
+                    <label>País</label>
+                    <input type="text" value="Angola" id="contactCountry">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="text" placeholder="-8.8383" id="contactLat">
+                </div>
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="text" placeholder="13.2344" id="contactLng">
+                </div>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Contacto
+            </button>
+        </div>
+    </div>
+
+    <!-- Formulário de Contacto -->
+    <div class="tab-content" id="contact-form-tab">
+        <div class="form-card">
+            <h2>Configuração do Formulário</h2>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" checked>
+                    Ativar formulário de contacto
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Título do Formulário</label>
+                <input type="text" value="Entre em Contacto">
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea placeholder="Descrição do formulário" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Mensagem de Sucesso</label>
+                <textarea placeholder="Mensagem após envio" rows="3"></textarea>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Formulário
+            </button>
+        </div>
+    </div>
+
+    <!-- Redes Sociais -->
+    <div class="tab-content" id="contact-social-tab">
+        <div class="form-card">
+            <h2>Links de Redes Sociais</h2>
+            <div class="form-group">
+                <label><i class="fab fa-facebook"></i> Facebook</label>
+                <input type="url" placeholder="https://facebook.com/...">
+            </div>
+            <div class="form-group">
+                <label><i class="fab fa-instagram"></i> Instagram</label>
+                <input type="url" placeholder="https://instagram.com/...">
+            </div>
+            <div class="form-group">
+                <label><i class="fab fa-youtube"></i> YouTube</label>
+                <input type="url" placeholder="https://youtube.com/...">
+            </div>
+            <div class="form-group">
+                <label><i class="fab fa-linkedin"></i> LinkedIn</label>
+                <input type="url" placeholder="https://linkedin.com/...">
+            </div>
+            <div class="form-group">
+                <label><i class="fab fa-twitter"></i> Twitter</label>
+                <input type="url" placeholder="https://twitter.com/...">
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Redes Sociais
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SEÇÃO HEADER/FOOTER ==================== -->
+<section class="content-section" id="header-footer-section">
+    <div class="section-header">
+        <h1><i class="fas fa-window-maximize"></i> Editar Header & Footer</h1>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="header">Header</button>
+        <button class="tab-btn" data-tab="footer">Footer</button>
+        <button class="tab-btn" data-tab="nav-menu">Menu de Navegação</button>
+    </div>
+
+    <!-- Header -->
+    <div class="tab-content active" id="header-tab">
+        <div class="form-card">
+            <h2>Configuração do Header</h2>
+            <div class="form-group">
+                <label>Logo</label>
+                <div class="logo-upload-area">
+                    <img id="headerLogoPreview" src="assets/logo-simjs.png" alt="Logo" style="max-width: 150px; margin-bottom: 15px;">
+                    <input type="file" id="headerLogoInput" accept="image/*">
+                    <button class="btn-secondary">
+                        <i class="fas fa-upload"></i> Upload Logo
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Cor de Fundo do Header</label>
+                <input type="color" value="#0a0202">
+            </div>
+            <div class="form-group">
+                <label>Mostrar Link Admin</label>
+                <select>
+                    <option selected>Não</option>
+                    <option>Sim</option>
+                </select>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Header
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="tab-content" id="footer-tab">
+        <div class="form-card">
+            <h2>Configuração do Footer</h2>
+            <div class="form-group">
+                <label>Texto do Copyright</label>
+                <input type="text" value="© 2024 Grupo SIMJS. Todos os direitos reservados.">
+            </div>
+            <div class="form-group">
+                <label>Descrição Breve</label>
+                <textarea placeholder="Descrição do grupo para o footer" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Link Política de Privacidade</label>
+                <input type="text" placeholder="/politica-privacidade">
+            </div>
+            <div class="form-group">
+                <label>Link Termos de Serviço</label>
+                <input type="text" placeholder="/termos-servico">
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-save"></i> Guardar Footer
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu de Navegação -->
+    <div class="tab-content" id="nav-menu-tab">
+        <div class="form-card">
+            <h2>Menu de Navegação Principal</h2>
+            <div id="navMenuList" style="margin-bottom: 20px;"></div>
+            <button class="btn-secondary" onclick="addNavItem()">
+                <i class="fas fa-plus"></i> Adicionar Item
+            </button>
+            <button class="btn-primary" style="margin-top: 20px;">
+                <i class="fas fa-save"></i> Guardar Menu
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- CSS para Tabs -->
+<style>
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--admin-border);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    color: var(--admin-text-muted);
+    cursor: pointer;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: var(--admin-primary);
+}
+
+.tab-btn.active {
+    color: var(--admin-primary);
+    border-bottom-color: var(--admin-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.timeline-editor,
+.services-editor {
+    margin-bottom: 20px;
+}
+
+.timeline-editor h3,
+.services-editor h3 {
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.timeline-item-editor,
+.service-item-editor {
+    background: rgba(255, 23, 68, 0.05);
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.timeline-item-editor input,
+.service-item-editor input,
+.timeline-item-editor textarea,
+.service-item-editor textarea {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    color: var(--admin-text);
+}
+
+.logo-upload-area {
+    padding: 20px;
+    background: rgba(255, 23, 68, 0.05);
+    border: 2px dashed var(--admin-border);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.logo-upload-area input[type="file"] {
+    margin-bottom: 10px;
+}
+</style>
+
+<!-- JavaScript para Funcionalidades -->
+<script>
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const tabName = e.target.getAttribute('data-tab');
+        
+        // Remove active from all tabs and contents
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        // Add active to clicked tab and corresponding content
+        e.target.classList.add('active');
+        document.getElementById(tabName + '-tab').classList.add('active');
+    });
+});
+
+// Adicionar Item Timeline
+function addTimelineItem() {
+    const container = document.getElementById('timelineItems');
+    const id = Date.now();
+    const html = `
+        <div class="timeline-item-editor" id="timeline-${id}">
+            <input type="text" placeholder="Ano (ex: 2020)" class="year-input">
+            <textarea placeholder="Descrição" style="min-height: 60px;"></textarea>
+            <button class="btn-sm-danger" onclick="document.getElementById('timeline-${id}').remove()">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+// Adicionar Serviço
+function addService() {
+    const container = document.getElementById('servicesList');
+    const id = Date.now();
+    const html = `
+        <div class="service-item-editor" id="service-${id}">
+            <input type="text" placeholder="Nome do Serviço">
+            <textarea placeholder="Descrição" style="min-height: 60px;"></textarea>
+            <button class="btn-sm-danger" onclick="document.getElementById('service-${id}').remove()">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+// Adicionar Empresa
+function addEmpresa() {
+    alert('Abrir formulário para adicionar empresa');
+}
+
+// Adicionar Vídeo
+function addVideo() {
+    alert('Abrir formulário para adicionar vídeo');
+}
+
+// Adicionar Evento
+function addEvento() {
+    alert('Abrir formulário para adicionar evento');
+}
+
+// Adicionar Depoimento
+function addDepoimento() {
+    alert('Abrir formulário para adicionar depoimento');
+}
+
+// Adicionar Vídeo Depoimento
+function addDepoimentoVideo() {
+    alert('Abrir formulário para adicionar vídeo de depoimento');
+}
+
+// Adicionar Item de Menu
+function addNavItem() {
+    alert('Abrir formulário para adicionar item de menu');
+}
+</script>
