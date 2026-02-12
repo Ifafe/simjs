@@ -1,54 +1,161 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
-interface NavItem {
-      name: string;
-      href: string;
-      icon: string;
+interface DashboardSidebarProps {
+      mobileOpen?: boolean;
 }
 
-interface NavSection {
-      title: string;
-      items: NavItem[];
-}
-
-const DashboardSidebar = () => {
+const DashboardSidebar = ({ mobileOpen = false }: DashboardSidebarProps) => {
       const { data: session } = useSession();
       const pathname = usePathname();
-      const [role, setRole] = useState<string>("VISITOR");
+      // @ts-ignore
+      const role = session?.user?.role || "VISITOR";
 
-      useEffect(() => {
-            // @ts-ignore
-            if (session?.user?.role) {
-                  // @ts-ignore
-                  setRole(session.user.role);
-            }
-      }, [session]);
+      // Helper to check if link is active
+      const isActive = (path: string) => pathname === path || pathname?.startsWith(`${path}/`);
 
-      const getNavSections = (): NavSection[] => {
+      // Render Admin Sidebar (Template Style)
+      if (role === "ADMIN") {
+            return (
+                  <aside className={`admin-sidebar ${mobileOpen ? 'active' : ''}`} id="adminSidebar">
+                        <div className="sidebar-header">
+                              <div className="logo">
+                                    <i className="fas fa-cubes"></i>
+                                    <span>SIMJS</span>
+                              </div>
+                        </div>
+
+                        <nav className="sidebar-nav">
+                              <ul className="nav-menu">
+                                    <li className="nav-item">
+                                          <Link href="/admin" className={`nav-link ${pathname === "/admin" ? "active" : ""}`}>
+                                                <i className="fas fa-th-large"></i>
+                                                <span>Dashboard</span>
+                                          </Link>
+                                    </li>
+
+                                    {/* CONTEÚDO */}
+                                    <li className="nav-section-title">CONTEÚDO</li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/pages" className={`nav-link ${isActive("/admin/pages") ? "active" : ""}`}>
+                                                <i className="fas fa-file-alt"></i>
+                                                <span>Páginas</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/posts" className={`nav-link ${isActive("/admin/posts") ? "active" : ""}`}>
+                                                <i className="fas fa-newspaper"></i>
+                                                <span>Posts</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/sections" className={`nav-link ${isActive("/admin/sections") ? "active" : ""}`}>
+                                                <i className="fas fa-th"></i>
+                                                <span>Seções</span>
+                                          </Link>
+                                    </li>
+
+                                    {/* MÍDIA */}
+                                    <li className="nav-section-title">MÍDIA</li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/media" className={`nav-link ${isActive("/admin/media") ? "active" : ""}`}>
+                                                <i className="fas fa-images"></i>
+                                                <span>Arquivos</span>
+                                          </Link>
+                                    </li>
+
+                                    {/* PERSONALIZAÇÃO */}
+                                    <li className="nav-section-title">PERSONALIZAÇÃO</li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/menus" className={`nav-link ${isActive("/admin/menus") ? "active" : ""}`}>
+                                                <i className="fas fa-bars"></i>
+                                                <span>Menus</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/theme" className={`nav-link ${isActive("/admin/theme") ? "active" : ""}`}>
+                                                <i className="fas fa-paint-brush"></i>
+                                                <span>Tema & Cores</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/banners" className={`nav-link ${isActive("/admin/banners") ? "active" : ""}`}>
+                                                <i className="fas fa-image"></i>
+                                                <span>Banners</span>
+                                          </Link>
+                                    </li>
+
+                                    {/* CONFIGURAÇÕES */}
+                                    <li className="nav-section-title">CONFIGURAÇÕES</li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/settings" className={`nav-link ${isActive("/admin/settings") ? "active" : ""}`}>
+                                                <i className="fas fa-cog"></i>
+                                                <span>Gerais</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/seo" className={`nav-link ${isActive("/admin/seo") ? "active" : ""}`}>
+                                                <i className="fas fa-search"></i>
+                                                <span>SEO</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/contact" className={`nav-link ${isActive("/admin/contact") ? "active" : ""}`}>
+                                                <i className="fas fa-envelope"></i>
+                                                <span>Contato</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/language" className={`nav-link ${isActive("/admin/language") ? "active" : ""}`}>
+                                                <i className="fas fa-globe"></i>
+                                                <span>Idioma</span>
+                                          </Link>
+                                    </li>
+
+                                    {/* SISTEMA */}
+                                    <li className="nav-section-title">SISTEMA</li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/users" className={`nav-link ${isActive("/admin/users") ? "active" : ""}`}>
+                                                <i className="fas fa-users"></i>
+                                                <span>Utilizadores</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/partners" className={`nav-link ${isActive("/admin/partners") ? "active" : ""}`}>
+                                                <i className="fas fa-handshake"></i>
+                                                <span>Parceiros</span>
+                                          </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                          <Link href="/admin/jobs" className={`nav-link ${isActive("/admin/jobs") ? "active" : ""}`}>
+                                                <i className="fas fa-briefcase"></i>
+                                                <span>Vagas</span>
+                                          </Link>
+                                    </li>
+                              </ul>
+                        </nav>
+
+                        <div className="sidebar-footer">
+                              <button className="btn-logout" onClick={() => signOut({ callbackUrl: "/login" })}>
+                                    <i className="fas fa-sign-out-alt"></i> Sair
+                              </button>
+                        </div>
+                  </aside>
+            );
+      }
+
+      // Render Other Roles (Partner, Job Seeker, Visitor) - Keep existing logic or simplify
+      // For now, I will keep a simplified version for non-admins to avoid breaking their layouts,
+      // but adapted to the new sidebar structure if possible, or fallback.
+      // Since the prompt specifically asked for "minha tela do admin", I will prioritize that.
+      // However, to avoid runtime errors for other roles, I'll render a compatible sidebar.
+
+      const getNavSections = () => {
             switch (role) {
-                  case "ADMIN":
-                        return [
-                              {
-                                    title: "GESTÃO",
-                                    items: [
-                                          { name: "Global Admin", href: "/admin", icon: "fas fa-shield-alt" },
-                                          { name: "Utilizadores", href: "/admin/users", icon: "fas fa-users-cog" },
-                                          { name: "Conteúdo Site", href: "/admin/cms", icon: "fas fa-edit" },
-                                    ],
-                              },
-                              {
-                                    title: "OPERAÇÕES",
-                                    items: [
-                                          { name: "Parceiros", href: "/admin/partners", icon: "fas fa-handshake" },
-                                          { name: "Vagas Emprego", href: "/admin/jobs", icon: "fas fa-briefcase" },
-                                    ],
-                              },
-                        ];
                   case "PARTNER":
                         return [
                               {
@@ -103,24 +210,29 @@ const DashboardSidebar = () => {
       const sections = getNavSections();
 
       return (
-            <aside className="admin-sidebar" style={{ width: '250px', minWidth: '250px', height: '100vh', position: 'sticky', top: 0 }}>
+            <aside className="admin-sidebar" id="adminSidebar">
                   <div className="sidebar-header">
                         <div className="sidebar-logo">
                               <img src="/assets/logo-simjs.png" alt="SIMJS" style={{ height: '42px' }} />
                         </div>
                   </div>
 
-                  <nav className="sidebar-nav" style={{ marginLeft: '3%' }}>
+                  <nav className="sidebar-nav">
                         <ul className="nav-menu">
+                              <li className="nav-item">
+                                    <Link href="/" className="nav-link">
+                                          <i className="fas fa-arrow-left"></i>
+                                          <span>Voltar ao Site</span>
+                                    </Link>
+                              </li>
                               {sections.map((section, idx) => (
                                     <React.Fragment key={idx}>
-                                          <li className="nav-section-title" style={{ marginTop: idx === 0 ? '0' : '20px' }}>{section.title}</li>
+                                          <li className="nav-section-title">{section.title}</li>
                                           {section.items.map(item => (
                                                 <li key={item.href} className="nav-item">
                                                       <Link
                                                             href={item.href}
-                                                            className={`nav-link ${pathname === item.href ? "active" : ""}`}
-                                                            style={{ marginRight: '7%' }}
+                                                            className={`nav-link ${isActive(item.href) ? "active" : ""}`}
                                                       >
                                                             <i className={item.icon}></i>
                                                             <span>{item.name}</span>
@@ -133,10 +245,7 @@ const DashboardSidebar = () => {
                   </nav>
 
                   <div className="sidebar-footer">
-                        <button
-                              className="btn-logout"
-                              onClick={() => import("next-auth/react").then(({ signOut }) => signOut({ callbackUrl: "/login" }))}
-                        >
+                        <button className="btn-logout" onClick={() => signOut({ callbackUrl: "/login" })}>
                               <i className="fas fa-sign-out-alt"></i> Sair
                         </button>
                   </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function DashboardLayout({
       children,
@@ -11,69 +11,70 @@ export default function DashboardLayout({
       children: React.ReactNode;
 }) {
       const { data: session } = useSession();
-      const [userName, setUserName] = useState("Utilizador");
+      const userName = session?.user?.name || "Utilizador";
+      const userImage = session?.user?.image || null;
 
+      const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+      const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+
+      const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+      const toggleUserDropdown = () => setIsUserDropdownOpen(!isUserDropdownOpen);
+
+      // Close dropdown when clicking outside
       useEffect(() => {
-            if (session?.user?.name) {
-                  setUserName(session.user.name);
-            }
-      }, [session]);
+            const handleClickOutside = (event: MouseEvent) => {
+                  const target = event.target as HTMLElement;
+                  if (!target.closest('.user-section')) {
+                        setIsUserDropdownOpen(false);
+                  }
+            };
+
+            document.addEventListener('click', handleClickOutside);
+            return () => document.removeEventListener('click', handleClickOutside);
+      }, []);
 
       return (
-            <div className="admin-body" style={{ display: 'flex', background: 'var(--bg-deep)', minHeight: '100vh', marginLeft: '0' }}>
-                  <DashboardSidebar />
+            <div className="admin-body">
+                  <DashboardSidebar mobileOpen={isSidebarOpen} />
 
-                  <div className="admin-main" style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 0, marginLeft: 0 }}>
-                        {/* Topbar */}
-                        <div className="admin-topbar" style={{
-                              height: '70px',
-                              background: 'rgba(10, 5, 5, 0.8)',
-                              backdropFilter: 'blur(10px)',
-                              borderBottom: '1px solid var(--border)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              padding: '0 30px',
-                              position: 'sticky',
-                              top: 0,
-                              zIndex: 100
-                        }}>
+                  {/* MAIN AREA */}
+                  <div className={`admin-main ${isSidebarOpen ? 'active' : ''}`}>
+                        {/* TOPBAR */}
+                        <div className="admin-topbar">
                               <div className="topbar-left">
-                                    <h2 style={{ fontSize: '1.2rem', margin: 0, color: 'var(--text-primary)' }}>Bem-vindo, {userName}</h2>
+                                    <button className="menu-toggle" id="menuToggle" onClick={toggleSidebar}>
+                                          <i className="fas fa-bars"></i>
+                                    </button>
+                                    <div className="breadcrumb" id="breadcrumb">
+                                          <span className="breadcrumb-item">Dashboard</span>
+                                    </div>
                               </div>
 
-                              <div className="topbar-right" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                                    <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}>
-                                          <i className="fas fa-bell"></i>
-                                    </button>
-                                    <Link href="/admin/profile" style={{
-                                          width: '40px',
-                                          height: '40px',
-                                          borderRadius: '50%',
-                                          background: 'var(--gradient-red)',
-                                          display: 'flex',
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          color: 'white',
-                                          fontWeight: 700,
-                                          overflow: 'hidden',
-                                          textDecoration: 'none'
-                                    }}>
-                                          {session?.user?.image ? (
-                                                <img
-                                                      src={session.user.image}
-                                                      alt={userName}
-                                                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                                />
-                                          ) : (
-                                                userName.charAt(0)
-                                          )}
-                                    </Link>
+                              <div className="topbar-right">
+                                    <div className="user-section">
+                                          <span className="user-name" id="userName">{userName}</span>
+                                          <button className="user-btn" id="userBtn" onClick={toggleUserDropdown}>
+                                                {userImage ? (
+                                                      <img src={userImage} alt={userName} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                                                ) : (
+                                                      <i className="fas fa-user-circle"></i>
+                                                )}
+                                          </button>
+
+                                          <div className={`user-dropdown ${isUserDropdownOpen ? 'show' : ''}`} id="userDropdown">
+                                                <Link href="/admin/profile" className="dropdown-item">
+                                                      <i className="fas fa-user"></i> Perfil
+                                                </Link>
+                                                <button className="dropdown-item" onClick={() => signOut({ callbackUrl: "/login" })}>
+                                                      <i className="fas fa-sign-out-alt"></i> Sair
+                                                </button>
+                                          </div>
+                                    </div>
                               </div>
                         </div>
 
-                        {/* Content */}
-                        <main className="admin-content" style={{ padding: '30px', flex: 1, overflowY: 'auto' }}>
+                        {/* CONTENT */}
+                        <main className="admin-content">
                               {children}
                         </main>
                   </div>
