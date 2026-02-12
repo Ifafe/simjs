@@ -20,7 +20,22 @@ async function main() {
                   password: 'admin'
             },
       });
-      console.log(`👤 Admin user upserted: ${adminUser.email}`);
+      console.log(`👤 Default Admin user upserted: ${adminUser.email}`);
+
+      // 1.1 Create/Update User Admin (Domingos)
+      const userEmail = 'domingosifafe@gmail.com';
+      const userAdmin = await prisma.user.upsert({
+            where: { email: userEmail },
+            update: { role: 'ADMIN' },
+            create: {
+                  email: userEmail,
+                  name: 'Domingos Ifafe',
+                  role: 'ADMIN',
+                  image: 'https://ui-avatars.com/api/?name=Domingos+Ifafe&background=random',
+                  password: 'admin' // Default password - user should change it
+            },
+      });
+      console.log(`👤 User Admin upserted: ${userAdmin.email}`);
 
       // 2. Create/Update Hero Section
       const hero = await prisma.heroSection.upsert({
