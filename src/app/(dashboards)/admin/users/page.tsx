@@ -16,7 +16,9 @@ interface User {
 }
 
 const AdminUsersPage = () => {
-      const { data: session } = useSession();
+      // session is unused, removing destructuring but keeping hook if needed for auth check implicitly, or remove if middleware handles it. 
+      // strictly speaking, we can remove it if not used.
+      useSession();
       const [users, setUsers] = useState<User[]>([]);
       const [loading, setLoading] = useState(true);
       const [selectedRole, setSelectedRole] = useState<string>("ALL");
@@ -55,7 +57,7 @@ const AdminUsersPage = () => {
                   } else {
                         alert("Erro ao atualizar role.");
                   }
-            } catch (error) {
+            } catch {
                   alert("Erro de conexão.");
             }
       };
@@ -64,97 +66,114 @@ const AdminUsersPage = () => {
             ? users
             : users.filter(u => u.role === selectedRole);
 
-      const getRoleBadgeColor = (role: string) => {
+      // Inline styles for badges if classes are missing in template css or we want to be safe
+      const getRoleStyle = (role: string) => {
             switch (role) {
-                  case 'ADMIN': return '#ef4444';
-                  case 'PARTNER': return '#3b82f6';
-                  case 'JOB_SEEKER': return '#10b981';
-                  default: return '#6b7280';
+                  case 'ADMIN': return { background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' };
+                  case 'PARTNER': return { background: 'rgba(59, 130, 246, 0.2)', color: '#3b82f6' };
+                  case 'JOB_SEEKER': return { background: 'rgba(16, 185, 129, 0.2)', color: '#10b981' };
+                  default: return { background: 'rgba(107, 114, 128, 0.2)', color: '#9ca3af' };
             }
       };
 
-      if (loading) return <div style={{ color: 'white' }}>Carregando utilizadores...</div>;
+      if (loading) return <div style={{ padding: '30px', color: 'var(--text-primary)' }}>Carregando utilizadores...</div>;
 
       return (
-            <div>
-                  <h1 style={{ color: 'var(--text-primary)', marginBottom: '20px' }}>Gestão de Utilizadores</h1>
-
-                  <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
-                        {['ALL', 'VISITOR', 'JOB_SEEKER', 'PARTNER', 'ADMIN'].map(role => (
-                              <button
-                                    key={role}
-                                    onClick={() => setSelectedRole(role)}
-                                    style={{
-                                          padding: '8px 16px',
-                                          borderRadius: '8px',
-                                          border: 'none',
-                                          background: selectedRole === role ? 'var(--primary)' : 'rgba(255,255,255,0.1)',
-                                          color: 'white',
-                                          cursor: 'pointer'
-                                    }}
-                              >
-                                    {role === 'ALL' ? 'Todos' : role}
-                              </button>
-                        ))}
+            <div className="content-section active">
+                  <div className="section-header">
+                        <div>
+                              <h1>Utilizadores</h1>
+                              <p>Gerenciar utilizadores do painel</p>
+                        </div>
+                        {/* Filter Buttons converted to a simple button group or kept as is but styled */}
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                              {['ALL', 'VISITOR', 'JOB_SEEKER', 'PARTNER', 'ADMIN'].map(role => (
+                                    <button
+                                          key={role}
+                                          onClick={() => setSelectedRole(role)}
+                                          className={`btn-secondary ${selectedRole === role ? 'active' : ''}`}
+                                          style={{
+                                                opacity: selectedRole === role ? 1 : 0.7,
+                                                border: selectedRole === role ? '1px solid var(--primary)' : '1px solid transparent'
+                                          }}
+                                    >
+                                          {role === 'ALL' ? 'Todos' : role}
+                                    </button>
+                              ))}
+                        </div>
                   </div>
 
-                  <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '16px', overflow: 'hidden' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-primary)' }}>
+                  <div className="content-table-wrapper">
+                        <table className="content-table">
                               <thead>
-                                    <tr style={{ background: 'rgba(0,0,0,0.2)', textAlign: 'left' }}>
-                                          <th style={{ padding: '16px' }}>Nome</th>
-                                          <th style={{ padding: '16px' }}>Email</th>
-                                          <th style={{ padding: '16px' }}>Role Atual</th>
-                                          <th style={{ padding: '16px' }}>Status Parceiro</th>
-                                          <th style={{ padding: '16px' }}>Ações</th>
+                                    <tr>
+                                          <th>Nome</th>
+                                          <th>Email</th>
+                                          <th>Role Atual</th>
+                                          <th>Status Parceiro</th>
+                                          <th>Ações</th>
                                     </tr>
                               </thead>
                               <tbody>
-                                    {filteredUsers.map((user) => (
-                                          <tr key={user.id} style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                                                <td style={{ padding: '16px' }}>{user.name}</td>
-                                                <td style={{ padding: '16px' }}>{user.email}</td>
-                                                <td style={{ padding: '16px' }}>
-                                                      <span style={{
-                                                            background: getRoleBadgeColor(user.role),
-                                                            padding: '4px 8px',
-                                                            borderRadius: '4px',
-                                                            fontSize: '0.8rem',
-                                                            fontWeight: 'bold'
-                                                      }}>
-                                                            {user.role}
-                                                      </span>
-                                                </td>
-                                                <td style={{ padding: '16px' }}>
-                                                      {user.partnerProfile ? (
-                                                            <span style={{
-                                                                  color: user.partnerProfile.status === 'PENDING' ? '#f59e0b' : '#10b981'
-                                                            }}>
-                                                                  {user.partnerProfile.status} ({user.partnerProfile.companyName})
-                                                            </span>
-                                                      ) : '-'}
-                                                </td>
-                                                <td style={{ padding: '16px' }}>
-                                                      <select
-                                                            value=""
-                                                            onChange={(e) => updateUserRole(user.id, e.target.value)}
-                                                            style={{
-                                                                  background: 'rgba(0,0,0,0.3)',
-                                                                  border: '1px solid rgba(255,255,255,0.1)',
-                                                                  color: 'white',
-                                                                  padding: '6px',
-                                                                  borderRadius: '6px'
-                                                            }}
-                                                      >
-                                                            <option value="" disabled>Mudar Role...</option>
-                                                            <option value="VISITOR">Visitor</option>
-                                                            <option value="JOB_SEEKER">Job Seeker</option>
-                                                            <option value="PARTNER">Partner (Aprovar)</option>
-                                                            <option value="ADMIN">Admin</option>
-                                                      </select>
-                                                </td>
+                                    {filteredUsers.length === 0 ? (
+                                          <tr className="empty-row">
+                                                <td colSpan={5}>Nenhum utilizador encontrado</td>
                                           </tr>
-                                    ))}
+                                    ) : (
+                                          filteredUsers.map((user) => (
+                                                <tr key={user.id}>
+                                                      <td>
+                                                            <div style={{ fontWeight: 600 }}>{user.name}</div>
+                                                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>ID: {user.id.substring(0, 8)}...</div>
+                                                      </td>
+                                                      <td>{user.email}</td>
+                                                      <td>
+                                                            <span style={{
+                                                                  padding: '4px 8px',
+                                                                  borderRadius: '4px',
+                                                                  fontSize: '0.75rem',
+                                                                  fontWeight: 700,
+                                                                  ...getRoleStyle(user.role)
+                                                            }}>
+                                                                  {user.role}
+                                                            </span>
+                                                      </td>
+                                                      <td>
+                                                            {user.partnerProfile ? (
+                                                                  <span style={{
+                                                                        color: user.partnerProfile.status === 'PENDING' ? '#f59e0b' : '#10b981',
+                                                                        fontWeight: 500
+                                                                  }}>
+                                                                        {user.partnerProfile.status}
+                                                                        <br />
+                                                                        <small style={{ color: 'var(--text-muted)' }}>{user.partnerProfile.companyName}</small>
+                                                                  </span>
+                                                            ) : '-'}
+                                                      </td>
+                                                      <td>
+                                                            <select
+                                                                  value=""
+                                                                  onChange={(e) => updateUserRole(user.id, e.target.value)}
+                                                                  style={{
+                                                                        background: 'var(--bg-card)',
+                                                                        border: '1px solid var(--border)',
+                                                                        color: 'var(--text-primary)',
+                                                                        padding: '6px 12px',
+                                                                        borderRadius: '6px',
+                                                                        cursor: 'pointer',
+                                                                        outline: 'none'
+                                                                  }}
+                                                            >
+                                                                  <option value="" disabled>Mudar Role...</option>
+                                                                  <option value="VISITOR">Visitor</option>
+                                                                  <option value="JOB_SEEKER">Job Seeker</option>
+                                                                  <option value="PARTNER">Partner (Aprovar)</option>
+                                                                  <option value="ADMIN">Admin</option>
+                                                            </select>
+                                                      </td>
+                                                </tr>
+                                          ))
+                                    )}
                               </tbody>
                         </table>
                   </div>

@@ -29,7 +29,7 @@ export default function AdminCMSPage() {
                         setHero(data);
                   }
             } catch (error) {
-                  console.error("Error fetching hero");
+                  console.error("Error fetching hero", error);
             } finally {
                   setLoading(false);
             }
@@ -53,121 +53,111 @@ export default function AdminCMSPage() {
                   }
             } catch (error) {
                   setMessage("Erro de conexão.");
+                  console.error(error);
             }
       };
 
-      if (loading) return <div style={{ padding: "30px", color: "white" }}>Carregando CMS...</div>;
+      if (loading) return <div style={{ padding: "30px", color: "var(--text-primary)" }}>Carregando CMS...</div>;
 
       return (
-            <div style={{ padding: "30px", color: "white" }}>
-                  <h1 style={{ fontSize: "2rem", marginBottom: "30px" }}>Gestão de Conteúdo (CMS)</h1>
+            <div className="content-section active">
+                  <div className="section-header">
+                        <div>
+                              <h1>Gestão de Conteúdo (CMS)</h1>
+                              <p>Gerenciar conteúdo do site público</p>
+                        </div>
+                  </div>
 
                   {/* Tabs */}
-                  <div style={{ display: "flex", gap: "20px", marginBottom: "30px", borderBottom: "1px solid #333", paddingBottom: "10px" }}>
+                  <div style={{ display: "flex", gap: "10px", marginBottom: "20px", borderBottom: "1px solid var(--border)", paddingBottom: "10px" }}>
                         <button
                               onClick={() => setActiveTab("HERO")}
+                              className={`btn-secondary ${activeTab === "HERO" ? "active" : ""}`}
                               style={{
-                                    background: "none",
-                                    border: "none",
-                                    color: activeTab === "HERO" ? "var(--primary)" : "#aaa",
-                                    fontWeight: "bold",
-                                    cursor: "pointer",
-                                    paddingBottom: "10px",
-                                    borderBottom: activeTab === "HERO" ? "2px solid var(--primary)" : "none"
+                                    background: activeTab === "HERO" ? 'var(--primary)' : 'transparent',
+                                    color: activeTab === "HERO" ? 'white' : 'var(--text-muted)',
+                                    borderColor: activeTab === "HERO" ? 'var(--primary)' : 'transparent'
                               }}
                         >
                               Hero Section
                         </button>
                         <button
                               disabled
-                              style={{
-                                    background: "none",
-                                    border: "none",
-                                    color: "#555",
-                                    cursor: "not-allowed"
-                              }}
+                              className="btn-secondary"
+                              style={{ opacity: 0.5, cursor: "not-allowed" }}
                         >
                               Sobre (Em breve)
                         </button>
                         <button
                               disabled
-                              style={{
-                                    background: "none",
-                                    border: "none",
-                                    color: "#555",
-                                    cursor: "not-allowed"
-                              }}
+                              className="btn-secondary"
+                              style={{ opacity: 0.5, cursor: "not-allowed" }}
                         >
                               Contactos (Em breve)
                         </button>
                   </div>
 
                   {/* Content Area */}
-                  <div style={{ background: "var(--bg-card)", padding: "30px", borderRadius: "12px", border: "1px solid var(--border)" }}>
+                  <div className="admin-card" style={{ padding: "30px" }}>
 
                         {activeTab === "HERO" && (
-                              <form onSubmit={handleSaveHero} style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "600px" }}>
-                                    <h3 style={{ marginTop: 0 }}>Editar Hero (Página Inicial)</h3>
+                              <form onSubmit={handleSaveHero} style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "800px" }}>
+                                    <h3 style={{ marginTop: 0, color: 'var(--text-primary)' }}>Editar Hero (Página Inicial)</h3>
 
-                                    <div>
-                                          <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Destaque (Texto Colorido)</label>
+                                    <div className="form-group">
+                                          <label>Destaque (Texto Colorido)</label>
                                           <input
                                                 type="text"
                                                 value={hero.highlight}
                                                 onChange={e => setHero({ ...hero, highlight: e.target.value })}
-                                                style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#222", color: "white" }}
+                                                className="form-control"
                                           />
                                     </div>
 
-                                    <div>
-                                          <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Título Principal</label>
+                                    <div className="form-group">
+                                          <label>Título Principal</label>
                                           <input
                                                 type="text"
                                                 value={hero.title}
                                                 onChange={e => setHero({ ...hero, title: e.target.value })}
-                                                style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#222", color: "white" }}
+                                                className="form-control"
                                           />
                                     </div>
 
-                                    <div>
-                                          <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Subtítulo</label>
+                                    <div className="form-group">
+                                          <label>Subtítulo</label>
                                           <textarea
                                                 rows={3}
                                                 value={hero.subtitle}
                                                 onChange={e => setHero({ ...hero, subtitle: e.target.value })}
-                                                style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#222", color: "white", resize: "vertical" }}
+                                                className="form-control"
+                                                style={{ resize: "vertical" }}
                                           />
                                     </div>
 
                                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                                          <div>
-                                                <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Texto Botão</label>
+                                          <div className="form-group">
+                                                <label>Texto Botão</label>
                                                 <input
                                                       type="text"
                                                       value={hero.ctaText}
                                                       onChange={e => setHero({ ...hero, ctaText: e.target.value })}
-                                                      style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#222", color: "white" }}
+                                                      className="form-control"
                                                 />
                                           </div>
-                                          <div>
-                                                <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Link Botão</label>
+                                          <div className="form-group">
+                                                <label>Link Botão</label>
                                                 <input
                                                       type="text"
                                                       value={hero.ctaLink}
                                                       onChange={e => setHero({ ...hero, ctaLink: e.target.value })}
-                                                      style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#222", color: "white" }}
+                                                      className="form-control"
                                                 />
                                           </div>
                                     </div>
 
                                     {message && (
-                                          <div style={{
-                                                padding: "10px",
-                                                borderRadius: "8px",
-                                                background: message.includes("sucesso") ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                                                color: message.includes("sucesso") ? "#10b981" : "#ef4444",
-                                                textAlign: "center"
-                                          }}>
+                                          <div className={`status-badge ${message.includes("sucesso") ? "status-published" : "status-archived"}`} style={{ display: 'block', textAlign: 'center', padding: '10px' }}>
                                                 {message}
                                           </div>
                                     )}
@@ -175,13 +165,12 @@ export default function AdminCMSPage() {
                                     <button
                                           type="submit"
                                           className="btn-primary"
-                                          style={{ padding: "12px", borderRadius: "8px", border: "none", background: "var(--primary)", color: "white", fontWeight: "bold", cursor: "pointer" }}
+                                          style={{ alignSelf: 'flex-start' }}
                                     >
                                           Salvar Alterações
                                     </button>
                               </form>
                         )}
-
                   </div>
             </div>
       );

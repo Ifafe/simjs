@@ -37,7 +37,7 @@ export default function AdminJobsPage() {
                         setJobs(data);
                   }
             } catch (error) {
-                  console.error("Failed to fetch jobs");
+                  console.error("Failed to fetch jobs", error);
             } finally {
                   setLoading(false);
             }
@@ -67,6 +67,7 @@ export default function AdminJobsPage() {
                   }
             } catch (error) {
                   alert("Erro ao salvar vaga");
+                  console.error(error);
             }
       };
 
@@ -89,6 +90,7 @@ export default function AdminJobsPage() {
                   if (res.ok) fetchJobs();
             } catch (error) {
                   alert("Erro ao eliminar");
+                  console.error(error);
             }
       };
 
@@ -102,15 +104,19 @@ export default function AdminJobsPage() {
                   if (res.ok) fetchJobs();
             } catch (error) {
                   alert("Erro ao alterar status");
+                  console.error(error);
             }
       };
 
-      if (loading) return <div style={{ color: "white", padding: "20px" }}>Carregando vagas...</div>;
+      if (loading) return <div style={{ padding: "30px", color: "var(--text-primary)" }}>Carregando vagas...</div>;
 
       return (
-            <div style={{ padding: "30px", color: "white" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "30px" }}>
-                        <h1 style={{ fontSize: "2rem", margin: 0 }}>Gestão de Vagas</h1>
+            <div className="content-section active">
+                  <div className="section-header">
+                        <div>
+                              <h1>Gestão de Vagas</h1>
+                              <p>Gerenciar oportunidades de emprego</p>
+                        </div>
                         <button
                               onClick={() => {
                                     setEditingId(null);
@@ -118,67 +124,56 @@ export default function AdminJobsPage() {
                                     setShowModal(true);
                               }}
                               className="btn-primary"
-                              style={{ background: "var(--primary)", padding: "10px 20px", borderRadius: "8px", border: "none", color: "white", cursor: "pointer" }}
                         >
-                              <i className="fas fa-plus" style={{ marginRight: "8px" }}></i> Nova Vaga
+                              <i className="fas fa-plus"></i> Nova Vaga
                         </button>
                   </div>
 
-                  <div style={{ background: "var(--bg-card, #1a1a1a)", borderRadius: "12px", border: "1px solid var(--border, #333)", overflow: "hidden" }}>
-                        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <div className="content-table-wrapper">
+                        <table className="content-table">
                               <thead>
-                                    <tr style={{ background: "rgba(255,255,255,0.05)", textAlign: "left" }}>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Título</th>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Local</th>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Tipo</th>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Candidaturas</th>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Status</th>
-                                          <th style={{ padding: "15px", fontWeight: "600", color: "#aaa" }}>Ações</th>
+                                    <tr>
+                                          <th>Título</th>
+                                          <th>Local</th>
+                                          <th>Tipo</th>
+                                          <th>Candidaturas</th>
+                                          <th>Status</th>
+                                          <th>Ações</th>
                                     </tr>
                               </thead>
                               <tbody>
                                     {jobs.length === 0 ? (
-                                          <tr>
-                                                <td colSpan={6} style={{ padding: "30px", textAlign: "center", color: "#666" }}>
-                                                      Nenhuma vaga publicada.
-                                                </td>
+                                          <tr className="empty-row">
+                                                <td colSpan={6}>Nenhuma vaga publicada.</td>
                                           </tr>
                                     ) : (
                                           jobs.map(job => (
-                                                <tr key={job.id} style={{ borderBottom: "1px solid #333" }}>
-                                                      <td style={{ padding: "15px", fontWeight: "bold" }}>{job.title}</td>
-                                                      <td style={{ padding: "15px" }}>{job.location}</td>
-                                                      <td style={{ padding: "15px" }}>
-                                                            <span style={{ background: "rgba(255,255,255,0.1)", padding: "4px 8px", borderRadius: "4px", fontSize: "0.85rem" }}>
+                                                <tr key={job.id}>
+                                                      <td style={{ fontWeight: 600 }}>{job.title}</td>
+                                                      <td>{job.location}</td>
+                                                      <td>
+                                                            <span style={{ background: "var(--bg-hover)", padding: "4px 8px", borderRadius: "4px", fontSize: "0.85rem" }}>
                                                                   {job.type}
                                                             </span>
                                                       </td>
-                                                      <td style={{ padding: "15px", textAlign: "center" }}>
-                                                            <span style={{ fontWeight: "bold", fontSize: "1.1rem" }}>{job._count?.applications || 0}</span>
+                                                      <td style={{ textAlign: "center", fontWeight: "bold", fontSize: "1.1rem" }}>
+                                                            {job._count?.applications || 0}
                                                       </td>
-                                                      <td style={{ padding: "15px" }}>
+                                                      <td>
                                                             <button
                                                                   onClick={() => toggleActive(job.id, job.active)}
-                                                                  style={{
-                                                                        padding: "4px 10px",
-                                                                        borderRadius: "20px",
-                                                                        fontSize: "0.75rem",
-                                                                        fontWeight: "bold",
-                                                                        background: job.active ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.2)",
-                                                                        color: job.active ? "#10b981" : "#ef4444",
-                                                                        border: "none",
-                                                                        cursor: "pointer"
-                                                                  }}
+                                                                  className={`status-badge ${job.active ? 'status-published' : 'status-archived'}`}
+                                                                  style={{ border: 'none', cursor: 'pointer' }}
                                                             >
                                                                   {job.active ? 'ATIVA' : 'INATIVA'}
                                                             </button>
                                                       </td>
-                                                      <td style={{ padding: "15px" }}>
-                                                            <div style={{ display: "flex", gap: "10px" }}>
-                                                                  <button onClick={() => handleEdit(job)} style={{ color: "#aaa", background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }} title="Editar">
+                                                      <td>
+                                                            <div className="action-buttons">
+                                                                  <button onClick={() => handleEdit(job)} className="btn-icon" title="Editar">
                                                                         <i className="fas fa-edit"></i>
                                                                   </button>
-                                                                  <button onClick={() => handleDelete(job.id)} style={{ color: "#ef4444", background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }} title="Eliminar">
+                                                                  <button onClick={() => handleDelete(job.id)} className="btn-icon delete" title="Eliminar">
                                                                         <i className="fas fa-trash"></i>
                                                                   </button>
                                                             </div>
@@ -190,93 +185,86 @@ export default function AdminJobsPage() {
                         </table>
                   </div>
 
+                  {/* Modal */}
                   {showModal && (
-                        <div style={{
-                              position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-                              background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000
-                        }}>
-                              <div style={{
-                                    background: "#1e1e1e", padding: "30px", borderRadius: "12px", width: "500px", maxWidth: "90%",
-                                    border: "1px solid #333", position: "relative"
-                              }}>
-                                    <h2 style={{ marginTop: 0, marginBottom: "20px" }}>{editingId ? "Editar Vaga" : "Nova Vaga"}</h2>
-                                    <button
-                                          onClick={() => setShowModal(false)}
-                                          style={{ position: "absolute", top: "20px", right: "20px", background: "none", border: "none", color: "#aaa", fontSize: "1.2rem", cursor: "pointer" }}
-                                    >
-                                          <i className="fas fa-times"></i>
-                                    </button>
-
-                                    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                                          <div>
-                                                <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Título do Cargo</label>
-                                                <input
-                                                      required
-                                                      type="text"
-                                                      value={formData.title}
-                                                      onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                                      style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#2a2a2a", color: "white" }}
-                                                />
-                                          </div>
-
-                                          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
-                                                <div>
-                                                      <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Localização</label>
+                        <div className="modal show" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <div className="modal-content" style={{ margin: 'auto', maxWidth: '600px', width: '90%' }}>
+                                    <div className="modal-header">
+                                          <h2>{editingId ? "Editar Vaga" : "Nova Vaga"}</h2>
+                                          <button className="modal-close" onClick={() => setShowModal(false)}>
+                                                <i className="fas fa-times"></i>
+                                          </button>
+                                    </div>
+                                    <div className="modal-body">
+                                          <form onSubmit={handleSubmit}>
+                                                <div className="form-group">
+                                                      <label>Título do Cargo</label>
                                                       <input
                                                             required
                                                             type="text"
-                                                            value={formData.location}
-                                                            onChange={e => setFormData({ ...formData, location: e.target.value })}
-                                                            style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#2a2a2a", color: "white" }}
+                                                            value={formData.title}
+                                                            onChange={e => setFormData({ ...formData, title: e.target.value })}
+                                                            placeholder="Ex: Desenvolvedor Senior"
                                                       />
                                                 </div>
-                                                <div>
-                                                      <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Tipo</label>
-                                                      <select
-                                                            value={formData.type}
-                                                            onChange={e => setFormData({ ...formData, type: e.target.value })}
-                                                            style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#2a2a2a", color: "white" }}
-                                                      >
-                                                            <option>Full-time</option>
-                                                            <option>Part-time</option>
-                                                            <option>Remote</option>
-                                                            <option>Híbrido</option>
-                                                            <option>Freelance</option>
-                                                            <option>Estágio</option>
-                                                      </select>
+
+                                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+                                                      <div className="form-group">
+                                                            <label>Localização</label>
+                                                            <input
+                                                                  required
+                                                                  type="text"
+                                                                  value={formData.location}
+                                                                  onChange={e => setFormData({ ...formData, location: e.target.value })}
+                                                            />
+                                                      </div>
+                                                      <div className="form-group">
+                                                            <label>Tipo</label>
+                                                            <select
+                                                                  value={formData.type}
+                                                                  onChange={e => setFormData({ ...formData, type: e.target.value })}
+                                                            >
+                                                                  <option>Full-time</option>
+                                                                  <option>Part-time</option>
+                                                                  <option>Remote</option>
+                                                                  <option>Híbrido</option>
+                                                                  <option>Freelance</option>
+                                                                  <option>Estágio</option>
+                                                            </select>
+                                                      </div>
                                                 </div>
-                                          </div>
 
-                                          <div>
-                                                <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Salário (Opcional)</label>
-                                                <input
-                                                      type="text"
-                                                      value={formData.salary}
-                                                      onChange={e => setFormData({ ...formData, salary: e.target.value })}
-                                                      placeholder="Ex: 500.000 Kz - 800.000 Kz"
-                                                      style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#2a2a2a", color: "white" }}
-                                                />
-                                          </div>
+                                                <div className="form-group">
+                                                      <label>Salário (Opcional)</label>
+                                                      <input
+                                                            type="text"
+                                                            value={formData.salary}
+                                                            onChange={e => setFormData({ ...formData, salary: e.target.value })}
+                                                            placeholder="Ex: 500.000 Kz - 800.000 Kz"
+                                                      />
+                                                </div>
 
-                                          <div>
-                                                <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem" }}>Descrição</label>
-                                                <textarea
-                                                      required
-                                                      rows={5}
-                                                      value={formData.description}
-                                                      onChange={e => setFormData({ ...formData, description: e.target.value })}
-                                                      style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #444", background: "#2a2a2a", color: "white", resize: "vertical" }}
-                                                ></textarea>
-                                          </div>
+                                                <div className="form-group">
+                                                      <label>Descrição</label>
+                                                      <textarea
+                                                            required
+                                                            rows={5}
+                                                            value={formData.description}
+                                                            onChange={e => setFormData({ ...formData, description: e.target.value })}
+                                                            style={{ resize: "vertical" }}
+                                                      ></textarea>
+                                                </div>
 
-                                          <button
-                                                type="submit"
-                                                className="btn-primary"
-                                                style={{ marginTop: "10px", padding: "12px", borderRadius: "8px", border: "none", background: "var(--primary)", color: "white", fontWeight: "bold", cursor: "pointer" }}
-                                          >
-                                                {editingId ? "Atualizar Vaga" : "Publicar Vaga"}
-                                          </button>
-                                    </form>
+                                                <div className="modal-footer" style={{ padding: 0, marginTop: '20px', border: 'none' }}>
+                                                      <button type="button" className="btn-secondary" onClick={() => setShowModal(false)}>
+                                                            Cancelar
+                                                      </button>
+                                                      <button type="submit" className="btn-primary">
+                                                            {editingId ? "Atualizar" : "Publicar"}
+                                                      </button>
+                                                </div>
+                                          </form>
+                                    </div>
                               </div>
                         </div>
                   )}
