@@ -9,19 +9,19 @@ const testimonials = [
             name: "António Manuel",
             role: "CEO, Tech Solutions",
             content: "O Grupo SIMJS transformou a nossa infraestrutura tecnológica. A competência e dedicação da equipa são inigualáveis.",
-            image: "/assets/DSC_8396.jpg"
+            image: "/assets/Solange.jpeg"
       },
       {
             name: "Maria José",
             role: "Directora Financeira",
             content: "Os serviços de auditoria foram essenciais para a nossa reorganização fiscal. Profissionalismo acima de tudo.",
-            image: "/assets/DSC_8422.jpg"
+            image: "/assets/zerrin.jpeg"
       },
       {
             name: "Carlos Alberto",
             role: "Investidor Imobiliário",
             content: "A transparência e o conhecimento de mercado da SIMJS Imobiliária deram-me a confiança necessária para investir em Luanda.",
-            image: "/assets/DSC_8471.jpg"
+            image: "/assets/xima.jpeg"
       }
 ];
 
