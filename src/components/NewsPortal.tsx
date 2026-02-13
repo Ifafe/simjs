@@ -1,123 +1,80 @@
-"use client";
+import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
-import React, { useEffect, useState, useRef } from "react";
-
-const articles = [
-      { id: 1, title: 'IA Generativa acelera inovação em aplicações empresariais', category: 'Tecnologia', author: 'M. Silva', time: '3 min', date: '2026-01-15', source: 'Reuters', url: '#', thumb: '/assets/Novo1.jpg' },
-      { id: 2, title: 'Parcerias renováveis transformam matriz energética', category: 'Energia', author: 'A. Costa', time: '4 min', date: '2026-01-18', source: 'BBC', url: '#', thumb: '/assets/novo4.jpg' },
-      { id: 3, title: 'Automação industrial reduz custos operacionais', category: 'Indústria', author: 'J. Almeida', time: '5 min', date: '2026-01-12', source: 'CNBC', url: '#', thumb: '/assets/pexels-lucaspezeta-5242049.jpg' },
-      { id: 4, title: 'Telemedicina amplia acesso em áreas remotas', category: 'Saúde', author: 'D. Pereira', time: '2 min', date: '2026-01-20', source: 'WHO', url: '#', thumb: '/assets/pexels-august-de-richelieu-4427627.jpg' },
-      { id: 5, title: 'Mercados emergentes captam capital estrangeiro', category: 'Finanças', author: 'L. Gomes', time: '3 min', date: '2026-01-11', source: 'IMF', url: '#', thumb: '/assets/pexels-kindelmedia-6868618.jpg' },
-      { id: 6, title: 'Soluções de última milha com eficiência sustentável', category: 'Logística', author: 'R. Faria', time: '3 min', date: '2026-01-09', source: 'Transport Topics', url: '#', thumb: '/assets/novo1.jpg' },
-      { id: 7, title: 'Iniciativas para hidrogénio verde avançam', category: 'Energia', author: 'A. Costa', time: '4 min', date: '2026-01-05', source: 'Financial Times', url: '#', thumb: '/assets/Novo%203.jpg' },
-      { id: 8, title: 'Digital twins melhoram planeamento de cadeias', category: 'Logística', author: 'R. Faria', time: '6 min', date: '2025-12-28', source: 'MIT Technology Review', url: '#', thumb: '/assets/novo4.jpg' }
-];
-
-const NewsPortal = () => {
-      const [view, setView] = useState("default");
-      const containerRef = useRef<HTMLDivElement>(null);
-
-      useEffect(() => {
-            // Intersection Observer for reveal effects
-            const observer = new IntersectionObserver((entries) => {
-                  entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                              entry.target.classList.add("in-view");
-                        }
-                  });
-            }, { threshold: 0.1 });
-
-            const cards = containerRef.current?.querySelectorAll(".fp-card, .ep-card, .edit-link, .trend-link, .main-card");
-            cards?.forEach(card => {
-                  card.classList.add("card-reveal");
-                  observer.observe(card);
+async function getRecentPosts() {
+      try {
+            const posts = await prisma.post.findMany({
+                  where: { status: "PUBLISHED" },
+                  orderBy: { createdAt: "desc" },
+                  take: 3,
+                  include: { author: { select: { name: true } } },
             });
+            return posts;
+      } catch (error) {
+            console.error("Failed to fetch recent posts:", error);
+            return [];
+      }
+}
 
-            return () => observer.disconnect();
-      }, []);
+export default async function NewsPortal() {
+      const posts = await getRecentPosts();
+
+      if (posts.length === 0) return null;
 
       return (
-            <section className="news-portal" id="news-portal" ref={containerRef}>
+            <section className="news-portal" style={{ padding: "80px 0", background: "var(--bg-secondary)" }}>
                   <div className="container">
-                        <div className="section-header">
-                              <h2>Onde a <span className="text-gradient">Inovação</span> Acontece — Notícias por Sector</h2>
-                              <p className="section-desc">Atualizações internacionais selecionadas por sector: Tecnologia, Energia, Indústria, Saúde, Finanças, Logística.</p>
+                        <div className="section-header" style={{ marginBottom: "50px", textAlign: "center" }}>
+                              <span className="section-tag" style={{ color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
+                                    Blog & Novidades
+                              </span>
+                              <h2 style={{ fontSize: "2.5rem", marginTop: "10px" }}>
+                                    <span>Últimas do</span> <span className="text-gradient">SimJS</span>
+                              </h2>
                         </div>
 
-                        <div className={`portal-grid modern-portal ${view}`}>
-
-                              {/* Breaking Bar */}
-                              <div className="breaking-bar" role="region" aria-label="Últimas Notícias">
-                                    <div className="breaking-label">Últimas Notícias</div>
-                                    <div className="breaking-ticker" aria-hidden="true">
-                                          <div className="ticker-track">
-                                                <span>URGENTE: Cimeira Internacional aprova novo pacote de energia sustentável</span>
-                                                <span>Exclusivo: Parcerias tecnológicas aceleram projetos locais</span>
-                                          </div>
-                                    </div>
-                              </div>
-
-                              {/* Main Grid Layout */}
-                              <div className="news-main-grid">
-
-                                    {/* Editor Picks */}
-                                    <aside className="editor-picks">
-                                          <div className="col-header"><h3>Escolhas do Editor</h3></div>
-                                          <ul className="edit-list">
-                                                {articles.slice(1, 4).map(item => (
-                                                      <li key={item.id} className="edit-item">
-                                                            <a href={item.url} className="edit-link">
-                                                                  <img src={item.thumb} alt={item.title} className="edit-thumb" />
-                                                                  <div className="edit-meta">
-                                                                        <h4 className="edit-title">{item.title}</h4>
-                                                                        <div className="edit-sub">{item.category} • {item.time}</div>
-                                                                  </div>
-                                                            </a>
-                                                      </li>
-                                                ))}
-                                          </ul>
-                                    </aside>
-
-                                    {/* Main News Card */}
-                                    <main className="main-news">
-                                          <div className="main-card">
-                                                <a href={articles[0].url} className="main-link">
-                                                      <div className="main-image">
-                                                            <img src={articles[0].thumb} alt={articles[0].title} />
+                        <div className="news-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "30px" }}>
+                              {posts.map((post) => (
+                                    <article key={post.id} className="news-card" style={{ background: "var(--bg-card)", borderRadius: "16px", overflow: "hidden", border: "1px solid var(--border)", transition: "transform 0.3s ease" }}>
+                                          <div className="news-image" style={{ height: "200px", overflow: "hidden", position: "relative" }}>
+                                                {post.image ? (
+                                                      <img
+                                                            src={post.image}
+                                                            alt={post.title}
+                                                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                                      />
+                                                ) : (
+                                                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(45deg, #1f2937, #111827)" }}>
+                                                            <i className="fas fa-newspaper" style={{ fontSize: "3rem", color: "#374151" }}></i>
                                                       </div>
-                                                      <div className="main-content">
-                                                            <div className="cat">{articles[0].category}</div>
-                                                            <h2 className="main-title">{articles[0].title}</h2>
-                                                            <div className="meta">{articles[0].author} • {articles[0].time}</div>
-                                                      </div>
-                                                </a>
+                                                )}
+                                                <div className="news-date" style={{ position: "absolute", top: "15px", left: "15px", background: "rgba(0,0,0,0.7)", color: "white", padding: "5px 10px", borderRadius: "8px", fontSize: "0.8rem", backdropFilter: "blur(4px)" }}>
+                                                      {new Date(post.createdAt).toLocaleDateString()}
+                                                </div>
                                           </div>
-                                    </main>
+                                          <div className="news-content" style={{ padding: "25px" }}>
+                                                <h3 style={{ fontSize: "1.25rem", marginBottom: "10px", lineHeight: "1.4" }}>
+                                                      <Link href={`/blog/${post.slug}`} style={{ color: "white", textDecoration: "none" }} className="hover:text-primary transition-colors">
+                                                            {post.title}
+                                                      </Link>
+                                                </h3>
+                                                <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: "1.6", marginBottom: "20px", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                                                      {post.excerpt || post.content.substring(0, 100).replace(/<[^>]*>?/gm, "") + "..."}
+                                                </p>
+                                                <Link href={`/blog/${post.slug}`} style={{ color: "var(--primary)", fontWeight: "600", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                                                      Ler mais <i className="fas fa-arrow-right" style={{ fontSize: "0.8rem" }}></i>
+                                                </Link>
+                                          </div>
+                                    </article>
+                              ))}
+                        </div>
 
-                                    {/* Trending */}
-                                    <aside className="trending-now">
-                                          <div className="col-header"><h3>Tendências</h3></div>
-                                          <ol className="trend-list">
-                                                {articles.slice(4, 8).map((item, idx) => (
-                                                      <li key={item.id} className="trend-item">
-                                                            <a href={item.url} className="trend-link">
-                                                                  <span className="trend-num">{idx + 1}</span>
-                                                                  <img src={item.thumb} alt={item.title} className="trend-thumb" />
-                                                                  <div className="trend-body">
-                                                                        <div className="trend-title">{item.title}</div>
-                                                                        <div className="trend-sub">{item.time}</div>
-                                                                  </div>
-                                                            </a>
-                                                      </li>
-                                                ))}
-                                          </ol>
-                                    </aside>
-
-                              </div>
+                        <div style={{ textAlign: "center", marginTop: "50px" }}>
+                              <Link href="/blog" className="btn-secondary" style={{ padding: "12px 30px", borderRadius: "30px", border: "1px solid var(--border)", color: "white", textDecoration: "none", transition: "all 0.3s ease" }}>
+                                    Ver todas as publicações
+                              </Link>
                         </div>
                   </div>
             </section>
       );
-};
-
-export default NewsPortal;
+}

@@ -105,6 +105,7 @@ model User {
   partnerProfile PartnerProfile?
   applications   Application[]
   activities     Activity[]
+  posts          Post[]
 }
 
 model Account {
@@ -187,4 +188,39 @@ model Activity {
   type      String   // LOGIN, COMMENT, APPLICATION, etc.
   content   String
   createdAt DateTime @default(now())
+}
+// 10. CMS - Posts (Blog/News)
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique
+  content   String   @db.Text
+  excerpt   String?
+  image     String?
+  status    String   @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 11. CMS - Pages
+model Page {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique
+  content   String   @db.Text
+  status    String   @default("DRAFT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 12. Global Settings
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  group     String   @default("GENERAL") // GENERAL, SEO, SOCIAL
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
