@@ -79,7 +79,6 @@ export default function BannersPage() {
                                     value={formData.title}
                                     onChange={handleChange}
                                     placeholder="Título do banner"
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               />
                         </div>
                         <div className="form-group">
@@ -90,7 +89,6 @@ export default function BannersPage() {
                                     value={formData.highlight}
                                     onChange={handleChange}
                                     placeholder="Texto em destaque"
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               />
                         </div>
                         <div className="form-group">
@@ -101,11 +99,10 @@ export default function BannersPage() {
                                     onChange={handleChange}
                                     placeholder="Descrição"
                                     rows={3}
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               ></textarea>
                         </div>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label>Texto do Botão</label>
                                     <input
                                           type="text"
@@ -113,10 +110,9 @@ export default function BannersPage() {
                                           value={formData.ctaText}
                                           onChange={handleChange}
                                           placeholder="Ex: Saiba Mais"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label>Link do Botão</label>
                                     <input
                                           type="text"
@@ -124,7 +120,6 @@ export default function BannersPage() {
                                           value={formData.ctaLink}
                                           onChange={handleChange}
                                           placeholder="https://exemplo.com"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
                         </div>

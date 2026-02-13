@@ -70,8 +70,8 @@ export default function ContactPage() {
 
                   <div className="form-card">
                         <h2>Informações de Contato</h2>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px', marginBottom: '15px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label>Email</label>
                                     <input
                                           type="email"
@@ -79,10 +79,9 @@ export default function ContactPage() {
                                           value={formData.email}
                                           onChange={handleChange}
                                           placeholder="contato@simjs.com"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label>Telefone</label>
                                     <input
                                           type="tel"
@@ -90,12 +89,11 @@ export default function ContactPage() {
                                           value={formData.phone}
                                           onChange={handleChange}
                                           placeholder="+244 9XX XXX XXX"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
                         </div>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label>Endereço</label>
                                     <textarea
                                           name="address"
@@ -103,10 +101,9 @@ export default function ContactPage() {
                                           onChange={handleChange}
                                           placeholder="Rua, nº, Cidade"
                                           rows={2}
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     ></textarea>
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label>Horário de Funcionamento</label>
                                     <textarea
                                           name="hours"
@@ -114,7 +111,6 @@ export default function ContactPage() {
                                           onChange={handleChange}
                                           placeholder="Seg-Sex: 8h-17h"
                                           rows={2}
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     ></textarea>
                               </div>
                         </div>

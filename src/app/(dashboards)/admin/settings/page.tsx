@@ -73,8 +73,8 @@ export default function SettingsPage() {
 
                   <div className="form-card">
                         <h2>Informações do Site</h2>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label>Nome do Site</label>
                                     <input
                                           type="text"
@@ -82,10 +82,9 @@ export default function SettingsPage() {
                                           value={settings.site_name}
                                           onChange={handleChange}
                                           placeholder="SIMJS"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label>Domínio</label>
                                     <input
                                           type="text"
@@ -93,7 +92,6 @@ export default function SettingsPage() {
                                           value={settings.site_domain}
                                           onChange={handleChange}
                                           placeholder="simjs.com"
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
                         </div>
@@ -105,15 +103,14 @@ export default function SettingsPage() {
                                     onChange={handleChange}
                                     placeholder="Descrição completa do site"
                                     rows={4}
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               ></textarea>
                         </div>
                   </div>
 
                   <div className="form-card">
                         <h2>Redes Sociais</h2>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px', marginBottom: '15px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label><i className="fab fa-facebook"></i> Facebook</label>
                                     <input
                                           type="url"
@@ -121,10 +118,9 @@ export default function SettingsPage() {
                                           value={settings.social_facebook}
                                           onChange={handleChange}
                                           placeholder="https://facebook.com/..."
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label><i className="fab fa-instagram"></i> Instagram</label>
                                     <input
                                           type="url"
@@ -132,12 +128,11 @@ export default function SettingsPage() {
                                           value={settings.social_instagram}
                                           onChange={handleChange}
                                           placeholder="https://instagram.com/..."
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
                         </div>
-                        <div className="form-row" style={{ display: 'flex', gap: '20px' }}>
-                              <div className="form-group" style={{ flex: 1 }}>
+                        <div className="form-row">
+                              <div className="form-group">
                                     <label><i className="fab fa-twitter"></i> X / Twitter</label>
                                     <input
                                           type="url"
@@ -145,10 +140,9 @@ export default function SettingsPage() {
                                           value={settings.social_twitter}
                                           onChange={handleChange}
                                           placeholder="https://twitter.com/..."
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
-                              <div className="form-group" style={{ flex: 1 }}>
+                              <div className="form-group">
                                     <label><i className="fab fa-linkedin"></i> LinkedIn</label>
                                     <input
                                           type="url"
@@ -156,7 +150,6 @@ export default function SettingsPage() {
                                           value={settings.social_linkedin}
                                           onChange={handleChange}
                                           placeholder="https://linkedin.com/..."
-                                          style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                                     />
                               </div>
                         </div>
@@ -164,3 +157,4 @@ export default function SettingsPage() {
             </section>
       );
 }
+

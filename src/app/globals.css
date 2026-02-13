@@ -14,14 +14,32 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0202;
+  --foreground: #ffffff;
+
+  /* Admin Variables from admin-novo.css */
+  --primary: #ff1744;
+  --primary-light: #ff6b7a;
+  --primary-dark: #cc0000;
+  --accent: #ff9100;
+  --accent-dark: #e67e00;
+  --bg: #0a0202;
+  --bg-light: #1a1a1a;
+  --card: #242424;
+  --card-hover: #2d2d2d;
+  --text: #ffffff;
+  --text-light: #a8a8a8;
+  --border: #3a3a3a;
+  --shadow: rgba(255, 23, 68, 0.3);
+  --gradient-primary: linear-gradient(135deg, #ff1744 0%, #ff6b7a 100%);
+  --gradient-accent: linear-gradient(135deg, #ff9100 0%, #ffb84d 100%);
+  --gradient-card: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0202;
+    --foreground: #ffffff;
   }
 }
 

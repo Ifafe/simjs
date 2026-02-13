@@ -86,7 +86,6 @@ export default function SEOPage() {
                                     value={settings.seo_title_suffix}
                                     onChange={handleChange}
                                     placeholder="| SIMJS"
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               />
                         </div>
                         <div className="form-group">
@@ -97,7 +96,6 @@ export default function SEOPage() {
                                     onChange={handleChange}
                                     placeholder="Descrição para mecanismos de busca (max 160 caracteres)"
                                     rows={3}
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               ></textarea>
                         </div>
                         <div className="form-group">
@@ -108,7 +106,6 @@ export default function SEOPage() {
                                     value={settings.seo_keywords}
                                     onChange={handleChange}
                                     placeholder="palavra1, palavra2, palavra3"
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               />
                         </div>
                         <div className="form-group">
@@ -117,7 +114,6 @@ export default function SEOPage() {
                                     name="seo_robots"
                                     value={settings.seo_robots}
                                     onChange={handleChange}
-                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
                               >
                                     <option value="index, follow">Indexar e Seguir</option>
                                     <option value="noindex, follow">Não Indexar, mas Seguir Links</option>
