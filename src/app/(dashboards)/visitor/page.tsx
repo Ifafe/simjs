@@ -3,20 +3,52 @@
 import React, { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
+interface Activity {
+      id: number;
+      type: string;
+      content: string;
+      createdAt: string;
+}
+
+interface VisitorStats {
+      members: number;
+      events: number;
+      partnerships: number;
+}
+
 const VisitorDashboard = () => {
-      const [activities, setActivities] = useState<any[]>([]);
-      const [stats, setStats] = useState({ members: 1247, events: 23, partnerships: 89 });
+      const [activities, setActivities] = useState<Activity[]>([]);
+      const [stats, setStats] = useState<VisitorStats>({ members: 0, events: 0, partnerships: 0 });
+      const [loading, setLoading] = useState(true);
 
       useEffect(() => {
-            const user = JSON.parse(localStorage.getItem("user") || "{}");
-            if (user.id) {
-                  // Fetch stats and activities (mock or real)
-                  setActivities([
-                        { id: 1, type: "LOGIN", content: "Bem-vindo de volta!", createdAt: new Date().toISOString() },
-                        { id: 2, type: "EVENT", content: "Novo evento: Workshop de Inovação", createdAt: new Date(Date.now() - 86400000).toISOString() },
-                  ]);
-            }
+            const fetchData = async () => {
+                  try {
+                        const [statsRes, activityRes] = await Promise.all([
+                              fetch("/api/visitor/stats"),
+                              fetch("/api/activities")
+                        ]);
+
+                        if (statsRes.ok) {
+                              const statsData = await statsRes.json();
+                              setStats(statsData);
+                        }
+
+                        if (activityRes.ok) {
+                              const activityData = await activityRes.json();
+                              setActivities(activityData);
+                        }
+                  } catch (error) {
+                        console.error("Failed to fetch visitor dashboard data", error);
+                  } finally {
+                        setLoading(false);
+                  }
+            };
+
+            fetchData();
       }, []);
+
+      if (loading) return <div className="p-10 text-center text-white">Carregando comunidade...</div>;
 
       return (
             <div className="visitor-dashboard">
@@ -57,33 +89,37 @@ const VisitorDashboard = () => {
                                     <i className="fas fa-bolt" style={{ color: 'var(--accent)' }}></i> Atividade Recente
                               </h3>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                    {activities.map(act => (
-                                          <div key={act.id} style={{
-                                                display: 'flex',
-                                                gap: '15px',
-                                                padding: '20px',
-                                                background: 'rgba(255,255,255,0.02)',
-                                                borderRadius: '15px',
-                                                border: '1px solid rgba(255,255,255,0.05)'
-                                          }}>
-                                                <div style={{
-                                                      width: '45px',
-                                                      height: '45px',
-                                                      borderRadius: '12px',
-                                                      background: 'var(--primary)',
+                                    {activities.length === 0 ? (
+                                          <p className="text-gray-500">Nenhuma atividade recente.</p>
+                                    ) : (
+                                          activities.map(act => (
+                                                <div key={act.id} style={{
                                                       display: 'flex',
-                                                      alignItems: 'center',
-                                                      justifyContent: 'center',
-                                                      flexShrink: 0
+                                                      gap: '15px',
+                                                      padding: '20px',
+                                                      background: 'rgba(255,255,255,0.02)',
+                                                      borderRadius: '15px',
+                                                      border: '1px solid rgba(255,255,255,0.05)'
                                                 }}>
-                                                      <i className={`fas ${act.type === 'LOGIN' ? 'fa-sign-in-alt' : 'fa-bell'}`}></i>
+                                                      <div style={{
+                                                            width: '45px',
+                                                            height: '45px',
+                                                            borderRadius: '12px',
+                                                            background: 'var(--primary)',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            flexShrink: 0
+                                                      }}>
+                                                            <i className={`fas ${act.type === 'LOGIN' ? 'fa-sign-in-alt' : 'fa-bell'}`}></i>
+                                                      </div>
+                                                      <div>
+                                                            <h4 style={{ margin: 0, fontSize: '1rem' }}>{act.content}</h4>
+                                                            <small style={{ color: 'var(--text-muted)' }}>{new Date(act.createdAt).toLocaleString()}</small>
+                                                      </div>
                                                 </div>
-                                                <div>
-                                                      <h4 style={{ margin: 0, fontSize: '1rem' }}>{act.content}</h4>
-                                                      <small style={{ color: 'var(--text-muted)' }}>{new Date(act.createdAt).toLocaleString()}</small>
-                                                </div>
-                                          </div>
-                                    ))}
+                                          ))
+                                    )}
                               </div>
                         </div>
 

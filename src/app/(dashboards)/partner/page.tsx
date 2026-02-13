@@ -1,14 +1,21 @@
-
 "use client";
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface PartnerStats {
+      companyName: string;
+      status: string;
+      jobsDefault: number;
+      applicationsDefault: number;
+}
+
 export default function PartnerDashboard() {
       const { data: session, status } = useSession();
       const router = useRouter();
-      const [partnerData, setPartnerData] = useState<any>(null);
+      const [partnerData, setPartnerData] = useState<PartnerStats | null>(null);
+      const [loading, setLoading] = useState(true);
 
       useEffect(() => {
             if (status === "loading") return;
@@ -16,15 +23,31 @@ export default function PartnerDashboard() {
             // @ts-ignore
             if (!session || session?.user?.role !== "PARTNER") {
                   router.push("/login");
-            } else {
-                  fetch("/api/partner/stats")
-                        .then(res => res.json())
-                        .then(data => setPartnerData(data))
-                        .catch(err => console.error(err));
+                  return;
             }
+
+            const fetchStats = async () => {
+                  try {
+                        const res = await fetch("/api/partner/stats");
+                        if (res.ok) {
+                              const data = await res.json();
+                              setPartnerData(data);
+                        } else {
+                              console.error("Failed to fetch partner stats");
+                        }
+                  } catch (error) {
+                        console.error("Error fetching partner stats:", error);
+                  } finally {
+                        setLoading(false);
+                  }
+            };
+
+            fetchStats();
       }, [session, status, router]);
 
-      if (!partnerData) return <div style={{ color: "white", padding: "30px" }}>Carregando...</div>;
+      if (loading) return <div style={{ color: "white", padding: "30px", textAlign: "center" }}>Carregando dados do parceiro...</div>;
+
+      if (!partnerData) return <div style={{ color: "white", padding: "30px", textAlign: "center" }}>Erro ao carregar dados.</div>;
 
       return (
             <div className="partner-dashboard">

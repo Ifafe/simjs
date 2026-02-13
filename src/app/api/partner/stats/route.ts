@@ -1,43 +1,50 @@
-
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
-export async function GET() {
+export async function GET(request: Request) {
       const session = await getServerSession(authOptions);
 
-      // @ts-ignore
-      if (!session || session.user.role !== "PARTNER") {
+      if (!session || session.user?.role !== "PARTNER") {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
 
       try {
-            // Get Partner Profile
-            // @ts-ignore
-            const partner = await prisma.partnerProfile.findUnique({
-                  where: { userId: session.user.id },
-                  include: {
-                        user: true
-                  }
+            const partnerProfile = await prisma.partnerProfile.findFirst({
+                  where: { userId: session.user.id }
             });
 
-            if (!partner) {
-                  return NextResponse.json({ error: "Partner profile not found" }, { status: 404 });
+            if (!partnerProfile) {
+                  return NextResponse.json(
+                        { error: "Partner profile not found" },
+                        { status: 404 }
+                  );
             }
 
-            // Mock stats for now as JobOpening is not yet linked to Partner in schema
-            // In a real app, we would count prisma.jobOpening.count({ where: { partnerId: partner.id } })
-
-            // For now, let's return the status and mock numbers
-            return NextResponse.json({
-                  status: partner.status,
-                  companyName: partner.companyName || session.user.name,
-                  jobsDefault: 0,
-                  applicationsDefault: 0
+            const jobsCount = await prisma.jobOpening.count({
+                  where: { partnerId: partnerProfile.id }
             });
 
+            const applicationsCount = await prisma.application.count({
+                  where: {
+                        job: {
+                              partnerId: partnerProfile.id,
+                        },
+                  },
+            });
+
+            return NextResponse.json({
+                  companyName: partnerProfile.companyName,
+                  status: partnerProfile.status,
+                  jobsDefault: jobsCount,
+                  applicationsDefault: applicationsCount,
+            });
       } catch (error) {
-            return NextResponse.json({ error: "Failed to fetch partner stats" }, { status: 500 });
+            console.error("Partner Stats Error:", error);
+            return NextResponse.json(
+                  { error: "Failed to fetch partner stats" },
+                  { status: 500 }
+            );
       }
 }
