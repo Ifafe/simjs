@@ -1,7 +1,28 @@
-import React from "react";
+import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
-const Footer = () => {
+async function getContactInfo() {
+      try {
+            const contact = await prisma.contactInfo.findUnique({ where: { id: 1 } });
+            return contact || {
+                  email: "info@gruposimjs.com",
+                  phone: "+244 923 000 000",
+                  address: "Luanda, Angola",
+                  hours: "Seg-Sex: 8h-17h"
+            };
+      } catch (error) {
+            return {
+                  email: "info@gruposimjs.com",
+                  phone: "+244 923 000 000",
+                  address: "Luanda, Angola",
+                  hours: "Seg-Sex: 8h-17h"
+            };
+      }
+}
+
+const Footer = async () => {
+      const contact = await getContactInfo();
+
       return (
             <footer className="footer">
                   <div className="container">
@@ -31,9 +52,9 @@ const Footer = () => {
                               <div className="footer-contact">
                                     <h4>Contacto</h4>
                                     <ul>
-                                          <li><i className="fas fa-map-marker-alt"></i> Luanda, Angola</li>
-                                          <li><i className="fas fa-phone"></i> +244 923 000 000</li>
-                                          <li><i className="fas fa-envelope"></i> info@gruposimjs.com</li>
+                                          <li><i className="fas fa-map-marker-alt"></i> {contact.address}</li>
+                                          <li><i className="fas fa-phone"></i> {contact.phone}</li>
+                                          <li><i className="fas fa-envelope"></i> {contact.email}</li>
                                     </ul>
                               </div>
 

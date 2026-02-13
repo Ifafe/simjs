@@ -24,8 +24,35 @@ async function getHeroData() {
   }
 }
 
+async function getSectionSettings() {
+  try {
+    const settings = await prisma.setting.findMany({
+      where: { group: "SECTIONS" },
+    });
+    // @ts-ignore
+    const formatted: any = {
+      section_hero_enabled: true,
+      section_news_enabled: true,
+      section_join_enabled: true,
+    };
+    settings.forEach((s) => {
+      formatted[s.key] = s.value === "true";
+    });
+    return formatted;
+  } catch {
+    return {
+      section_hero_enabled: true,
+      section_news_enabled: true,
+      section_join_enabled: true,
+    };
+  }
+}
+
 export default async function Home() {
-  const heroData = await getHeroData();
+  const [heroData, sections] = await Promise.all([
+    getHeroData(),
+    getSectionSettings()
+  ]);
 
   return (
     <>
@@ -33,28 +60,30 @@ export default async function Home() {
 
       <main>
         {/* Hero Section */}
-        <section className="hero">
-          <video autoPlay muted loop className="hero-video">
-            <source src="/assets/bg-office.mp4" type="video/mp4" />
-            <source src="/assets/bg-office.webm" type="video/webm" />
-            Seu navegador não suporta vídeo HTML5
-          </video>
-          <div className="hero-overlay"></div>
-          <div className="container hero-content">
-            <div className="hero-text">
-              <h1>
-                <span>{heroData.title}</span>{" "}
-                <span className="text-gradient">{heroData.highlight}</span>
-              </h1>
-              <p>
-                {heroData.subtitle}
-              </p>
-              <a href={heroData.ctaLink} className="btn-cta btn-lg">
-                {heroData.ctaText}
-              </a>
+        {sections.section_hero_enabled && (
+          <section className="hero">
+            <video autoPlay muted loop className="hero-video">
+              <source src="/assets/bg-office.mp4" type="video/mp4" />
+              <source src="/assets/bg-office.webm" type="video/webm" />
+              Seu navegador não suporta vídeo HTML5
+            </video>
+            <div className="hero-overlay"></div>
+            <div className="container hero-content">
+              <div className="hero-text">
+                <h1>
+                  <span>{heroData.title}</span>{" "}
+                  <span className="text-gradient">{heroData.highlight}</span>
+                </h1>
+                <p>
+                  {heroData.subtitle}
+                </p>
+                <a href={heroData.ctaLink} className="btn-cta btn-lg">
+                  {heroData.ctaText}
+                </a>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Section Divider with Animated Logo */}
         <div className="section-divider">
@@ -87,70 +116,73 @@ export default async function Home() {
         </div>
 
         {/* News Portal Section */}
-        <NewsPortal />
+        {sections.section_news_enabled && <NewsPortal />}
 
         {/* Join Us Section */}
-        <section className="join-section">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-tag"></span>
-              <h2>
-                <span>Junta-te a</span>{" "}
-                <span className="text-gradient">Nós</span>
-              </h2>
-              <br />
-              <br />
-              <p className="section-desc">
-                Descubra as diversas formas de fazer parte do Grupo SIMJS.
-              </p>
-            </div>
+        {sections.section_join_enabled && (
+          <section className="join-section">
+            <div className="container">
+              <div className="section-header">
+                <span className="section-tag"></span>
+                <h2>
+                  <span>Junta-te a</span>{" "}
+                  <span className="text-gradient">Nós</span>
+                </h2>
+                <br />
+                <br />
+                <p className="section-desc">
+                  Descubra as diversas formas de fazer parte do Grupo SIMJS.
+                </p>
+              </div>
 
-            <div className="join-grid">
-              <div className="join-card">
-                <div className="join-icon">
-                  <i className="fas fa-briefcase"></i>
+              <div className="join-grid">
+                <div className="join-card">
+                  <div className="join-icon">
+                    <i className="fas fa-briefcase"></i>
+                  </div>
+                  <h3>Trabalhe Connosco</h3>
+                  <p>
+                    Faça parte de uma equipa inovadora e dinâmica. Descubra oportunidades de
+                    carreira no Grupo SIMJS.
+                  </p>
+                  <a href="/login" className="join-link">
+                    Ver Vagas →
+                  </a>
                 </div>
-                <h3>Trabalhe Connosco</h3>
-                <p>
-                  Faça parte de uma equipa inovadora e dinâmica. Descubra oportunidades de
-                  carreira no Grupo SIMJS.
-                </p>
-                <a href="/login" className="join-link">
-                  Ver Vagas →
-                </a>
-              </div>
-              <div className="join-card">
-                <div className="join-icon">
-                  <i className="fas fa-handshake"></i>
+                <div className="join-card">
+                  <div className="join-icon">
+                    <i className="fas fa-handshake"></i>
+                  </div>
+                  <h3>Seja Parceiro</h3>
+                  <p>
+                    Junte-se à nossa rede de parceiros estratégicos e cresça junto com o
+                    Grupo SIMJS.
+                  </p>
+                  <a href="/comunidade" className="join-link">
+                    Tornar Parceiro →
+                  </a>
                 </div>
-                <h3>Seja Parceiro</h3>
-                <p>
-                  Junte-se à nossa rede de parceiros estratégicos e cresça junto com o
-                  Grupo SIMJS.
-                </p>
-                <a href="/comunidade" className="join-link">
-                  Tornar Parceiro →
-                </a>
-              </div>
-              <div className="join-card">
-                <div className="join-icon">
-                  <i className="fas fa-users"></i>
+                <div className="join-card">
+                  <div className="join-icon">
+                    <i className="fas fa-users"></i>
+                  </div>
+                  <h3>Faça Parte da Comunidade</h3>
+                  <p>
+                    Conecte-se com empreendedores, investidores e profissionais do nosso
+                    ecossistema.
+                  </p>
+                  <a href="/comunidade" className="join-link">
+                    Conhecer Comunidade →
+                  </a>
                 </div>
-                <h3>Faça Parte da Comunidade</h3>
-                <p>
-                  Conecte-se com empreendedores, investidores e profissionais do nosso
-                  ecossistema.
-                </p>
-                <a href="/comunidade" className="join-link">
-                  Conhecer Comunidade →
-                </a>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
       <Footer />
     </>
   );
 }
+
