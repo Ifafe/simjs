@@ -15,7 +15,8 @@ async function getPage(slug: string) {
       }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+      const params = await props.params;
       const page = await getPage(params.slug);
       if (!page) return { title: "Página não encontrada" };
 
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       };
 }
 
-export default async function DynamicPage({ params }: { params: { slug: string } }) {
+export default async function DynamicPage(props: { params: Promise<{ slug: string }> }) {
+      const params = await props.params;
       // Ignorar rotas reservadas que já existem
       const reservedRoutes = ["admin", "login", "register", "blog", "auth", "api"];
       if (reservedRoutes.includes(params.slug)) {

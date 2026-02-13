@@ -3,7 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
+      const params = await props.params;
       try {
             const post = await prisma.post.findUnique({
                   where: { id: parseInt(params.id) },
@@ -23,7 +24,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
       }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, props: { params: Promise<{ id: string }> }) {
+      const params = await props.params;
       const session = await getServerSession(authOptions);
 
       if (!session || session.user?.role !== "ADMIN") {
@@ -55,7 +57,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, props: { params: Promise<{ id: string }> }) {
+      const params = await props.params;
       const session = await getServerSession(authOptions);
 
       if (!session || session.user?.role !== "ADMIN") {
