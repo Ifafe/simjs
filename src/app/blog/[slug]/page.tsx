@@ -58,7 +58,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
                         <div className="flex items-center justify-center gap-3">
                               {post.author?.image ? (
-                                    <img src={post.author.image} alt={post.author.name} className="w-12 h-12 rounded-full border-2 border-primary" />
+                                    <img src={post.author.image ?? undefined} alt={post.author.name || "Autor"} className="w-12 h-12 rounded-full border-2 border-primary" />
                               ) : (
                                     <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/50">
                                           <i className="fas fa-user"></i>
@@ -73,7 +73,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
                   {post.image && (
                         <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-video relative">
-                              <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                              <img src={post.image ?? undefined} alt={post.title} className="w-full h-full object-cover" />
                         </div>
                   )}
 

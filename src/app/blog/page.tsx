@@ -45,7 +45,7 @@ export default async function BlogPage() {
                                                 <div className="aspect-video w-full bg-gray-800 relative overflow-hidden">
                                                       {post.image ? (
                                                             <img
-                                                                  src={post.image}
+                                                                  src={post.image ?? undefined}
                                                                   alt={post.title}
                                                                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                                             />
