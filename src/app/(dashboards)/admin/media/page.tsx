@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function MediaPage() {
-      // Mock data compatible with the new grid
-      const [files] = useState([
-            { id: 1, name: "hero-bg.jpg", url: "/assets/hero-bg.jpg", type: "image" },
-            { id: 2, name: "logo-simjs.png", url: "/assets/logo-simjs.png", type: "image" },
-            { id: 3, name: "team-1.jpg", url: "/assets/team/member-1.jpg", type: "image" },
-            { id: 4, name: "project-alpha.png", url: "/assets/projects/alpha.png", type: "image" },
-            { id: 5, name: "document.pdf", url: "#", type: "document" },
-      ]);
+      const [files, setFiles] = useState<any[]>([]);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+            fetch("/api/media")
+                  .then(res => res.json())
+                  .then(data => {
+                        if (Array.isArray(data)) setFiles(data);
+                        setLoading(false);
+                  })
+                  .catch(err => {
+                        console.error("Load media error", err);
+                        setLoading(false);
+                  });
+      }, []);
 
       const [filterType, setFilterType] = useState("");
       const [searchTerm, setSearchTerm] = useState("");
@@ -54,7 +61,9 @@ export default function MediaPage() {
                   </div>
 
                   <div className="media-grid" id="mediaGrid">
-                        {filteredFiles.length > 0 ? (
+                        {loading ? (
+                              <p className="col-span-full text-center py-10 text-gray-400">Carregando ficheiros...</p>
+                        ) : filteredFiles.length > 0 ? (
                               filteredFiles.map((file) => (
                                     <div key={file.id} className="media-item" style={{ position: 'relative' }}>
                                           {file.type === "image" ? (

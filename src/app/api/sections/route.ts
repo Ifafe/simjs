@@ -10,8 +10,8 @@ export async function GET() {
                   where: { group: "SECTIONS" },
             });
 
-            const formattedSettings: any = {};
-            settings.forEach((s) => {
+            const formattedSettings: Record<string, boolean> = {};
+            settings.forEach((s: any) => {
                   formattedSettings[s.key] = s.value === "true";
             });
 

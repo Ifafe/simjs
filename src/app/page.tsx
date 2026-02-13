@@ -34,6 +34,13 @@ async function getSectionSettings() {
       section_hero_enabled: true,
       section_news_enabled: true,
       section_join_enabled: true,
+      section_about_enabled: true,
+      section_services_enabled: true,
+      section_stats_enabled: true,
+      section_projects_enabled: true,
+      section_team_enabled: true,
+      section_testimonials_enabled: true,
+      section_contact_enabled: true,
     };
     settings.forEach((s) => {
       formatted[s.key] = s.value === "true";
@@ -44,6 +51,13 @@ async function getSectionSettings() {
       section_hero_enabled: true,
       section_news_enabled: true,
       section_join_enabled: true,
+      section_about_enabled: true,
+      section_services_enabled: true,
+      section_stats_enabled: true,
+      section_projects_enabled: true,
+      section_team_enabled: true,
+      section_testimonials_enabled: true,
+      section_contact_enabled: true,
     };
   }
 }
@@ -117,6 +131,25 @@ export default async function Home() {
 
         {/* News Portal Section */}
         {sections.section_news_enabled && <NewsPortal />}
+
+        {/* Placeholder for other sections managed by Admin */}
+        {sections.section_about_enabled && (
+          <section className="about-placeholder px-10 py-10 bg-gray-900 text-white text-center">
+            <h2 className="text-2xl font-bold">Sobre Nós</h2>
+            <p className="text-gray-400 mt-2 italic">Conteúdo dinâmico será carregado aqui.</p>
+          </section>
+        )}
+
+        {sections.section_services_enabled && (
+          <section className="services-placeholder px-10 py-10 bg-black text-white text-center border-t border-gray-800">
+            <h2 className="text-2xl font-bold">Nossos Serviços</h2>
+            <div className="flex gap-4 justify-center mt-4">
+              <div className="p-4 bg-gray-800 rounded">Consultoria</div>
+              <div className="p-4 bg-gray-800 rounded">Inovação</div>
+              <div className="p-4 bg-gray-800 rounded">Gestão</div>
+            </div>
+          </section>
+        )}
 
         {/* Join Us Section */}
         {sections.section_join_enabled && (
