@@ -40,10 +40,8 @@ export default function SEOPage() {
             setSettings((prev) => ({ ...prev, [name]: value }));
       };
 
-      const handleSubmit = async (e: React.FormEvent) => {
-            e.preventDefault();
+      const handleSubmit = async () => {
             setSaving(true);
-
             try {
                   const res = await fetch("/api/settings", {
                         method: "POST",
@@ -52,7 +50,6 @@ export default function SEOPage() {
                   });
 
                   if (!res.ok) throw new Error("Failed to save");
-
                   alert("Configurações de SEO atualizadas!");
                   router.refresh();
             } catch (error) {
@@ -64,130 +61,71 @@ export default function SEOPage() {
       };
 
       if (loading) {
-            return (
-                  <div className="flex items-center justify-center min-h-[60vh]">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                  </div>
-            );
+            return <div className="p-8 text-center text-white">Carregando...</div>;
       }
 
       return (
-            <div className="p-6 max-w-6xl mx-auto">
-                  <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <section className="content-section active">
+                  <div className="section-header">
                         <div>
-                              <h1 className="text-2xl font-bold text-white mb-2">Otimização (SEO)</h1>
-                              <p className="text-gray-400">Melhore a visibilidade do seu site nos motores de busca.</p>
+                              <h1>Configurações SEO</h1>
+                              <p>Otimize o seu site para motores de busca</p>
                         </div>
-                        <button
-                              onClick={handleSubmit}
-                              disabled={saving}
-                              className="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg shadow-md transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-                        >
-                              {saving ? (
-                                    <>
-                                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                          <span>Salvando...</span>
-                                    </>
-                              ) : (
-                                    <>
-                                          <i className="fas fa-check"></i>
-                                          <span>Salvar Alterações</span>
-                                    </>
-                              )}
+                        <button className="btn-primary" onClick={handleSubmit} disabled={saving}>
+                              <i className={`fas ${saving ? 'fa-spinner fa-spin' : 'fa-save'}`}></i> {saving ? 'Guardando...' : 'Guardar SEO'}
                         </button>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div className="lg:col-span-2 space-y-6">
-                              <section className="bg-card border border-border rounded-xl p-6 shadow-sm">
-                                    <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                                          <i className="fas fa-search text-primary"></i> Metadados Globais
-                                    </h2>
-
-                                    <div className="space-y-6">
-                                          <div className="space-y-2">
-                                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Sufixo do Título</label>
-                                                <input
-                                                      type="text"
-                                                      name="seo_title_suffix"
-                                                      value={settings.seo_title_suffix}
-                                                      onChange={handleChange}
-                                                      className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                                                      placeholder="Ex: | Minha Empresa"
-                                                />
-                                                <p className="text-xs text-gray-500">Aparecerá após o título de cada página.</p>
-                                          </div>
-
-                                          <div className="space-y-2">
-                                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Descrição Padrão</label>
-                                                <textarea
-                                                      name="seo_default_description"
-                                                      value={settings.seo_default_description}
-                                                      onChange={handleChange}
-                                                      rows={3}
-                                                      className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
-                                                      placeholder="Descrição curta do site para resultados de busca..."
-                                                />
-                                          </div>
-
-                                          <div className="space-y-2">
-                                                <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Palavras-chave</label>
-                                                <input
-                                                      type="text"
-                                                      name="seo_keywords"
-                                                      value={settings.seo_keywords}
-                                                      onChange={handleChange}
-                                                      className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                                                      placeholder="tecnologia, inovação, angola, software"
-                                                />
-                                          </div>
-                                    </div>
-                              </section>
-
-                              <section className="bg-card border border-border rounded-xl p-6 shadow-sm">
-                                    <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-                                          <i className="fas fa-robot text-primary"></i> Robots (Indexação)
-                                    </h2>
-
-                                    <div className="space-y-2">
-                                          <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Regra de Indexação</label>
-                                          <div className="relative">
-                                                <select
-                                                      name="seo_robots"
-                                                      value={settings.seo_robots}
-                                                      onChange={handleChange}
-                                                      className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors appearance-none cursor-pointer"
-                                                >
-                                                      <option value="index, follow" className="bg-card">Indexar e Seguir (Padrão)</option>
-                                                      <option value="noindex, follow" className="bg-card">Não Indexar, mas Seguir Links</option>
-                                                      <option value="index, nofollow" className="bg-card">Indexar, mas Não Seguir Links</option>
-                                                      <option value="noindex, nofollow" className="bg-card">Não Indexar e Não Seguir</option>
-                                                </select>
-                                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                                                      <i className="fas fa-chevron-down text-xs"></i>
-                                                </div>
-                                          </div>
-                                    </div>
-                              </section>
+                  <div className="form-card">
+                        <h2>Meta Informações Globais</h2>
+                        <div className="form-group">
+                              <label>Sufixo do Título</label>
+                              <input
+                                    type="text"
+                                    name="seo_title_suffix"
+                                    value={settings.seo_title_suffix}
+                                    onChange={handleChange}
+                                    placeholder="| SIMJS"
+                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
+                              />
                         </div>
-
-                        {/* Sidebar Info */}
-                        <div className="space-y-6">
-                              <div className="bg-card border border-border rounded-xl p-6">
-                                    <h3 className="text-white font-semibold mb-4 text-sm">Preview do Google</h3>
-                                    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                                          <div className="text-xs text-gray-600 mb-1">www.simjs.com</div>
-                                          <div className="text-[#1a0dab] text-lg font-medium hover:underline cursor-pointer truncate">
-                                                Título da Página {settings.seo_title_suffix}
-                                          </div>
-                                          <div className="text-xs text-gray-500 mt-1 line-clamp-2">
-                                                {settings.seo_default_description || "Descrição do site aparecerá aqui nos resultados de busca..."}
-                                          </div>
-                                    </div>
-                              </div>
+                        <div className="form-group">
+                              <label>Meta Descrição</label>
+                              <textarea
+                                    name="seo_default_description"
+                                    value={settings.seo_default_description}
+                                    onChange={handleChange}
+                                    placeholder="Descrição para mecanismos de busca (max 160 caracteres)"
+                                    rows={3}
+                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
+                              ></textarea>
+                        </div>
+                        <div className="form-group">
+                              <label>Palavras-chave</label>
+                              <input
+                                    type="text"
+                                    name="seo_keywords"
+                                    value={settings.seo_keywords}
+                                    onChange={handleChange}
+                                    placeholder="palavra1, palavra2, palavra3"
+                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
+                              />
+                        </div>
+                        <div className="form-group">
+                              <label>Robots (Indexação)</label>
+                              <select
+                                    name="seo_robots"
+                                    value={settings.seo_robots}
+                                    onChange={handleChange}
+                                    style={{ width: '100%', padding: '10px', background: 'rgba(255,255,255,0.05)', border: '1px solid #333', color: '#fff', borderRadius: '4px' }}
+                              >
+                                    <option value="index, follow">Indexar e Seguir</option>
+                                    <option value="noindex, follow">Não Indexar, mas Seguir Links</option>
+                                    <option value="index, nofollow">Indexar, mas Não Seguir Links</option>
+                                    <option value="noindex, nofollow">Não Indexar e Não Seguir</option>
+                              </select>
                         </div>
                   </div>
-
-            </div>
+            </section>
       );
 }
