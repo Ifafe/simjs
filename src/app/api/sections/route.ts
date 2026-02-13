@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+import { authOptions } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 export async function GET() {
       try {
             const settings = await prisma.setting.findMany({
@@ -21,6 +24,11 @@ export async function GET() {
 
 export async function POST(req: Request) {
       try {
+            const session = await getServerSession(authOptions);
+            if (!session || session.user.role !== "ADMIN") {
+                  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            }
+
             const body = await req.json();
 
             // Upsert each setting

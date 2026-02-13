@@ -13,20 +13,25 @@ export async function GET() {
       }
 
       try {
-            const [usersCount, partnersCount, applicationsCount] = await Promise.all([
+            const [usersCount, partnersCount, applicationsCount, pagesCount, postsCount, mediaCount] = await Promise.all([
                   prisma.user.count(),
                   prisma.partnerProfile.count({ where: { status: "ACTIVE" } }),
-                  // Assuming applications are connected to JobOpening, counting total applications
-                  // If Application model exists, count it. Otherwise, count jobs or something else.
-                  // Checking schema previously: Yes, Application model exists.
-                  prisma.application.count()
+                  prisma.application.count(),
+                  prisma.page.count(),
+                  prisma.post.count(),
+                  // If Media model exists, count it. Otherwise 0 for now until model added.
+                  // @ts-ignore
+                  prisma.media ? prisma.media.count() : Promise.resolve(0)
             ]);
 
             return NextResponse.json({
                   users: usersCount,
                   partners: partnersCount,
                   applications: applicationsCount,
-                  serverStatus: "Online" // This could be dynamic based on health check, but "Online" is fine for now
+                  pages: pagesCount,
+                  posts: postsCount,
+                  media: mediaCount,
+                  serverStatus: "Online"
             });
       } catch (error) {
             console.error("Stats fetch error:", error);

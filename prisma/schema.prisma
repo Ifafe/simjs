@@ -225,3 +225,24 @@ model Setting {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// 13. Menu Items
+model MenuItem {
+  id        Int      @id @default(autoincrement())
+  label     String
+  url       String
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 14. Media Library
+model Media {
+  id        Int      @id @default(autoincrement())
+  url       String
+  name      String
+  type      String   // image, video, document
+  size      Int?     // size in bytes
+  createdAt DateTime @default(now())
+}
