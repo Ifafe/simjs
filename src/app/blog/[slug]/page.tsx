@@ -49,7 +49,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
                         <div className="flex items-center justify-center gap-4 text-sm text-gray-400 mb-4">
                               <span className="bg-white/10 px-3 py-1 rounded-full">News</span>
                               <span>•</span>
-                              <span>{new Date(post.createdAt).toLocaleDateString("pt-BR", { long: true })}</span>
+                              <span>{new Date(post.createdAt).toLocaleDateString("pt-BR", { dateStyle: "long" })}</span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
